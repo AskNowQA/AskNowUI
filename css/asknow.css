@@ -1,8 +1,3 @@
-/*!
- * Start Bootstrap - Clean Blog v4.0.0-beta (https://startbootstrap.com/template-overviews/clean-blog)
- * Copyright 2013-2017 Start Bootstrap
- * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-clean-blog/blob/master/LICENSE)
- */
 body {
   font-size: 20px;
   color: #333333;
@@ -460,6 +455,7 @@ body {
 
       /* end resource*/
 
+
       /* The Modal (background) */
       .modal {
           display: none;
@@ -484,89 +480,36 @@ body {
           max-width: 1200px;
       }
 
-      /* The Close Button */
-      .close {
-          color: white;
-          position: absolute;
-          top: 10px;
-          right: 25px;
-          font-size: 35px;
-          font-weight: bold;
-      }
-
-      .close:hover,
-      .close:focus {
-          color: #999;
-          text-decoration: none;
-          cursor: pointer;
-      }
-
-      .mySlides {
+      .lightbox {
+          /** Default lightbox to hidden */
           display: none;
-      }
 
-      .cursor {
-          cursor: pointer
-      }
-
-      /* Next & previous buttons */
-      .prev,
-      .next {
-          cursor: pointer;
-          position: absolute;
-          top: 50%;
-          width: auto;
-          padding: 16px;
-          margin-top: -50px;
-          color: white;
-          font-weight: bold;
-          font-size: 20px;
-          transition: 0.6s ease;
-          border-radius: 0 3px 3px 0;
-          user-select: none;
-          -webkit-user-select: none;
-      }
-
-      /* Position the "next button" to the right */
-      .next {
-          right: 0;
-          border-radius: 3px 0 0 3px;
-      }
-
-      /* On hover, add a black background color with a little bit see-through */
-      .prev:hover,
-      .next:hover {
-          background-color: rgba(0, 0, 0, 0.8);
-      }
-
-      /* Number text (1/3 etc) */
-      .numbertext {
-          color: #f2f2f2;
-          font-size: 12px;
-          padding: 8px 12px;
-          position: absolute;
-          top: 0;
-      }
-
-      img {
-          margin-bottom: -4px;
-      }
-
-      .caption-container {
+          /** Position and style */
+          position: fixed;
+          z-index: 999;
+          width: 100%;
+          height: 100%;
           text-align: center;
-          background-color: black;
-          padding: 2px 16px;
-          color: white;
+          top: 0;
+          left: 0;
+          background: rgba(0,0,0,0.8);
       }
 
-      .demo {
-          opacity: 0.6;
+      .lightbox img {
+          /** Pad the lightbox image */
+          max-width: 90%;
+          max-height: 80%;
+          margin-top: 2%;
       }
 
-      .active,
-      .demo:hover {
-          opacity: 1;
+      .lightbox:target {
+          /** Remove default browser outline */
+          outline: none;
+
+          /** Unhide lightbox **/
+          display: block;
       }
+
 
       img.hover-shadow {
           transition: 0.3s
