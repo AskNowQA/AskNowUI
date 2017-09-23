@@ -1,158 +1,202 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>List</title>
+    <!-- BOOTSTRAP CORE STYLE CSS -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <!-- FONT AWESOME CSS -->
+    <link href="assets/css/font-awesome.min.css" rel="stylesheet" />
+    <!-- STYLE SWITCHER  CSS -->
+    <link href="assets/css/styleSwitcher.css" rel="stylesheet" />
+    <!-- CUSTOM STYLE CSS -->
+    <link href="assets/css/asknow.css" rel="stylesheet" />
+    <!--GREEN STYLE VERSION IS BY DEFAULT, USE ANY ONE STYLESHEET FROM TWO STYLESHEETS (green or red) HERE-->
+    <link href="assets/css/themes/green.css" id="mainCSS" rel="stylesheet" />
+    <!-- Google	Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css' />
+</head>
+<body >
 
-  <head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<div class="switcher" style="left:-50px;">
+    <a id="switch-panel" class="hide-panel">
+        <i class="fa fa-recycle"></i>
+    </a>
+    <p style="font-size:10px">choose</p>
+    <ul class="colors-list">
+        <li><a title="Green" id="green" class="green" ></a></li>
+        <li><a title="Red" id="red" class="red" ></a></li>
+    </ul>
+</div>
+<!--END STYLE SWITCHER-->
 
-    <title>AskNow-List</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom fonts for this template -->
-    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-
-    <!-- Custom styles for this template -->
-    <link href="css/asknow.css" rel="stylesheet">
-
-  </head>
-
-  <body>
-
-  <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-light fixed-top"  id="mainNav">
+<div class="navbar navbar-inverse navbar-fixed-top move-me" id="menu">
     <div class="container">
-      <a class="navbar-brand" href="index.html">AskNow</a>
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        Menu
-        <i class="fa fa-bars"></i>
-      </button>
-      <div class="container">
-        <div class="row">
-          <div class="col-8" id="showQuestion">
-            Who is the last president of US?
-          </div>
-          <div class="col-4">
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-              <ul class="navbar-nav ml-auto" style="" >
-                <li class="nav-item">
-                  <a class="nav-link" href="index.html">Home</a>
-                <li class="nav-item">
-                  <a class="nav-link" href="index.html" >Back</a>
-                </li>
-              </ul>
-            </div>
-          </div>
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"><img class="logo-custom" src="assets/img/sda.png" alt=""  /></a>
         </div>
-      </div>
-    </div>
-  </nav>
-
-
-  <!-- Page Header -->
-  <header class="masthead" style="height:120px;" >
-  </header>
-
-
-
-  <!-- Main Content -->
-
-  <div class="container">
-    <div id="service">
-
-      <hr>
-      <div class="list">
-        <div class="list-item">
-          <div class="list-content">
-            <h2>Obama</h2>
-            <img id="test" class="listImg" src="img/obama.jpg" />
-            <p>Barack Obama is a president. Its birth places are Kapiolani Medical Center for Women and Children, Honolulu and Hawaii. Its party is Democratic Party. This president's successors are Roland Burris and Kwame Raoul. Its link from a wikipage to another wikipages are, among others, African-American Civil Rights Movement, Arab League, Benjamin Netanyahu, Civil and political rights and Innovation economics. Its religion is Protestantism.</p>
-            <a href="resource.html">Show detailed</a>
-          </div>
-        </div>
-
-        <div class="list-item">
-          <div class="list-content">
-            <h2>Berlin</h2>
-            <p>The capital of Germany.</p>
-            <a href="resource.html">Show detailed</a>
-          </div>
-        </div>
-
-        <div class="list-item">
-          <div class="list-content">
-            <h2>Bonn</h2>
-            <p>hahahaha.</p>
-            <a href="resource.html">Show detailed</a>
-          </div>
-        </div>
-
-        <div class="list-item">
-          <div class="list-content">
-            <h2>Leipzig</h2>
-            <p>A city.</p>
-            <a href="resource.html" >Show detailed</a>
-          </div>
-        </div>
-      </div>
-
-      <a onclick=myfunction(); style="color:#777777; text-align: center; padding:30px 400px;">Loading more...</a>
-    </div>
-
-  </div>
-
-  <!-- end service -->
-    <!-- Footer -->
-    <footer>
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 col-md-10 mx-auto">
-            <ul class="list-inline text-center">
-              <li class="list-inline-item">
-                <a href="#">
-                  <span class="fa-stack fa-lg">
-                    <i class="fa fa-circle fa-stack-2x"></i>
-                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">
-                  <span class="fa-stack fa-lg">
-                    <i class="fa fa-circle fa-stack-2x"></i>
-                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">
-                  <span class="fa-stack fa-lg">
-                    <i class="fa fa-circle fa-stack-2x"></i>
-                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li ><a href="index.html">HOME</a></li>
+                <li><a href="#contact">CONTACT</a></li>
             </ul>
-            <p class="copyright text-muted">Copyright &copy; Your Website 2017</p>
-          </div>
         </div>
-      </div>
-    </footer>
+    </div>
+</div>
 
-    <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/popper/popper.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 
-    <!-- Custom scripts for this template -->
-    <script src="js/asknow.js"></script>
+<!--NAVBAR SECTION END-->
+<section class="list-sec" >
+    <div class="container">
+        <div id="service" class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-12 col-sm-offset-1">
+            <h2 class="showQuestion">
+                Who is the president of the U.S?
+            </h2>
+            <br/>
+            <hr>
+            <div class="list">
+                <div class="list-item">
+                    <div class="list-content">
+                        <h2>Obama</h2>
+                        <img  id="img1" class="listImg" src="assets/img/obama.jpg" />
+                        <p>Barack Obama is a president. Its birth places are Kapiolani Medical Center for Women and Children, Honolulu and Hawaii. Its party is Democratic Party. This president's successors are Roland Burris and Kwame Raoul. Its link from a wikipage to another wikipages are, among others, African-American Civil Rights Movement, Arab League, Benjamin Netanyahu, Civil and political rights and Innovation economics. Its religion is Protestantism.</p>
+                        <a href="resource.html">Show detailed</a>
+                    </div>
+                </div>
 
-  </body>
+                <div class="list-item">
+                    <div class="list-content">
+                        <h2>Bonn</h2>
+                        <img  id="img2"  class="listImg" src="assets/img/obama.jpg" />
+                        <p>Barack Obama is a president. Its birth places are Kapiolani Medical Center for Women and Children, Honolulu and Hawaii. Its party is Democratic Party. This president's successors are Roland Burris and Kwame Raoul. Its link from a wikipage to another wikipages are, among others, African-American Civil Rights Movement, Arab League, Benjamin Netanyahu, Civil and political rights and Innovation economics. Its religion is Protestantism.</p>
+                        <a href="resource.html">Show detailed</a>
+                    </div>
+                </div>
 
+                <div class="list-item">
+                    <div class="list-content">
+                        <h2>Berlin</h2>
+                        <img id="img3"  class="listImg" src="assets/img/obama.jpg" />
+                        <p>Barack Obama is a president. Its birth places are Kapiolani Medical Center for Women and Children, Honolulu and Hawaii. Its party is Democratic Party. This president's successors are Roland Burris and Kwame Raoul. Its link from a wikipage to another wikipages are, among others, African-American Civil Rights Movement, Arab League, Benjamin Netanyahu, Civil and political rights and Innovation economics. Its religion is Protestantism.</p>
+                        <a href="resource.html">Show detailed</a>
+                    </div>
+                </div>
+
+                <div class="list-item">
+                    <div class="list-content">
+                        <h2>Leipzig</h2>
+                        <img  id="img4" class="listImg" src="assets/img/obama.jpg" />
+                        <p>Barack Obama is a president. Its birth places are Kapiolani Medical Center for Women and Children, Honolulu and Hawaii. Its party is Democratic Party. This president's successors are Roland Burris and Kwame Raoul. Its link from a wikipage to another wikipages are, among others, African-American Civil Rights Movement, Arab League, Benjamin Netanyahu, Civil and political rights and Innovation economics. Its religion is Protestantism.</p>
+                        <a href="resource.html">Show detailed</a>
+                    </div>
+                </div>
+            </div>
+
+            <br/>
+            <div class="row text-center">
+                <a onclick=myfunction(); style="color:#777777;">Loading more...</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="contact" id="contact" >
+    <div class="'overlay">
+        <div class="container">
+            <div class="container">
+                <div class="row text-center " >
+                    <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
+                        <h3 data-scroll-reveal="enter from the bottom after 0.1s">
+                            <strong>
+                                Stay Connected
+                            </strong>
+                        </h3>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6" data-scroll-reveal="enter from the right after 0.2s">
+                        <h4>Developed by</h4>
+                        <hr>
+                        <div class="row " >
+                            <div class="col-lg-4 col-md-4 col-sm-4" data-scroll-reveal="enter from the left after 0.2s" >
+                                <img src="assets/img/uni_Logo.png" style="height:50px; width:auto" class="img-responsive" alt=""  />
+                            </div>
+
+                            <div class="col-lg-4 col-md-4 col-sm-4" data-scroll-reveal="enter from the bottom after 0.4s" >
+                                <img src="assets/img/sda.png" style="height:50px; width:auto" class="img-responsive" alt=""  />
+                            </div>
+
+                            <div class="col-lg-4 col-md-4 col-sm-4" data-scroll-reveal="enter from the right after 0.2s" >
+                                <img src="assets/img/fraunhofer.png" style="height:50px; width:auto" class="img-responsive" alt=""  />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-6" data-scroll-reveal="enter from the left after 0.4s">
+                        <div class="row text-right">
+                            <ul class="list-inline ">
+
+
+                                <li class="list-inline-item">
+                                    <a href="#">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                    </a>
+                                </li>
+
+                                <li class="list-inline-item">
+                                    <a href="#">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <strong>Contact us</strong>
+                            <p>
+                                <a href="mailto:info@domain.com?Subject=Product%20Enquiry" class="home-mail" target="_top">e-mail: info@domain.com</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <p class="copyright">Copyright &copy; AskNow 2017</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!--CONTACT SECTION END-->
+
+
+<!--  Jquery Core Script -->
+<script src="assets/js/jquery-1.10.2.js"></script>
+<!--  Core Bootstrap Script -->
+<script src="assets/js/bootstrap.js"></script>
+<!--  Scrolling Reveal Script -->
+<script src="assets/js/scrollReveal.js"></script>
+<!--  Scroll Scripts -->
+<script src="assets/js/jquery.easing.min.js"></script>
+<!--  Style Switcher Scripts -->
+<script src="assets/js/styleSwitcher.js"></script>
+<!--  Custom Scripts -->
+<script src="assets/js/asknow.js"></script>
+
+</body>
 </html>
