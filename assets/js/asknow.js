@@ -17,19 +17,25 @@
             window.scrollReveal = new scrollReveal();
         },
 
+
+
         initialization: function () {
             mainApp.main_fun();
 
         }
 
+
     }
     // Initializing ///
 
     $(document).ready(function () {
-        mainApp.main_fun();
+        mainApp.main_fun()
+
+
     });
 
 }(jQuery));
+
 
 
 //start resource
@@ -64,13 +70,20 @@ ToC +=
 $(".all-questions").prepend(ToC);
 
 
-function myfunction(){
-    const list = document.getElementsByClassName('listImg');
+function loadmore() {
+    var listImg = []
+    $(".list img").each(function () {
 
-    for (var i = 0; i < list.length; i++){
-        alert(list.length)
+        el = $(this);
+        var link = el.attr("id");
+        listImg.push(link)
 
-        list[i].parentNode.removeChild(list[i]);
+    });
+
+    for (var i = 0; i < listImg.length; i++){
+
+        var image_x = document.getElementById(listImg[i]);
+        image_x.parentNode.removeChild(image_x);
     }
 
     var newitem = "<div class='list-item'>" +
@@ -82,5 +95,3 @@ function myfunction(){
         "        </div>"
     $(".list").append(newitem);
 }
-
-

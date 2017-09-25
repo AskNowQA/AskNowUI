@@ -24,7 +24,7 @@
             $('#green').click(function () {
                 $('#mainCSS').attr('href', 'assets/css/themes/green.css');
             });
-            $('#red').click(function () {
+            $('#blue').click(function () {
                 $('#mainCSS').attr('href', 'assets/css/themes/blue.css');
             });
            
