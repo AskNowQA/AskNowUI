@@ -153,7 +153,7 @@ color: #FFF;
     margin-top: 20px;
     background: url('../img/search.png') no-repeat 9px 11px  #fcfcfc;
     background-size: 22px 22px;
-    border: 5px solid rgb(89, 191, 191);
+    border: 5px solid rgba(89, 191, 191,0.1);
     font:  17px Roboto, Helvetica, Arial, sans-serif;
     color: #777777;
     padding: 6px 25px 6px 35px;
@@ -197,8 +197,7 @@ color: #FFF;
     padding-bottom: 30px;
     font-size:20px;
     line-height:35px;
-
-    background-color:#999999;
+    background-color:rgb(246, 246, 246);
 }
 
 .contact .overlay{
@@ -352,8 +351,8 @@ color: #FFF;
     overflow: scroll;
 }
 
-
 /* end resource*/
+
 
 
 /* The Modal (background) */

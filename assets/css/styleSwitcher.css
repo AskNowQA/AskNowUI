@@ -1,17 +1,4 @@
-﻿
-/*=============================================================
-    Authour URI: www.binarytheme.com
-    License: Commons Attribution 3.0
-
-    http://creativecommons.org/licenses/by/3.0/
-
-    100% Free To use For Personal And Commercial Use.
-    IN EXCHANGE JUST GIVE US CREDIT  AND TELL YOUR FRIENDS ABOUT US
-   
-    ========================================================  */
-
-
-/*=====================================
+﻿/*=====================================
   THEME SWITCHER STYLES 
    ===================================*/
 .switcher {
@@ -69,5 +56,5 @@
     background-color:#4bb777;
 }
 .switcher .colors-list a.red {
-    background-color:#B7544B;
+    background-color:rgb(77, 181, 180);
 }
