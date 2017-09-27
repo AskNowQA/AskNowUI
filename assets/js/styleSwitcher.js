@@ -27,6 +27,13 @@
             $('#blue').click(function () {
                 $('#mainCSS').attr('href', 'assets/css/themes/blue.css');
             });
+            $('#green1').click(function () {
+                $('#mainCSS').attr('href', 'assets/css/themes/green1.css');
+            });
+            $('#beige').click(function () {
+                $('#mainCSS').attr('href', 'assets/css/themes/beige.css');
+            });
+
            
         },
 

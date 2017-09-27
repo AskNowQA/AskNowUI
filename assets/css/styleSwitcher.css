@@ -58,3 +58,9 @@
 .switcher .colors-list a.blue {
     background-color:rgb(77, 181, 180);
 }
+.switcher .colors-list a.green1 {
+    background-color:rgb(112, 185, 176);
+}
+.switcher .colors-list a.beige {
+    background-color:rgb(200, 182, 178);
+}
