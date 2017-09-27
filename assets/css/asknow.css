@@ -141,12 +141,18 @@ color: #FFF;
 
 .header-sec .overlay{
     background:rgba(8, 134, 74, 0.90);
-    min-height: 550px;
+    min-height: 580px;
 }
 
 .header-sec h1 {
     color:#fff;
     padding-top:180px;
+}
+
+.header-sec img{
+    height: 2.2em;
+    margin-right: 5px;
+   margin-bottom: 35px;
 }
 
 #search input[type="text"] {
