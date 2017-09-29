@@ -298,7 +298,6 @@ color: #FFF;
 }
 
 #service .boli_answer {
-    width:950px;
     padding: 0.5em;
     border:1px solid rgb(227, 227, 227);
 }
@@ -306,6 +305,13 @@ color: #FFF;
 #service .boli_answer .bool_answer,
 #service .boli_answer .lit_answer{
     text-align: center;
+}
+
+#service .noanswer img{
+    max-width: 700px;
+    display: block;
+    margin: 0 auto;
+
 }
 /*end list*/
 
