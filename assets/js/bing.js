@@ -5,7 +5,7 @@ CLIENT_ID_COOKIE = "bing-search-client-id";
 
 // Bing Search API endpoint
 BING_ENDPOINT = "https://api.cognitive.microsoft.com/bing/v7.0/images/search";
-ID = "answerImg";
+ID = "results";
 
 // Various browsers differ in their support for persistent storage by local
 // HTML files (IE won't use localStorage, but Chrome won't use cookies). So
@@ -52,16 +52,6 @@ function invalidateSubscriptionKey() {
     storeValue(API_KEY_COOKIE, "");
 }
 
-// escape text for use in HTML
-function escape(text) {
-    return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").
-    replace(/'/g, "&apos;").replace(/"/g, "&quot;");
-}
-
-// get the host portion of a URL, strpping out search result formatting and www too
-function getHost(url) {
-    return url.replace(/<\/?b>/g, "").replace(/^https?:\/\//, "").split("/")[0].replace(/^www\./, "");
-}
 
 // format plain text for display as an HTML <pre> element
 function preFormat(text) {
@@ -123,9 +113,8 @@ function renderImageResults(items) {
 
 
 // render the search results given the parsed JSON response
-function renderSearchResults(results, id) {
-
-    showDiv(id, renderImageResults(results.value));
+function renderSearchResults(results) {
+    showDiv(ID, renderImageResults(results.value));
 }
 
 function renderErrorMessage(message) {
@@ -134,11 +123,62 @@ function renderErrorMessage(message) {
 }
 
 
+
+
+// perform a search given query, options string, and API key
+function bingImageSearch(query, options, key, id) {
+    alert(id);
+    // scroll to top of window
+    window.scrollTo(0, 0);
+    if (!query.trim().length) return false;     // empty query, do nothing
+
+    showDiv("noresults", "Working. Please wait.");
+    hideDivs(ID,  "error");
+
+    var request = new XMLHttpRequest();
+    var queryurl = BING_ENDPOINT + "?q=" + encodeURIComponent(query) + "&" + options;
+
+    // open the request
+    try {
+        request.open("GET", queryurl);
+    }
+    catch (e) {
+        renderErrorMessage("Bad request (invalid URL)\n" + queryurl);
+        return false;
+    }
+
+    // add request headers
+    request.setRequestHeader("Ocp-Apim-Subscription-Key", key);
+    request.setRequestHeader("Accept", "application/json");
+    var clientid = retrieveValue(CLIENT_ID_COOKIE);
+    if (clientid) request.setRequestHeader("X-MSEdge-ClientID", clientid);
+
+    var tt="answerImg";
+    // event handler for successful response
+    request.addEventListener("load", handleBingResponse);
+
+    // event handler for erorrs
+
+    request.addEventListener("error", function() {
+        renderErrorMessage("Error completing request");
+    });
+
+    // event handler for aborted request
+    request.addEventListener("abort", function() {
+        renderErrorMessage("Request aborted");
+    });
+
+    // send the request
+    request.send();
+    return false;
+}
+
+
 // handle Bing search request results
 function handleBingResponse() {
     hideDivs("noresults");
-    //var id="results";
     var json = this.responseText.trim();
+
     var jsobj = {};
 
     // try to parse JSON results
@@ -160,7 +200,7 @@ function handleBingResponse() {
         if (json.length) {
             if (jsobj._type === "Images") {
                 if (jsobj.nextOffset) document.forms.bing.nextoffset.value = jsobj.nextOffset;
-                renderSearchResults(jsobj, ID);
+                renderSearchResults(jsobj);
             } else {
                 renderErrorMessage("No search results in JSON response");
             }
@@ -196,54 +236,6 @@ function handleBingResponse() {
     }
 }
 
-
-// perform a search given query, options string, and API key
-function bingImageSearch(query, options, key, id) {
-
-    // scroll to top of window
-    window.scrollTo(0, 0);
-    if (!query.trim().length) return false;     // empty query, do nothing
-
-    showDiv("noresults", "Working. Please wait.");
-    hideDivs(id,  "error");
-
-    var request = new XMLHttpRequest();
-    var queryurl = BING_ENDPOINT + "?q=" + encodeURIComponent(query) + "&" + options;
-
-    // open the request
-    try {
-        request.open("GET", queryurl);
-    }
-    catch (e) {
-        renderErrorMessage("Bad request (invalid URL)\n" + queryurl);
-        return false;
-    }
-
-    // add request headers
-    request.setRequestHeader("Ocp-Apim-Subscription-Key", key);
-    request.setRequestHeader("Accept", "application/json");
-    var clientid = retrieveValue(CLIENT_ID_COOKIE);
-    if (clientid) request.setRequestHeader("X-MSEdge-ClientID", clientid);
-
-    // event handler for successful response
-    request.addEventListener("load", handleBingResponse);
-
-    // event handler for erorrs
-
-    request.addEventListener("error", function() {
-        renderErrorMessage("Error completing request");
-    });
-
-    // event handler for aborted request
-    request.addEventListener("abort", function() {
-        renderErrorMessage("Request aborted");
-    });
-
-    // send the request
-    request.send();
-    return false;
-}
-
 // build query options from the HTML form
 function bingSearchOptions(form) {
 
@@ -259,8 +251,13 @@ function bingSearchOptions(form) {
 function newBingImageSearch(form, id) {
     form.offset.value = "0";
     form.stack.value = "[]";
+    changeID(id);
 
     return bingImageSearch(form.query.value, bingSearchOptions(form), getSubscriptionKey(), id);
+}
+
+function changeID(id){
+    ID = id;
 }
 
 function loadJSON(){
@@ -290,7 +287,8 @@ function loadJSON(){
 
     http_request.onreadystatechange = function(){
 
-        if (http_request.readyState == 4  ){
+        if (http_request.readyState != 4) {
+        } else {
 
             // Javascript function JSON.parse to parse JSON data
             var jsonObj = JSON.parse(http_request.responseText);
@@ -298,8 +296,6 @@ function loadJSON(){
             var e = document.getElementById("selectQuestion");
 
             var qu = e.options[e.selectedIndex].text;
-
-
             var datagood = $.grep(jsonObj.QA, function (Q) {
                 return Q.question == qu;
             });
@@ -311,12 +307,19 @@ function loadJSON(){
             // jsonObj variable now contains the data structure and can
             // be accessed as jsonObj.name and jsonObj.country.
             var answer = document.getElementById("answer").innerHTML = myObj[0].answer;
-            var answer_key = document.getElementById("answer_key").innerHTML = myObj[0].answer +" "+ myObj[0].keyword;
-            document.getElementById('input_answer').value=answer;
-            document.getElementById('input_answer_key').value=answer_key;
+            document.getElementById('input_answer').value = answer;
             document.getElementById('submit_answer').click();
+
+
+            var answer_key = document.getElementById("answer_key").innerHTML = myObj[0].answer + " " + myObj[0].keyword;
+            document.getElementById('input_answer_key').value = answer_key;
+            //document.getElementById('submit_answer_key').click();
+
+
         }
-    }
+
+    };
+
 
     http_request.open("GET", data_file, true);
     http_request.send();
