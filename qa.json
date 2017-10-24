@@ -1,0 +1,23 @@
+{
+  "QA": [
+
+    {
+      "id": "01",
+      "question": "Who is the president of USA?",
+      "answer": "Donald Trump",
+      "keyword": "USA"
+    },
+    {
+      "id": "02",
+      "question": "Who is the husband of Melania?",
+      "answer": "Donald Trump",
+      "keyword": "Melania"
+    },
+    {
+      "id": "03",
+      "question": "Who is the owner of Trump Tower?",
+      "answer": "Donald Trump",
+      "keyword": "Trump Tower"
+    }
+  ]
+}
