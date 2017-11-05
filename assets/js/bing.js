@@ -83,7 +83,6 @@ searchItemRenderers = {
         var width = Math.max(Math.round(height * item.thumbnail.width / item.thumbnail.height), 120);
         var html = [];
         if (index === 0) html.push("<p class='images'>");
-
         html.push("<p class='images' style='max-width: " + width + "px'>");
         html.push("<img src='"+ item.thumbnailUrl + "&h=" + height + "&w=" + width +
             "' height=" + height + " width=" + width + "'>");
@@ -241,6 +240,8 @@ function bingSearchOptions(form) {
 
     var options = [];
 
+
+    options.push("aspect=" + form.aspect.value);
     options.push("count=" + form.count.value);
     options.push("offset=" + form.offset.value);
 
@@ -260,7 +261,7 @@ function changeID(id){
     ID = id;
 }
 
-function loadJSON(){
+function loadJSON(qu){
     var data_file = "qa.json";
 
     var http_request = new XMLHttpRequest();
@@ -293,9 +294,14 @@ function loadJSON(){
             // Javascript function JSON.parse to parse JSON data
             var jsonObj = JSON.parse(http_request.responseText);
 
-            var e = document.getElementById("selectQuestion");
+            //var e = document.getElementById("selectQuestion");
 
-            var qu = e.options[e.selectedIndex].text;
+            //var qu = e.options[e.selectedIndex].text;
+
+            //var qu = document.getElementById("question").value;
+            //var qu =$("#question").val();
+            //alert(qu);
+            //form.aspect.value
             var datagood = $.grep(jsonObj.QA, function (Q) {
                 return Q.question == qu;
             });
@@ -325,3 +331,46 @@ function loadJSON(){
     http_request.send();
 
 }
+
+$( function() {
+    var availableTags = [
+        "Who is the president of USA?",
+        "Who is the husband of Melania?",
+        "Who is the owner of Trump Tower?",
+        "Who is the richest man in the world?",
+        "Who invented the telephone?",
+        "Who has the most instagram followers?",
+        "Who has the most subscribers in youtube?",
+        "Who is the tallest person in the world?",
+        "Where am I right now?",
+        "Where was Jesus born?",
+        "Where is Rihanna from?",
+        "Where do penguins live?",
+        "Where is duke university located?",
+        "When is Labour Day?",
+        "When was Jesus born?",
+        "When did the iphone 7 came out?",
+        "When was the civil war?",
+        "What does EU stand for?",
+        "What is the fastest car in the world?",
+        "What comes after trillion?",
+        "What is vodka made from?",
+        "What does NGO stand for?",
+        "How many countries in the world?",
+        "How old is justin bieber?",
+        "How many calories in a banana?",
+        "How to tie a tie?",
+        "Which finger to wear ring?",
+        "Which city has the largest population?",
+        "Which state is chicago in?",
+        "Which is the richest country?"
+    ];
+    $( "#question" ).autocomplete({
+        source: availableTags,
+        select: function() {
+            var selected_value = $("#question").val();
+            loadJSON(selected_value)
+
+        }
+    });
+} );
