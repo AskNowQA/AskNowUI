@@ -83,7 +83,14 @@ section {
 body {
     -webkit-tap-highlight-color: #777777; }
 
-
+ul.ui-autocomplete {
+    list-style: none;
+    color: #5e5e5e;
+    font-size: 20px;
+    max-height: 200px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
 
 
 
@@ -92,7 +99,9 @@ body {
   NAVBAR STYLES 
    ===================================*/
 .logo-custom {
-     max-height:30px
+    max-height:40px;
+    padding-bottom: 5px;
+
 }
 #menu {
     padding:10px;
@@ -191,6 +200,23 @@ color: #FFF;
 
 .samples .overlay{
     min-height:300px;
+}
+
+/*=====================================
+  COMPARE STYLES
+   ===================================*/
+
+.compare {
+    padding-top: 50px;
+    padding-bottom: 30px;
+    font-size:20px;
+    line-height:35px;
+    background-color:rgb(246, 246, 246);
+}
+
+.compare .overlay{
+
+    min-height:800px;
 }
 
 
