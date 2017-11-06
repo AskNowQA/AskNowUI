@@ -65,6 +65,7 @@ function showDiv(id, html) {
     if (content) content.innerHTML = html;
     var wrapper = document.getElementById(id);
     if (wrapper) wrapper.style.display = html.trim() ? "block" : "none";
+    if (wrapper) wrapper.style.display = html.trim() ? "block" : "none";
 }
 
 // hides the specified <div>s
@@ -126,7 +127,6 @@ function renderErrorMessage(message) {
 
 // perform a search given query, options string, and API key
 function bingImageSearch(query, options, key, id) {
-    alert(id);
     // scroll to top of window
     window.scrollTo(0, 0);
     if (!query.trim().length) return false;     // empty query, do nothing
@@ -262,7 +262,7 @@ function changeID(id){
 }
 
 function loadJSON(qu){
-    var data_file = "qa.json";
+    var data_file = "../qa.json";
 
     var http_request = new XMLHttpRequest();
     try{
@@ -319,8 +319,7 @@ function loadJSON(qu){
 
             var answer_key = document.getElementById("answer_key").innerHTML = myObj[0].answer + " " + myObj[0].keyword;
             document.getElementById('input_answer_key').value = answer_key;
-            //document.getElementById('submit_answer_key').click();
-
+            document.getElementById('submit_answer_key').click();
 
         }
 
@@ -331,6 +330,8 @@ function loadJSON(qu){
     http_request.send();
 
 }
+
+
 
 $( function() {
     var availableTags = [
@@ -368,7 +369,7 @@ $( function() {
     $( "#question" ).autocomplete({
         source: availableTags,
         select: function() {
-            var selected_value = $("#question").val();
+            selected_value = $("#question").val();
             loadJSON(selected_value)
 
         }
