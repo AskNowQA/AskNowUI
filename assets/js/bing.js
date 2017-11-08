@@ -6,6 +6,7 @@ CLIENT_ID_COOKIE = "bing-search-client-id";
 // Bing Search API endpoint
 BING_ENDPOINT = "https://api.cognitive.microsoft.com/bing/v7.0/images/search";
 ID = "results";
+JSON_OBJ = "";
 
 // Various browsers differ in their support for persistent storage by local
 // HTML files (IE won't use localStorage, but Chrome won't use cookies). So
@@ -239,8 +240,6 @@ function handleBingResponse() {
 function bingSearchOptions(form) {
 
     var options = [];
-
-
     options.push("aspect=" + form.aspect.value);
     options.push("count=" + form.count.value);
     options.push("offset=" + form.offset.value);
@@ -261,8 +260,8 @@ function changeID(id){
     ID = id;
 }
 
-function loadJSON(qu){
-    var data_file = "../qa.json";
+function loadJSON(selected_value){
+    var data_file = "../answer_data.json";
 
     var http_request = new XMLHttpRequest();
     try{
@@ -293,21 +292,13 @@ function loadJSON(qu){
 
             // Javascript function JSON.parse to parse JSON data
             var jsonObj = JSON.parse(http_request.responseText);
-
-            //var e = document.getElementById("selectQuestion");
-
-            //var qu = e.options[e.selectedIndex].text;
-
-            //var qu = document.getElementById("question").value;
-            //var qu =$("#question").val();
-            //alert(qu);
-            //form.aspect.value
-            var datagood = $.grep(jsonObj.QA, function (Q) {
-                return Q.question == qu;
+            var datagood = $.grep(jsonObj, function (Q) {
+                return Q.question == selected_value;
             });
 
             var myJSON = JSON.stringify(datagood);
             var myObj = JSON.parse(myJSON);
+            JSON_OBJ = myObj;
 
             document.getElementById("demo").innerHTML = "Question: " + myObj[0].question;
             // jsonObj variable now contains the data structure and can
@@ -317,61 +308,49 @@ function loadJSON(qu){
             document.getElementById('submit_answer').click();
 
 
-            var answer_key = document.getElementById("answer_key").innerHTML = myObj[0].answer + " " + myObj[0].keyword;
+            var answer_key = document.getElementById("answer_key").innerHTML = myObj[0].answer + " " + myObj[0].entity;
             document.getElementById('input_answer_key').value = answer_key;
-            document.getElementById('submit_answer_key').click();
-
+            //document.getElementById('submit_answer_key').click();
         }
 
     };
 
-
     http_request.open("GET", data_file, true);
     http_request.send();
-
 }
 
 
 
-$( function() {
-    var availableTags = [
-        "Who is the president of USA?",
-        "Who is the husband of Melania?",
-        "Who is the owner of Trump Tower?",
-        "Who is the richest man in the world?",
-        "Who invented the telephone?",
-        "Who has the most instagram followers?",
-        "Who has the most subscribers in youtube?",
-        "Who is the tallest person in the world?",
-        "Where am I right now?",
-        "Where was Jesus born?",
-        "Where is Rihanna from?",
-        "Where do penguins live?",
-        "Where is duke university located?",
-        "When is Labour Day?",
-        "When was Jesus born?",
-        "When did the iphone 7 came out?",
-        "When was the civil war?",
-        "What does EU stand for?",
-        "What is the fastest car in the world?",
-        "What comes after trillion?",
-        "What is vodka made from?",
-        "What does NGO stand for?",
-        "How many countries in the world?",
-        "How old is justin bieber?",
-        "How many calories in a banana?",
-        "How to tie a tie?",
-        "Which finger to wear ring?",
-        "Which city has the largest population?",
-        "Which state is chicago in?",
-        "Which is the richest country?"
-    ];
-    $( "#question" ).autocomplete({
-        source: availableTags,
+var json = function () {
+    var jsonTemp = null;
+    $.ajax({
+        'async': false,
+        'url': "../answer_data.json",
+        'success': function (data) {
+            jsonTemp = data;
+        }
+    });
+    return jsonTemp;
+}();
+
+xxx = JSON.parse(json);
+
+
+$(document).ready(function () {
+    src = $.map(xxx, function (el) {
+        return {
+            label: el.question,
+            value: el.question
+        };
+    });
+
+    $("#question").autocomplete({
+        source: src,
         select: function() {
             selected_value = $("#question").val();
             loadJSON(selected_value)
 
         }
     });
-} );
+});
+
