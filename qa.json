@@ -2,151 +2,151 @@
     {
       "question": "Who is the president of USA?",
       "answer": "Donald Trump",
-      "keyword": "USA"
+      "entity": "USA"
     },
     {
       "question": "Who is the husband of Melania?",
       "answer": "Donald Trump",
-      "keyword": "Melania"
+      "entity": "Melania"
     },
     {
       "question": "Who is the owner of Trump Tower?",
       "answer": "Donald Trump",
-      "keyword": "Trump Tower"
+      "entity": "Trump Tower"
     },
     {
       "question": "Who is the richest man in the world?",
       "answer": "Bill Gates",
-      "keyword": "richest man"
+      "entity": "richest man"
     },
     {
       "question": "Who invented the telephone?",
       "answer": "Alexander Graham Bell",
-      "keyword": "telephone"
+      "entity": "telephone"
     },
     {
       "question": "Who has the most instagram followers?",
       "answer": "Selena Gomez",
-      "keyword": "instagram followers"
+      "entity": "instagram followers"
     },
     {
       "question": "Who has the most subscribers in youtube?",
       "answer": "PewDiePie",
-      "keyword": "youtube subscribers"
+      "entity": "youtube subscribers"
     },
     {
       "question": "Who is the tallest person in the world?",
       "answer": "Robert Pershing Wadlow",
-      "keyword": "tallest person"
+      "entity": "tallest person"
     },
     {
       "question": "Where am I right now?",
       "answer": "Bonn",
-      "keyword": "Bonn"
+      "entity": "Bonn"
     },
     {
       "question": "Where was Jesus born?",
       "answer": "Bethlehem",
-      "keyword": "Jesus"
+      "entity": "Jesus"
     },
     {
       "question": "Where is Rihanna from?",
       "answer": "Saint Michael Parish, Barbados",
-      "keyword": "Rihanna"
+      "entity": "Rihanna"
     },
     {
       "question": "Where do penguins live?",
       "answer": "Antarctica",
-      "keyword": "Penguins"
+      "entity": "Penguins"
     },
     {
       "question": "Where is duke university located?",
       "answer": "Durham",
-      "keyword": "duke university"
+      "entity": "duke university"
     },
     {
       "question": "When is Labour Day?",
       "answer": "1st May",
-      "keyword": "Labour day"
+      "entity": "Labour day"
     },
     {
       "question": "When was Jesus born?",
       "answer": "25 December",
-      "keyword": "Jesus"
+      "entity": "Jesus"
     },
     {
       "question": "When did the iphone 7 came out?",
       "answer": "7th September, 2016",
-      "keyword": "iphone 7"
+      "entity": "iphone 7"
     },
     {
       "question": "When was the civil war?",
       "answer": "April 12, 1861 - May 9, 1865",
-      "keyword": "civil war"
+      "entity": "civil war"
     },
     {
       "question": "What does EU stand for?",
       "answer": "european union",
-      "keyword": "european union"
+      "entity": "european union"
     },
     {
       "question": "What is the fastest car in the world?",
       "answer": "Koenigsegg Agera R",
-      "keyword": "fastest car"
+      "entity": "fastest car"
     },
     {
       "question": "What comes after trillion?",
       "answer": "Quadrillion",
-      "keyword": "Quadrillion"
+      "entity": "Quadrillion"
     },
     {
       "question": "What is vodka made from?",
       "answer": "grains",
-      "keyword": "vodka"
+      "entity": "vodka"
     },
     {
       "question": "What does NGO stand for?",
       "answer": "Non governmental orgnaization",
-      "keyword": "Non governmental orgnaization"
+      "entity": "Non governmental orgnaization"
     },
     {
       "question": "How many countries in the world?",
       "answer": "195 countries",
-      "keyword": "world"
+      "entity": "world"
     },
     {
       "question": "How old is justin bieber?",
       "answer": "23 years old",
-      "keyword": "Justin Bieber"
+      "entity": "Justin Bieber"
     },
     {
       "question": "How many calories in a banana?",
       "answer": "89 calories",
-      "keyword": "banana"
+      "entity": "banana"
     },
     {
       "question": "How to tie a tie?",
       "answer": "https://www.ties.com/how-to-tie-a-tie/windsor",
-      "keyword": "tie"
+      "entity": "tie"
     },
     {
       "question": "Which finger to wear ring?",
       "answer": "left ring finger",
-      "keyword": "ring"
+      "entity": "ring"
     },
     {
       "question": "Which city has the largest population?",
       "answer": "Tokyo",
-      "keyword": "population"
+      "entity": "population"
     },
     {
       "question": "Which state is chicago in?",
       "answer": "Illnois",
-      "keyword": "Illnois chicago"
+      "entity": "Illnois chicago"
     },
     {
       "question": "Which is the richest country?",
       "answer": "Qatar",
-      "keyword": "richest"
+      "entity": "richest"
     }
 ]

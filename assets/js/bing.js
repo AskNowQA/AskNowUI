@@ -6,7 +6,7 @@ CLIENT_ID_COOKIE = "bing-search-client-id";
 // Bing Search API endpoint
 BING_ENDPOINT = "https://api.cognitive.microsoft.com/bing/v7.0/images/search";
 ID = "results";
-JSON_OBJ = "";
+XXX = "";
 
 // Various browsers differ in their support for persistent storage by local
 // HTML files (IE won't use localStorage, but Chrome won't use cookies). So
@@ -261,7 +261,8 @@ function changeID(id){
 }
 
 function loadJSON(selected_value){
-    var data_file = "../answer_data.json";
+    /**
+    var data_file = "../qa.json";
 
     var http_request = new XMLHttpRequest();
     try{
@@ -281,7 +282,6 @@ function loadJSON(selected_value){
                 alert("Your browser broke!");
                 return false;
             }
-
         }
     }
 
@@ -317,6 +317,24 @@ function loadJSON(selected_value){
 
     http_request.open("GET", data_file, true);
     http_request.send();
+     */
+        // Javascript function JSON.parse to parse JSON data
+    jsonObj = XXX;
+    var datagood = $.grep(jsonObj, function (Q) {
+        return Q.question == selected_value;
+    });
+    var myJSON = JSON.stringify(datagood);
+    var myObj = JSON.parse(myJSON);
+    document.getElementById("demo").innerHTML = "Question: " + myObj[0].question;
+    // jsonObj variable now contains the data structure and can
+    // be accessed as jsonObj.name and jsonObj.country.
+    var answer = document.getElementById("answer").innerHTML = myObj[0].answer;
+    document.getElementById('input_answer').value = answer;
+    document.getElementById('submit_answer').click();
+    
+    var answer_key = document.getElementById("answer_key").innerHTML = myObj[0].answer + " " + myObj[0].entity;
+    document.getElementById('input_answer_key').value = answer_key;
+    //document.getElementById('submit_answer_key').click();
 }
 
 
@@ -325,7 +343,7 @@ var json = function () {
     var jsonTemp = null;
     $.ajax({
         'async': false,
-        'url': "../answer_data.json",
+        'url': "../qa.json",
         'success': function (data) {
             jsonTemp = data;
         }
@@ -333,11 +351,11 @@ var json = function () {
     return jsonTemp;
 }();
 
-xxx = JSON.parse(json);
+XXX = JSON.parse(json);
 
 
 $(document).ready(function () {
-    src = $.map(xxx, function (el) {
+    src = $.map(XXX, function (el) {
         return {
             label: el.question,
             value: el.question
