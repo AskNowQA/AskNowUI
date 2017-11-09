@@ -18,8 +18,38 @@
     <link href="assets/css/themes/green.css" id="mainCSS" rel="stylesheet" />
     <!-- Google	Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css' />
+
+    <!--  Jquery Core Script -->
+    <script src="assets/js/jquery-1.10.2.js"></script>
+    <!--  Core Bootstrap Script -->
+    <script src="assets/js/bootstrap.js"></script>
+    <!--  Scrolling Reveal Script -->
+    <script src="assets/js/scrollReveal.js"></script>
+    <!--  Scroll Scripts -->
+    <script src="assets/js/jquery.easing.min.js"></script>
+    <!--  Style Switcher Scripts -->
+    <script src="assets/js/styleSwitcher.js"></script>
+    <!--  Custom Scripts -->
+    <script src="assets/js/asknow.js"></script>
+    <script src="assets/js/imgSearch.js"></script>
+    <script src="assets/js/videoSearch.js"></script>
+    <script>
+        // self executing function here
+        (function() {
+            window.onload = alert(localStorage.getItem("query"));
+            q = localStorage.getItem("query");
+            question = localStorage.getItem("question");
+
+            //show the image and video results
+            newBingImageSearch(q, 'results');
+            search(q);
+
+        })();
+    </script>
+
 </head>
-<body >
+<!-- load the question -->
+<body onload=loadQuestion(question)>
 
 
 <div class="switcher" style="left:-50px;">
@@ -60,8 +90,7 @@
 <section class="resource-sec">
     <div class="container">
         <div id="service" class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-12 col-sm-offset-1">
-            <h2 class="showQuestion">
-                Who is the last president of the U.S.?
+            <h2 id="showQuestion" class="showQuestion">
             </h2>
             <br/>
             <hr>
@@ -111,90 +140,16 @@
                     <div class="col-lg-6 col-md-6 col-sm-6">
                         <h4 id="img-list">Images</h4>
                         <br>
-                        <div class="wrapperImages">
-                        <a href="#img1">
-                            <img src="assets/img/thumbs/1.jpg" style="width:100%" class="hover-shadow cursor">
-                        </a>
-
-                        <a href="#img2">
-                            <img src="assets/img/thumbs/2.jpg" style="width:100%" class="hover-shadow cursor">
-                        </a>
-
-                        <a href="#img3">
-                            <img src="assets/img/thumbs/3.jpg" style="width:100%" class="hover-shadow cursor">
-                        </a>
-
-                        <a href="#img4">
-                            <img src="assets/img/thumbs/4.jpg" style="width:100%" class="hover-shadow cursor">
-                        </a>
-
-                        <a href="#img5">
-                            <img src="assets/img/thumbs/5.jpg" style="width:100%" class="hover-shadow cursor">
-                        </a>
-
-                        <a href="#img6">
-                            <img src="assets/img/thumbs/6.jpg" style="width:100%" class="hover-shadow cursor">
-                        </a>
-
-                        <!-- lightbox container hidden with CSS -->
-                        <a href="#_" class="lightbox" id="img1">
-                            <img src="assets/img/full/1.jpg">
-                        </a>
-
-                        <a href="#_" class="lightbox" id="img2">
-                            <img src="assets/img/full/2.jpg">
-                        </a>
-
-                        <a href="#_" class="lightbox" id="img3">
-                            <img src="assets/img/full/3.jpg">
-                        </a>
-
-                        <a href="#_" class="lightbox" id="img4">
-                            <img src="assets/img/full/4.jpg">
-                        </a>
-
-                        <a href="#_" class="lightbox" id="img5">
-                            <img src="assets/img/full/5.jpg">
-                        </a>
-
-                        <a href="#_" class="lightbox" id="img6">
-                            <img src="assets/img/full/6.jpg">
-                        </a>
+                        <div id="results">
+                            <div id="_results" class="wrapperImages">
+                            </div>
                         </div>
                     </div>
 
                     <div class="col-lg-6 col-md-6 col-sm-6">
                         <h4 id="video-list">Videos</h4>
                         <br>
-                        <div class="wrapperVideos">
-                            <div>
-                                <iframe src="https://www.youtube.com/embed/XGSy3_Czz8k">
-                                </iframe>
-                            </div>
-
-                            <div>
-                                <iframe src="https://www.youtube.com/embed/XGSy3_Czz8k">
-                                </iframe>
-                            </div>
-
-                            <div>
-                                <iframe src="https://www.youtube.com/embed/XGSy3_Czz8k">
-                                </iframe>
-                            </div>
-
-                            <div>
-                                <iframe src="https://www.youtube.com/embed/XGSy3_Czz8k">
-                                </iframe>
-                            </div>
-
-                            <div>
-                                <iframe src="https://www.youtube.com/embed/XGSy3_Czz8k">
-                                </iframe>
-                            </div>
-                            <div>
-                                <iframe src="https://www.youtube.com/embed/XGSy3_Czz8k">
-                                </iframe>
-                            </div>
+                        <div id="videos" class="wrapperVideos">
                         </div>
                     </div>
                 </div>
@@ -296,18 +251,7 @@
 <!--CONTACT SECTION END-->
 
 
-<!--  Jquery Core Script -->
-<script src="assets/js/jquery-1.10.2.js"></script>
-<!--  Core Bootstrap Script -->
-<script src="assets/js/bootstrap.js"></script>
-<!--  Scrolling Reveal Script -->
-<script src="assets/js/scrollReveal.js"></script>
-<!--  Scroll Scripts -->
-<script src="assets/js/jquery.easing.min.js"></script>
-<!--  Style Switcher Scripts -->
-<script src="assets/js/styleSwitcher.js"></script>
-<!--  Custom Scripts -->
-<script src="assets/js/asknow.js"></script>
+
 
 </body>
 </html>
