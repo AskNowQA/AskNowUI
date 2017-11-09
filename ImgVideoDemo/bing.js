@@ -249,8 +249,8 @@ function bingSearchOptions(form) {
 
 
 function newBingImageSearch(form, id) {
-    form.offset.value = "0";
-    form.stack.value = "[]";
+    //form.offset.value = "0";
+    //form.stack.value = "[]";
     changeID(id);
 
     return bingImageSearch(form.query.value, bingSearchOptions(form), getSubscriptionKey(), id);
@@ -331,12 +331,11 @@ function loadJSON(selected_value){
     var answer = document.getElementById("answer").innerHTML = myObj[0].answer;
     document.getElementById('input_answer').value = answer;
     document.getElementById('submit_answer').click();
-    
+
     var answer_key = document.getElementById("answer_key").innerHTML = myObj[0].answer + " " + myObj[0].entity;
     document.getElementById('input_answer_key').value = answer_key;
     //document.getElementById('submit_answer_key').click();
 }
-
 
 
 var json = function () {

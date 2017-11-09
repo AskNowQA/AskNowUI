@@ -77,10 +77,10 @@ function getOutput(item){
     var videoDate = item.snippet.publishedAt;
 
     // Build Output String
-    var output = '<li>' +
+    var output = '<li xmlns="http://www.w3.org/1999/html">' +
         //'<div class="list-left">' +
         //'<img class="fancybox fancybox.iframe" src="'+thumb+'" href="http://www.youtube.com/embed'+videoId+'">' +
-        '<iframe  src="http://www.youtube.com/embed/'+videoId+'"</img>' +
+        '<iframe  src="http://www.youtube.com/embed/'+videoId+'"</iframe>' +
         '</div>' +
         '<div class="list-right">' +
         '<h3><a class="fancybox fancybox.iframe" href="http://www.youtube.com/embed/'+videoId+'">'+title+'</a></h3>' +
