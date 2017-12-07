@@ -158,9 +158,9 @@ color: #FFF;
 }
 
 .header-sec img{
-    height: 2.2em;
-    margin-right: 5px;
-   margin-bottom: 35px;
+    width:500px;
+    margin-right: 30px;
+    margin-bottom: 10px;
 }
 
 #search input[type="text"] {
