@@ -300,8 +300,7 @@ var json = function () {
 }();
 
 
-//json -> javascript object
-localJSON = JSON.parse(json);
+localJSON = json;
 
 //autocomplete the questions by using all the questions in the JSON
 $(document).ready(function () {
