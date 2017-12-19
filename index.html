@@ -83,9 +83,10 @@
                     <h1 data-scroll-reveal="enter from the bottom after 0.1s">
                         <img src="assets/img/logo.svg" alt=""  />
                     </h1>
-                    <div id="search">
-                        <input id="question" name="q" type="text"  placeholder="Search the knowledge base......" />
-                    </div>
+                    <form id="search" onsubmit="return false;">
+                        <input id="question" name="question" type="text"  placeholder="Search the knowledge base......" />
+                        <input type="submit" value='Search'/>
+                    </form>
                     <br/>
                 </div>
             </div>
@@ -117,7 +118,7 @@
             <br/>
 
             <div  data-scroll-reveal="enter from the bottom after 0.3s" >
-                <h4 ><strong><a href="list.html"> Who is the president of the U.S.? </a></strong></h4>
+                <h4 ><strong><a href="list.html"> List the people who were president of USA. </a></strong></h4>
             </div>
             <br/>
 
@@ -161,15 +162,15 @@
                         <hr>
                         <div class="row" >
                             <div class="col-lg-4 col-md-4 col-sm-4" data-scroll-reveal="enter from the left after 0.2s" >
-                                <img src="assets/img/uni_Logo.png" style="height:50px; width:auto" class="img-responsive" alt=""  />
+                                <img src="assets/img/uni_Logo.png" class="img-responsive" alt=""  />
                             </div>
 
                             <div class="col-lg-4 col-md-4 col-sm-4" data-scroll-reveal="enter from the bottom after 0.2s" >
-                                <img src="assets/img/sda.png" style="height:50px; width:auto" class="img-responsive" alt=""  />
+                                <img src="assets/img/sda.png" class="img-responsive" alt=""  />
                             </div>
 
                             <div class="col-lg-4 col-md-4 col-sm-4" data-scroll-reveal="enter from the right after 0.2s" >
-                                <img src="assets/img/fraunhofer.png" style="height:50px; width:auto" class="img-responsive" alt=""  />
+                                <img src="assets/img/fraunhofer.png" class="img-responsive" alt=""  />
                             </div>
                         </div>
                     </div>
@@ -179,7 +180,7 @@
                             <ul class="list-inline ">
                                 <li class="list-inline-item">
                                     <a href="#">
-                                <span class="fa-stack fa-lg">
+                                <span class="fa-stack fa-sm">
                                     <i class="fa fa-circle fa-stack-2x"></i>
                                     <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
                                 </span>
@@ -187,7 +188,7 @@
                                 </li>
                                 <li class="list-inline-item">
                                     <a href="#">
-                            <span class="fa-stack fa-lg">
+                            <span class="fa-stack fa-sm">
                                 <i class="fa fa-circle fa-stack-2x"></i>
                                 <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
                             </span>
@@ -195,7 +196,7 @@
                                 </li>
                                 <li class="list-inline-item">
                                     <a href="#">
-                                <span class="fa-stack fa-lg">
+                                <span class="fa-stack fa-sm">
                                     <i class="fa fa-circle fa-stack-2x"></i>
                                     <i class="fa fa-github fa-stack-1x fa-inverse"></i>
                                 </span>

@@ -19,39 +19,9 @@
     <!-- Google	Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css' />
 
-    <!--  Jquery Core Script -->
-    <script src="assets/js/jquery-1.10.2.js"></script>
-    <!--  Core Bootstrap Script -->
-    <script src="assets/js/bootstrap.js"></script>
-    <!--  Scrolling Reveal Script -->
-    <script src="assets/js/scrollReveal.js"></script>
-    <!--  Scroll Scripts -->
-    <script src="assets/js/jquery.easing.min.js"></script>
-    <!--  Style Switcher Scripts -->
-    <script src="assets/js/styleSwitcher.js"></script>
-    <!--  Custom Scripts -->
-    <script src="assets/js/asknow.js"></script>
-    <script src="assets/js/imgSearch.js"></script>
-    <script src="assets/js/videoSearch.js"></script>
-    <script>
-        // self executing function here
-        (function() {
-            window.onload = alert(localStorage.getItem("query"));
-            q = localStorage.getItem("query");
-            question = localStorage.getItem("question");
-
-            //show the image and video results
-            newBingImageSearch(q, 'results');
-            search(q);
-
-        })();
-    </script>
 
 </head>
-<!-- load the question -->
-<body onload=loadQuestion(question)>
-
-
+<body >
 <div class="switcher" style="left:-50px;">
     <a id="switch-panel" class="hide-panel">
         <i class="fa fa-recycle"></i>
@@ -97,42 +67,30 @@
 
             <div class="row">
                 <div class="col-lg-8 col-md-8 col-sm-8">
-                    <h1 id="entity-name">About: Barack Obama</h1>
-                    <a id="entity-type">An Entity of Type : politician</a>
+                    <h1 id="entity-name"></h1>
+                    <a id="entity-type"></a>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4">
-                    <img id="entity-img" src="assets/img/obama.jpg" height="300" width="240">
+                    <!--img id="entity-img" src="assets/img/obama.jpg" height="300" width="240"-->
+                    <div id='entity-img'>
+                        <div id="_entity-img"></div>
+                    </div>
                 </div>
             </div>
             <hr>
 
             <div class="all-resources">
                 <h4 id="abstract">Abstract</h4>
-                <p>
-                    Barack Hussein Obama II (US /bəˈrɑːk huːˈseɪn oʊˈbɑːmə/; born August 4, 1961) is an American politician
-                who is the 44th and current President of the United States. He is the first African American to hold the office
-                and the first president born outside the continental United States. Born in Honolulu, Hawaii,
-                Obama is a graduate of Columbia University and Harvard Law School, where he was president of the Harvard Law Review.
-                He was a community organizer in Chicago before earning his law degree.
-                He worked as a civil rights attorney and taught constitutional law at the University of Chicago Law School
-                between 1992 and 2004. While serving three terms representing the 13th District in the Illinois Senate
-                from 1997 to 2004, he ran unsuccessfully in the Democratic primary for the United States Hou.
-                </p>
+                <p id="abstract-content"></p>
                 <hr>
 
                 <h4 id="summary">Summary (Generated automatically)</h4>
-                <p>
-                    Barack Obama is a president. Its birth places are Kapiolani Medical Center for Women and Children,
-                    Honolulu and Hawaii. Its party is Democratic Party. This president's successors are Roland Burris and Kwame Raoul.
-                    Its link from a wikipage to another wikipages are, among others,
-                    African-American Civil Rights Movement, Arab League, Benjamin Netanyahu, Civil and political
-                    rights and Innovation economics. Its religion is Protestantism.
-                </p>
+                <p id="summary-content"></p>
                 <hr>
               
 
                 <h4 id="recommendation">Recommendations</h4>
-                <p>blablabla.</p>
+                <p id="recommendation-content"></p>
                 <hr>
 
 
@@ -158,11 +116,11 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6">
                         <h4 id="related-entities-list">Related entities</h4>
-                        <p>.</p>
+                        <p id="related-entities-content"></p>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6">
                         <h4 id="related-sim-list">Similar entities</h4>
-                        <p>ss</p>
+                        <p id="related-sim-content"></p>
                     </div>
                 </div>
                 <hr>
@@ -194,15 +152,15 @@
                         <hr>
                         <div class="row " >
                             <div class="col-lg-4 col-md-4 col-sm-4" data-scroll-reveal="enter from the left after 0.2s" >
-                                <img src="assets/img/uni_Logo.png" style="height:50px; width:auto" class="img-responsive" alt=""  />
+                                <img src="assets/img/uni_Logo.png" class="img-responsive" alt=""  />
                             </div>
 
                             <div class="col-lg-4 col-md-4 col-sm-4" data-scroll-reveal="enter from the bottom after 0.4s" >
-                                <img src="assets/img/sda.png" style="height:50px; width:auto" class="img-responsive" alt=""  />
+                                <img src="assets/img/sda.png" class="img-responsive" alt=""  />
                             </div>
 
                             <div class="col-lg-4 col-md-4 col-sm-4" data-scroll-reveal="enter from the right after 0.2s" >
-                                <img src="assets/img/fraunhofer.png" style="height:50px; width:auto" class="img-responsive" alt=""  />
+                                <img src="assets/img/fraunhofer.png" class="img-responsive" alt=""  />
                             </div>
                         </div>
                     </div>
@@ -250,8 +208,33 @@
 </section>
 <!--CONTACT SECTION END-->
 
-
-
+ <!--  Jquery Core Script -->
+    <script src="assets/js/jquery-1.10.2.js"></script>
+    <!--  Core Bootstrap Script -->
+    <script src="assets/js/bootstrap.js"></script>
+    <!--  Scrolling Reveal Script -->
+    <script src="assets/js/scrollReveal.js"></script>
+    <!--  Scroll Scripts -->
+    <script src="assets/js/jquery.easing.min.js"></script>
+    <!--  Style Switcher Scripts -->
+    <script src="assets/js/styleSwitcher.js"></script>
+    <!--  Custom Scripts -->
+    <script src="assets/js/asknow.js"></script>
+    <script src="assets/js/imgSearch.js"></script>
+    <script src="assets/js/videoSearch.js"></script>
+    <script src="assets/js/resource.js"></script>  
+    <script>
+        // self executing function here
+        (function() {
+            query = localStorage.getItem("query");
+            question = localStorage.getItem("question");
+            
+            loadQuestion(question)
+            //show the image and video results
+            newBingImageSearch(query, 'results', 'entity-img');
+            searchVideo(query);
+        })();
+    </script>
 
 </body>
 </html>
