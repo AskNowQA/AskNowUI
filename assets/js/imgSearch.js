@@ -328,10 +328,7 @@ var json = function () {
 }();
 
 
-<<<<<<< HEAD
 //localJSON = JSON.parse(json);
-=======
->>>>>>> 9a13f6f5151694e9cb685cae1c09754c34c3ab1d
 localJSON = json;
 
 //autocomplete the questions by using all the questions in the JSON
