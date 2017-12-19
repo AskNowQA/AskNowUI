@@ -4,6 +4,12 @@
       "answer": "Donald Trump",
       "entity": "USA"
     },
+     {
+      "question": "Who is the last president of the U.S.?",
+      "answer": "Barack Obama",
+      "entity": "USA"
+    },
+
     {
       "question": "Who is the husband of Melania?",
       "answer": "Donald Trump",

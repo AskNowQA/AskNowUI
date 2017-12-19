@@ -22,16 +22,16 @@
 
            
             $('#green').click(function () {
-                $('#mainCSS').attr('href', 'assets/css/themes/green.css');
+                $('#mainCSS').attr('href', 'static/css/themes/green.css');
             });
             $('#blue').click(function () {
-                $('#mainCSS').attr('href', 'assets/css/themes/blue.css');
+                $('#mainCSS').attr('href', 'static/css/themes/blue.css');
             });
             $('#green1').click(function () {
-                $('#mainCSS').attr('href', 'assets/css/themes/green1.css');
+                $('#mainCSS').attr('href', 'static/css/themes/green1.css');
             });
             $('#beige').click(function () {
-                $('#mainCSS').attr('href', 'assets/css/themes/beige.css');
+                $('#mainCSS').attr('href', 'static/css/themes/beige.css');
             });
 
            

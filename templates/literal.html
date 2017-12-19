@@ -6,17 +6,13 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Literal</title>
-    <!-- BOOTSTRAP CORE STYLE CSS -->
-    <link href="assets/css/bootstrap.css" rel="stylesheet" />
-    <!-- FONT AWESOME CSS -->
-    <link href="assets/css/font-awesome.min.css" rel="stylesheet" />
-    <!-- STYLE SWITCHER  CSS -->
-    <link href="assets/css/styleSwitcher.css" rel="stylesheet" />
-    <!-- CUSTOM STYLE CSS -->
-    <link href="assets/css/asknow.css" rel="stylesheet" />
-    <!--GREEN STYLE VERSION IS BY DEFAULT, USE ANY ONE STYLESHEET FROM TWO STYLESHEETS (green or red) HERE-->
-    <link href="assets/css/themes/green.css" id="mainCSS" rel="stylesheet" />
-    <!-- Google	Fonts -->
+<!-- BOOTSTRAP CORE STYLE CSS -->
+    <link rel="stylesheet" type="text/css"  href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <link rel="stylesheet" type="text/css"  href="{{ url_for('static', filename='css/font-awesome.min.css') }}">
+    <link rel="stylesheet" type="text/css"  href="{{ url_for('static', filename='css/styleSwitcher.css') }}">
+    <link rel="stylesheet" type="text/css"  href="{{ url_for('static', filename='css/asknow.css') }}">
+    <link rel="stylesheet" type="text/css"  id='mainCSS'href="{{ url_for('static', filename='css/green.css') }}">
+    <!-- Google Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css' />
 </head>
 <body >
@@ -44,11 +40,11 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#"><img class="logo-custom" src="assets/img/sda.png" alt=""  /></a>
+            <a class="navbar-brand" href="#"><img class="logo-custom" src="static/img/sda.png" alt=""  /></a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li ><a href="index.html">BACK</a></li>
+                <li ><a href="/">BACK</a></li>
                 <li><a href="#contact">CONTACT</a></li>
             </ul>
         </div>
@@ -76,9 +72,8 @@
 <section class="contact" id="contact" >
     <div class="'overlay">
         <div class="container">
-            <div class="container">
                 <div class="row text-center " >
-                    <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
+                    <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-12 col-sm-offset-1">
                         <h3 data-scroll-reveal="enter from the bottom after 0.1s">
                             <strong>
                                 Stay Connected
@@ -92,17 +87,17 @@
                     <div class="col-lg-6 col-md-6 col-sm-6" data-scroll-reveal="enter from the right after 0.2s">
                         <h4>Developed by</h4>
                         <hr>
-                        <div class="row " >
+                        <div class="row" >
                             <div class="col-lg-4 col-md-4 col-sm-4" data-scroll-reveal="enter from the left after 0.2s" >
-                                <img src="assets/img/uni_Logo.png" class="img-responsive" alt=""  />
+                                <img src="static/img/uni_Logo.png" class="img-responsive" alt=""  />
                             </div>
 
-                            <div class="col-lg-4 col-md-4 col-sm-4" data-scroll-reveal="enter from the bottom after 0.4s" >
-                                <img src="assets/img/sda.png"  class="img-responsive" alt=""  />
+                            <div class="col-lg-4 col-md-4 col-sm-4" data-scroll-reveal="enter from the bottom after 0.2s" >
+                                <img src="static/img/sda.png" class="img-responsive" alt=""  />
                             </div>
 
                             <div class="col-lg-4 col-md-4 col-sm-4" data-scroll-reveal="enter from the right after 0.2s" >
-                                <img src="assets/img/fraunhofer.png" class="img-responsive" alt=""  />
+                                <img src="static/img/fraunhofer.png" class="img-responsive" alt=""  />
                             </div>
                         </div>
                     </div>
@@ -118,52 +113,49 @@
                                 </span>
                                     </a>
                                 </li>
-
                                 <li class="list-inline-item">
                                     <a href="#">
-                                        <span class="fa-stack fa-sm">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                                        </span>
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
                                     </a>
                                 </li>
-
                                 <li class="list-inline-item">
                                     <a href="#">
-                                        <span class="fa-stack fa-sm">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                        </span>
+                                <span class="fa-stack fa-sm">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
                                     </a>
                                 </li>
                             </ul>
+
                             <strong>Contact us</strong>
-                            <p>
-                                <a href="mailto:info@domain.com?Subject=Product%20Enquiry" class="home-mail" target="_top">e-mail: info@domain.com</a>
-                            </p>
+
+                            <h5>
+                                <a href="mailto:info@domain.com?Subject=Here%20is%20the%20subject" class="home-mail" target="_top">e-mail: info@domain.com</a>
+                            </h5>
                         </div>
                     </div>
                 </div>
+            <br/>
                 <p class="copyright">Copyright &copy; AskNow 2017</p>
             </div>
-        </div>
     </div>
 </section>
 <!--CONTACT SECTION END-->
 
 
 <!--  Jquery Core Script -->
-<script src="assets/js/jquery-1.10.2.js"></script>
-<!--  Core Bootstrap Script -->
-<script src="assets/js/bootstrap.js"></script>
-<!--  Scrolling Reveal Script -->
-<script src="assets/js/scrollReveal.js"></script>
-<!--  Scroll Scripts -->
-<script src="assets/js/jquery.easing.min.js"></script>
-<!--  Style Switcher Scripts -->
-<script src="assets/js/styleSwitcher.js"></script>
-<!--  Custom Scripts -->
-<script src="assets/js/asknow.js"></script>
-
+<script src={{ url_for('static', filename='js/jquery-1.10.2.js') }}></script>
+<script src={{ url_for('static', filename='js/bootstrap.js') }}></script>
+<script src={{ url_for('static', filename='js/jquery.easing.min.js') }}></script>
+<script src={{ url_for('static', filename='js/styleSwitcher.js') }}></script>
+<script src={{ url_for('static', filename='js/scrollReveal.js') }}></script>
+<script src={{ url_for('static', filename='js/asknow.js') }}></script>
+<script src={{ url_for('static', filename='js/imgSearch.js') }}></script>
+<script src={{ url_for('static', filename='js/videoSearch.js') }}></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </body>
 </html>

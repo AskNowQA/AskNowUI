@@ -7,31 +7,16 @@
     <meta name="author" content="" />
     <title>Ask Now</title>
     <!-- BOOTSTRAP CORE STYLE CSS -->
-    <link href="assets/css/bootstrap.css" rel="stylesheet" />
-    <!-- FONT AWESOME CSS -->
-    <link href="assets/css/font-awesome.min.css" rel="stylesheet" />
-     <!-- STYLE SWITCHER  CSS -->
-    <link href="assets/css/styleSwitcher.css" rel="stylesheet" />
-    <!-- CUSTOM STYLE CSS -->
-    <link href="assets/css/asknow.css" rel="stylesheet" />
-    <!--GREEN STYLE VERSION IS BY DEFAULT, USE ANY ONE STYLESHEET FROM TWO STYLESHEETS (green or red) HERE-->
-    <link href="assets/css/themes/green.css" id="mainCSS" rel="stylesheet" />
-    <!-- Google	Fonts -->
-	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css' />
-    <!--  Jquery Core Script -->
-    <script src="assets/js/jquery-1.10.2.js"></script>
-    <!--  Core Bootstrap Script -->
-    <script src="assets/js/bootstrap.js"></script>
-    <!--  Scrolling Reveal Script -->
-    <script src="assets/js/scrollReveal.js"></script>
-    <!--  Scroll Scripts -->
-    <script src="assets/js/jquery.easing.min.js"></script>
-    <!--  Style Switcher Scripts -->
-    <script src="assets/js/styleSwitcher.js"></script>
-    <!--  Custom Scripts -->
-    <script src="assets/js/asknow.js"></script>
-    <script src="assets/js/imgSearch.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+    <!-- BOOTSTRAP CORE STYLE CSS -->
+    <link rel="stylesheet" type="text/css"  href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <link rel="stylesheet" type="text/css"  href="{{ url_for('static', filename='css/font-awesome.min.css') }}">
+    <link rel="stylesheet" type="text/css"  href="{{ url_for('static', filename='css/styleSwitcher.css') }}">
+    <link rel="stylesheet" type="text/css"  href="{{ url_for('static', filename='css/asknow.css') }}">
+    <link rel="stylesheet" type="text/css"  id='mainCSS'href="{{ url_for('static', filename='css/green.css') }}">
+    <!-- Google Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css' />
 
 </head>
 <body >
@@ -61,11 +46,11 @@
                  <span class="icon-bar"></span>
                  <span class="icon-bar"></span>
              </button>
-             <a class="navbar-brand" href="index.html"><img class="logo-custom" src="assets/img/sda.png" alt=""  /></a>
+             <a class="navbar-brand" href="/"><img class="logo-custom" src="static/img/sda.png" alt=""  /></a>
          </div>
          <div class="navbar-collapse collapse">
              <ul class="nav navbar-nav navbar-right">
-                 <li ><a href="index.html">HOME</a></li>
+                 <li ><a href="/">HOME</a></li>
                  <li><a href="#samples">SAMPLES</a></li>
                  <li><a href="#contact">CONTACT</a></li>
              </ul>
@@ -81,9 +66,9 @@
             <div class="row text-center" >
                 <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
                     <h1 data-scroll-reveal="enter from the bottom after 0.1s">
-                        <img src="assets/img/logo.svg" alt=""  />
+                        <img src="static/img/logo.svg" alt=""  />
                     </h1>
-                    <form id="search" onsubmit="return false;">
+                    <form id="search" role="form" method="post" onsubmit="return false;">
                         <input id="question" name="question" type="text"  placeholder="Search the knowledge base......" />
                         <input type="submit" value='Search'/>
                     </form>
@@ -113,27 +98,27 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
                 <br/>
             <div  data-scroll-reveal="enter from the bottom after 0.2s" >
-                <h4 ><strong><a href="resource.html"> Who is the last president of the U.S.? </a> </strong></h4>
+                <h4 ><strong><a href="/resource"> Who is the last president of the U.S.? </a> </strong></h4>
             </div>
             <br/>
 
             <div  data-scroll-reveal="enter from the bottom after 0.3s" >
-                <h4 ><strong><a href="list.html"> List the people who were president of USA. </a></strong></h4>
+                <h4 ><strong><a href="/list"> Who is the president of the U.S.? </a></strong></h4>
             </div>
             <br/>
 
             <div data-scroll-reveal="enter from the bottom after 0.4s" >
-                <h4 ><a href="literal.html"> How high is Sagarmatha Mountain? </a></strong></h4>
+                <h4 ><a href="/literal"> How high is Sagarmatha Mountain? </a></strong></h4>
             </div>
             <br/>
 
             <div data-scroll-reveal="enter from the bottom after 0.5s" >
-                <h4 ><strong><a href="bol.html">Is the Sagarmatha Mountain the highest mountain? </a></strong></h4>
+                <h4 ><strong><a href="/bol">Is the Sagarmatha Mountain the highest mountain? </a></strong></h4>
             </div>
             <br/>
 
             <div data-scroll-reveal="enter from the bottom after 0.6s" >
-                <h4 ><strong><a href="none.html">Could you give me an apple?</a> </strong></h4>
+                <h4 ><strong><a href="/404">Could you give me an apple?</a> </strong></h4>
             </div>
             <br/>
             </div>
@@ -162,15 +147,15 @@
                         <hr>
                         <div class="row" >
                             <div class="col-lg-4 col-md-4 col-sm-4" data-scroll-reveal="enter from the left after 0.2s" >
-                                <img src="assets/img/uni_Logo.png" class="img-responsive" alt=""  />
+                                <img src="static/img/uni_Logo.png" class="img-responsive" alt=""  />
                             </div>
 
                             <div class="col-lg-4 col-md-4 col-sm-4" data-scroll-reveal="enter from the bottom after 0.2s" >
-                                <img src="assets/img/sda.png" class="img-responsive" alt=""  />
+                                <img src="static/img/sda.png" class="img-responsive" alt=""  />
                             </div>
 
                             <div class="col-lg-4 col-md-4 col-sm-4" data-scroll-reveal="enter from the right after 0.2s" >
-                                <img src="assets/img/fraunhofer.png" class="img-responsive" alt=""  />
+                                <img src="static/img/fraunhofer.png" class="img-responsive" alt=""  />
                             </div>
                         </div>
                     </div>
@@ -220,5 +205,29 @@
 <!--CONTACT SECTION END-->
 
 
+<!--  Jquery Core Script -->
+<script src={{ url_for('static', filename='js/jquery-1.10.2.js') }}></script>
+<script src={{ url_for('static', filename='js/bootstrap.js') }}></script>
+<script src={{ url_for('static', filename='js/jquery.easing.min.js') }}></script>
+<script src={{ url_for('static', filename='js/styleSwitcher.js') }}></script>
+<script src={{ url_for('static', filename='js/scrollReveal.js') }}></script>
+<script src={{ url_for('static', filename='js/asknow.js') }}></script>
+<script src={{ url_for('static', filename='js/imgSearch.js') }}></script>
+<script src={{ url_for('static', filename='js/videoSearch.js') }}></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript">
+    $(function() {
+        $.ajax({
+            type:'POST',
+            url: '{{ url_for("autocomplete") }}'
+            }).done(function (data){
+                $('#question').autocomplete({
+                    source: data,
+                    minLength: 1, 
+
+                });
+            });
+        });
+</script>
 </body>
 </html>

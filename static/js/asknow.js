@@ -17,15 +17,23 @@
             window.scrollReveal = new scrollReveal();
         },
 
+
+
         initialization: function () {
             mainApp.main_fun();
+
         }
+
+
     }
     // Initializing ///
 
     $(document).ready(function () {
         mainApp.main_fun()
+
+
     });
+
 }(jQuery));
 
 
@@ -87,6 +95,4 @@ function loadmore() {
         "        </div>"
     $(".list").append(newitem);
 }
-
-
 

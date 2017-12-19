@@ -291,76 +291,47 @@ function changeID(id, id_img){
     ID_img =id_img;
 }
 
+
+
 //load the selected question when page loads
 function loadQuestion(question){
-   
     document.getElementById("showQuestion").innerHTML=question;
-    //document.getElementById("entity-name").innerHTML=q;
+    
 }
 
 
-//load json, and check the answer, the answer will be regarded as search words for bing and youtube
-function loadJSON(selected_value){
-    // Javascript function JSON.parse to parse JSON data
-    jsonObj = localJSON;
-    var current = $.grep(jsonObj, function (Q) {
-        return Q.question == selected_value;
-    });
-    var myJSON = JSON.stringify(current);
-    var myObj = JSON.parse(myJSON);
-    QUERY = myObj[0].answer;
-    //store the answer, as query for the image/video search
-    localStorage.setItem("query",QUERY);
-}
 
+$(document).ready(function() {
+  // on form submission ...
+  $('#search').on('submit', function() {
 
-//load the local json
-var json = function () {
-    var jsonTemp = null;
+    // grab values
+    question = $('input[name="question"]').val();
+    var  entry = { "'": "&apos;", '"': '&quot;', '<': '&lt;', '>': '&gt;' };
+        question = question.replace(/(['")-><&\\\/\.])/g, function ($0) { return entry[$0] || $0; });
+        var string = '/resource?question=' + question;
+        window.location.href = string;
+
+   /**
     $.ajax({
-        'async': false,
-        'url': "qa.json",
-        'success': function (data) {
-            jsonTemp = data;
-        }
-    });
-    return jsonTemp;
-}();
-
-
-//localJSON = JSON.parse(json);
-localJSON = json;
-
-//autocomplete the questions by using all the questions in the JSON
-$(document).ready(function () {
-    src = $.map(localJSON, function (el) {
-        return {
-            value: el.question
-        };
-    });
-   
-
-    //submit the question
-    $('#search').on('submit', function() {
-        // grab value
-        question = $('input[name="question"]').val();
-        localStorage.setItem("question",question);
-        loadJSON(question);
-        //jump to resource page
+      type: "POST",
+      url: "/",
+      data : { 'question': question},
+      success: function(results) {
         var  entry = { "'": "&apos;", '"': '&quot;', '<': '&lt;', '>': '&gt;' };
         question = question.replace(/(['")-><&\\\/\.])/g, function ($0) { return entry[$0] || $0; });
-        var string = 'resource.html?question=' + question;
+        var string = '/resource?question=' + question;
         window.location.href = string;
-  });
-
-
-    //autocomplete
-    $("#question").autocomplete({
-        source: src,
+        //window.location.href="/resource";
+      },
+      error: function(error) {
+        console.log(error)
+      }
     });
+    */
+    
+  });
+});     
 
-   
-
-});
 
 

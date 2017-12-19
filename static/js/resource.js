@@ -1,39 +1,19 @@
-//load the local json
-var resourcejson = function () {
-    var jsonTemp = null;
-    $.ajax({
-        'async': false,
-        'url': "resource.json",
-        'success': function (data) {
-            jsonTemp = data;
-        }
-    });
-    return jsonTemp;
-}();
 
-
-function loadResource(resourcejson){
+function loadResourcePage(resourcejson){
 	// Javascript function JSON.parse to parse JSON data
-    question = localStorage.getItem("question");
-
-    //jsonTemp = JSON.parse(resourcejson);
-    var currentEntity = $.grep(resourcejson, function (Q) {
-        return Q.question == question;
-    });
-    
-    var myJSON = JSON.stringify(currentEntity);
-    var myObj = JSON.parse(myJSON);
-
-    answer = myObj[0].answer;
-    type = myObj[0].type;
-    abstract = myObj[0].abstract;
-    summary = myObj[0].summary;
-    recommendations = myObj[0].recommendations;
-    related_entities = myObj[0].related_entities;
-    similar_entities = myObj[0].similar_entities;
+    question = resourcejson.question;
+    answer = resourcejson.answer;
+    type = resourcejson.type;
+    abstract = resourcejson.abstract;
+    summary = resourcejson.summary;
+    recommendations = resourcejson.recommendations;
+    related_entities = resourcejson.related_entities;
+    similar_entities = resourcejson.similar_entities;
     var related_entities_list = related_entities.split(',')
     var similar_entities_list = similar_entities.split(',')
 
+
+    document.getElementById("showQuestion").innerHTML=question;
     document.getElementById("entity-name").innerHTML=answer;
     document.getElementById("entity-type").innerHTML="An Entity of Type :  "+type;
     document.getElementById("abstract-content").innerHTML=abstract;
@@ -55,5 +35,3 @@ function generateHrefList(list){
      }
     return content
 }
-
-loadResource(resourcejson)
