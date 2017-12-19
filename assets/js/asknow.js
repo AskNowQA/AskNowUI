@@ -17,23 +17,15 @@
             window.scrollReveal = new scrollReveal();
         },
 
-
-
         initialization: function () {
             mainApp.main_fun();
-
         }
-
-
     }
     // Initializing ///
 
     $(document).ready(function () {
         mainApp.main_fun()
-
-
     });
-
 }(jQuery));
 
 
@@ -97,24 +89,4 @@ function loadmore() {
 }
 
 
-//var apiKey = 'grqwfxjxft9mjygsck4u5jdn';
-var apiKey = 'ezjawnquqhmkhgyhpr8ff88z';
-$.ajax(
-    {
-        type:'GET',
-        url:"https://api.gettyimages.com/v3/search/images/creative?phrase=dog",
-        beforeSend: function (request)
-        {
-            request.setRequestHeader("Api-Key", apiKey);
-        }})
-    .done(function(data){
-        console.log("Success with data")
-        for(var i = 0;i<data.images.length;i++)
-        {
-            $("#output").append("<img src='" + data.images[i].display_sizes[0].uri + "'/>");
-        }
-    })
-    .fail(function(data){
-        alert(JSON.stringify(data,2))
-    });
 

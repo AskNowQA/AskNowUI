@@ -1,5 +1,5 @@
 
-function search(q){
+function searchVideo(q){
     // Clear Results
     $('#videos').html('');
     // Get Form Input

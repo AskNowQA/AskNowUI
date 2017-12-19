@@ -10,6 +10,7 @@ CLIENT_ID_COOKIE = "bing-search-client-id";
 // Bing Search API endpoint
 BING_ENDPOINT = "https://api.cognitive.microsoft.com/bing/v7.0/images/search";
 ID = "results";
+ID_img='entity-img'
 localJSON = "";
 
 // Various browsers differ in their support for persistent storage by local
@@ -84,20 +85,29 @@ function hideDivs() {
 // render functions for various types of search results
 searchItemRenderers = {
     images: function (item, index, count) {
-        var height = 200;
-        //var width = Math.max(Math.round(height * item.thumbnail.width / item.thumbnail.height), 120);
-        var width= 200;
-        var html = [];
-        var bigH = 400;
-        var bigW = Math.max(Math.round(height * item.thumbnail.width / item.thumbnail.height), 400);
-        html.push("<a href='#"+ item.imageId +"'>");
-        html.push("<img class='hover-shadow cursor' src='"+ item.thumbnailUrl + "&h=" + height + "&w=" + width +
+        if (count==1){
+            var height = 300;
+                 //var width = Math.max(Math.round(height * item.thumbnail.width / item.thumbnail.height), 120);
+            var width= 240;
+            var html = [];
+            html.push("<img src='"+ item.thumbnailUrl + "&h=" + height + "&w=" + width +
+            "' height=" + height + " width=" + width + "'>");
+            return html.join("");}
+        else{
+            var height = 200;
+                 //var width = Math.max(Math.round(height * item.thumbnail.width / item.thumbnail.height), 120);
+            var width= 200;
+            var html = [];
+            var bigH = 400;
+            var bigW = Math.max(Math.round(height * item.thumbnail.width / item.thumbnail.height), 400);
+            html.push("<a href='#"+ item.imageId +"'>");
+            html.push("<img class='hover-shadow cursor' src='"+ item.thumbnailUrl + "&h=" + height + "&w=" + width +
             "' height=" + height + " width=" + width + "'></a>");
-        html.push("<a href='#_' class='lightbox' id='"+item.imageId+"'>");
-        html.push("<img src='"+ item.thumbnailUrl + "'height=" + bigH + " width=" + bigW + "'></a>");
-        return html.join("");
+            html.push("<a href='#_' class='lightbox' id='"+item.imageId+"'>");
+            html.push("<img src='"+ item.thumbnailUrl + "'height=" + bigH + " width=" + bigW + "'></a>");
+            return html.join("");}
+   
     },
-
 }
 
 
@@ -115,11 +125,26 @@ function renderImageResults(items) {
     return html.join("\n\n");
 }
 
+// render image search results
+function renderImageResults_1(items) {
+    var len = 1;
+    var html = [];
+    if (!len) {
+
+        return "";
+    }
+    for (var i = 0; i < len; i++) {
+        html.push(searchItemRenderers.images(items[i], i, len));
+    }
+    return html.join("\n\n");
+}
+
 
 
 // render the search results given the parsed JSON response
 function renderSearchResults(results) {
     showDiv(ID, renderImageResults(results.value));
+    showDiv(ID_img, renderImageResults_1(results.value));
 }
 
 function renderErrorMessage(message) {
@@ -131,13 +156,15 @@ function renderErrorMessage(message) {
 
 
 // perform a search given query, options string, and API key
-function bingImageSearch(query, options, key, id) {
+function bingImageSearch(query, options, key, id, id_img) {
+
     // scroll to top of window
     window.scrollTo(0, 0);
     if (!query.trim().length) return false;     // empty query, do nothing
 
     showDiv("noresults", "Working. Please wait.");
     hideDivs(ID,  "error");
+    hideDivs(ID_img,  "error");
 
     var request = new XMLHttpRequest();
     var queryurl = BING_ENDPOINT + "?q=" + encodeURIComponent(query) + "&" + options;
@@ -181,7 +208,6 @@ function bingImageSearch(query, options, key, id) {
 function handleBingResponse() {
     hideDivs("noresults");
     var json = this.responseText.trim();
-
     var jsobj = {};
 
     // try to parse JSON results
@@ -251,22 +277,25 @@ function bingSearchOptions() {
 }
 
 //main beginning function
-function newBingImageSearch(query, id) {
+function newBingImageSearch(query, id, id_img) {
     //form.offset.value = "0";
     //form.stack.value = "[]";
-    changeID(id);
+    changeID(id, id_img);
 
-    return bingImageSearch(query, bingSearchOptions(), getSubscriptionKey(), id);
+    return bingImageSearch(query, bingSearchOptions(), getSubscriptionKey(), id, id_img);
 }
 
 //the id where images will load
-function changeID(id){
+function changeID(id, id_img){
     ID = id;
+    ID_img =id_img;
 }
 
 //load the selected question when page loads
 function loadQuestion(question){
+   
     document.getElementById("showQuestion").innerHTML=question;
+    //document.getElementById("entity-name").innerHTML=q;
 }
 
 
@@ -279,7 +308,6 @@ function loadJSON(selected_value){
     });
     var myJSON = JSON.stringify(current);
     var myObj = JSON.parse(myJSON);
-
     QUERY = myObj[0].answer;
     //store the answer, as query for the image/video search
     localStorage.setItem("query",QUERY);
@@ -300,8 +328,8 @@ var json = function () {
 }();
 
 
-//json -> javascript object
-localJSON = JSON.parse(json);
+//localJSON = JSON.parse(json);
+localJSON = json;
 
 //autocomplete the questions by using all the questions in the JSON
 $(document).ready(function () {
@@ -310,20 +338,29 @@ $(document).ready(function () {
             value: el.question
         };
     });
+   
 
+    //submit the question
+    $('#search').on('submit', function() {
+        // grab value
+        question = $('input[name="question"]').val();
+        localStorage.setItem("question",question);
+        loadJSON(question);
+        //jump to resource page
+        var  entry = { "'": "&apos;", '"': '&quot;', '<': '&lt;', '>': '&gt;' };
+        question = question.replace(/(['")-><&\\\/\.])/g, function ($0) { return entry[$0] || $0; });
+        var string = 'resource.html?question=' + question;
+        window.location.href = string;
+  });
+
+
+    //autocomplete
     $("#question").autocomplete({
         source: src,
-        select: function() {
-            selected_value = $("#question").val();
-            alert(selected_value);
-
-            //store the question
-            localStorage.setItem("question",selected_value);
-            loadJSON(selected_value);
-            window.location.href="resource.html";
-
-        }
     });
+
+   
+
 });
 
 
