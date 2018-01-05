@@ -2,157 +2,215 @@
     {
       "question": "Who is the president of USA?",
       "answer": "Donald Trump",
-      "entity": "USA"
+      "entity": "USA", 
+      "type":"resource"
     },
-     {
-      "question": "Who is the last president of the U.S.?",
-      "answer": "Barack Obama",
-      "entity": "USA"
-    },
-
     {
       "question": "Who is the husband of Melania?",
       "answer": "Donald Trump",
-      "entity": "Melania"
+      "entity": "Melania", 
+      "type":"resource"
     },
     {
       "question": "Who is the owner of Trump Tower?",
       "answer": "Donald Trump",
-      "entity": "Trump Tower"
+      "entity": "Trump Tower", 
+      "type":"resource"
     },
     {
       "question": "Who is the richest man in the world?",
       "answer": "Bill Gates",
-      "entity": "richest man"
+      "entity": "richest man", 
+      "type":"resource"
     },
     {
       "question": "Who invented the telephone?",
       "answer": "Alexander Graham Bell",
-      "entity": "telephone"
+      "entity": "telephone", 
+      "type":"resource"
     },
     {
       "question": "Who has the most instagram followers?",
       "answer": "Selena Gomez",
-      "entity": "instagram followers"
+      "entity": "instagram followers", 
+      "type":"resource"
     },
     {
       "question": "Who has the most subscribers in youtube?",
       "answer": "PewDiePie",
-      "entity": "youtube subscribers"
+      "entity": "youtube subscribers", 
+      "type":"resource"
     },
     {
       "question": "Who is the tallest person in the world?",
       "answer": "Robert Pershing Wadlow",
-      "entity": "tallest person"
+      "entity": "tallest person", 
+      "type":"resource"
     },
     {
       "question": "Where am I right now?",
       "answer": "Bonn",
-      "entity": "Bonn"
+      "entity": "Bonn", 
+      "type":"resource"
     },
     {
       "question": "Where was Jesus born?",
       "answer": "Bethlehem",
-      "entity": "Jesus"
+      "entity": "Jesus", 
+      "type":"resource"
     },
     {
       "question": "Where is Rihanna from?",
       "answer": "Saint Michael Parish, Barbados",
-      "entity": "Rihanna"
+      "entity": "Rihanna", 
+      "type":"resource"
     },
     {
       "question": "Where do penguins live?",
       "answer": "Antarctica",
-      "entity": "Penguins"
+      "entity": "Penguins", 
+      "type":"resource"
     },
     {
       "question": "Where is duke university located?",
       "answer": "Durham",
-      "entity": "duke university"
+      "entity": "duke university", 
+      "type":"resource"
     },
     {
       "question": "When is Labour Day?",
       "answer": "1st May",
-      "entity": "Labour day"
+      "entity": "Labour day", 
+      "type":"resource"
     },
     {
       "question": "When was Jesus born?",
       "answer": "25 December",
-      "entity": "Jesus"
+      "entity": "Jesus", 
+      "type":"resource"
     },
     {
       "question": "When did the iphone 7 came out?",
       "answer": "7th September, 2016",
-      "entity": "iphone 7"
+      "entity": "iphone 7", 
+      "type":"resource"
     },
     {
       "question": "When was the civil war?",
       "answer": "April 12, 1861 - May 9, 1865",
-      "entity": "civil war"
+      "entity": "civil war", 
+      "type":"resource"
     },
     {
       "question": "What does EU stand for?",
       "answer": "european union",
-      "entity": "european union"
+      "entity": "european union", 
+      "type":"resource"
     },
     {
       "question": "What is the fastest car in the world?",
       "answer": "Koenigsegg Agera R",
-      "entity": "fastest car"
+      "entity": "fastest car", 
+      "type":"resource"
     },
     {
       "question": "What comes after trillion?",
       "answer": "Quadrillion",
-      "entity": "Quadrillion"
+      "entity": "Quadrillion", 
+      "type":"resource"
     },
     {
       "question": "What is vodka made from?",
       "answer": "grains",
-      "entity": "vodka"
+      "entity": "vodka", 
+      "type":"resource"
     },
     {
       "question": "What does NGO stand for?",
       "answer": "Non governmental orgnaization",
-      "entity": "Non governmental orgnaization"
+      "entity": "Non governmental orgnaization", 
+      "type":"resource"
     },
     {
       "question": "How many countries in the world?",
       "answer": "195 countries",
-      "entity": "world"
+      "entity": "world", 
+      "type":"resource"
     },
     {
       "question": "How old is justin bieber?",
       "answer": "23 years old",
-      "entity": "Justin Bieber"
+      "entity": "Justin Bieber", 
+      "type":"resource"
     },
     {
       "question": "How many calories in a banana?",
       "answer": "89 calories",
-      "entity": "banana"
+      "entity": "banana", 
+      "type":"resource"
     },
     {
       "question": "How to tie a tie?",
       "answer": "https://www.ties.com/how-to-tie-a-tie/windsor",
-      "entity": "tie"
+      "entity": "tie", 
+      "type":"resource"
     },
     {
       "question": "Which finger to wear ring?",
       "answer": "left ring finger",
-      "entity": "ring"
+      "entity": "ring", 
+      "type":"resource"
     },
     {
       "question": "Which city has the largest population?",
       "answer": "Tokyo",
-      "entity": "population"
+      "entity": "population", 
+      "type":"resource"
     },
     {
       "question": "Which state is chicago in?",
       "answer": "Illnois",
-      "entity": "Illnois chicago"
+      "entity": "Illnois chicago", 
+      "type":"resource"
     },
     {
       "question": "Which is the richest country?",
       "answer": "Qatar",
-      "entity": "richest"
-    }
+      "entity": "richest", 
+      "type":"resource"
+    }, 
+    {
+      "question": "How high is Sagarmatha Mountain?",
+      "answer": "8888m", 
+      "type":"literal"
+    },
+    {
+      "question": "What is the population of Shanghai?",
+      "answer": "24.15 million", 
+      "type":"literal"
+    },
+    {
+      "question": "How large is Shanghai?",
+      "answer": "6,340 km²", 
+      "type":"literal"
+    },
+    {
+      "question": "Is Shanghai the largest city?",
+      "answer": "No", 
+      "type":"bol"
+    },
+    {
+      "question": "Is Oriental Pearl Tower in Shanghai?",
+      "answer": "Yes", 
+      "type":"bol"
+    },
+    {
+      "question": "Is the Sagarmatha Mountain the highest mountain?",
+      "answer": "Yes", 
+      "type":"bol"
+    }, 
+    {
+      "question": "List the people who were president of USA.", 
+      "type":"list"
+    }  
 ]
