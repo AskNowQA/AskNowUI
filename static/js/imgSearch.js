@@ -45,7 +45,8 @@ try {
 function getSubscriptionKey() {
     var key = retrieveValue(API_KEY_COOKIE);
     while (key.length !== 32) {
-        key = prompt("Enter Bing Search API subscription key:", "").trim();
+        //key = prompt("Enter Bing Search API subscription key:", "").trim();
+        key='16c16030638843e0ab6404b2d9aaf266'
     }
     // always set the cookie in order to update the expiration date
     storeValue(API_KEY_COOKIE, key);
@@ -290,48 +291,5 @@ function changeID(id, id_img){
     ID = id;
     ID_img =id_img;
 }
-
-
-
-//load the selected question when page loads
-function loadQuestion(question){
-    document.getElementById("showQuestion").innerHTML=question;
-    
-}
-
-
-
-$(document).ready(function() {
-  // on form submission ...
-  $('#search').on('submit', function() {
-
-    // grab values
-    question = $('input[name="question"]').val();
-    var  entry = { "'": "&apos;", '"': '&quot;', '<': '&lt;', '>': '&gt;' };
-        question = question.replace(/(['")-><&\\\/\.])/g, function ($0) { return entry[$0] || $0; });
-        var string = '/resource?question=' + question;
-        window.location.href = string;
-
-   /**
-    $.ajax({
-      type: "POST",
-      url: "/",
-      data : { 'question': question},
-      success: function(results) {
-        var  entry = { "'": "&apos;", '"': '&quot;', '<': '&lt;', '>': '&gt;' };
-        question = question.replace(/(['")-><&\\\/\.])/g, function ($0) { return entry[$0] || $0; });
-        var string = '/resource?question=' + question;
-        window.location.href = string;
-        //window.location.href="/resource";
-      },
-      error: function(error) {
-        console.log(error)
-      }
-    });
-    */
-    
-  });
-});     
-
 
 

@@ -58,12 +58,12 @@
     <div class="container">
         <div id="service" class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-12 col-sm-offset-1">
             <h2 class="showQuestion">
-                List the people who were president of USA.
+                
             </h2>
             <br/>
             <hr>
             <div class="list">
-                <div class="list-item">
+                <!--div class="list-item">
                     <div class="list-content">
                         <h2>Donald Trump</h2>
                         <img  id="img1" class="listImg" src="static/img/trump.jpg" />
@@ -97,11 +97,11 @@
                         <p>William Jefferson Clinton is an American politician who served as the 42nd President of the United States from 1993 to 2001. Prior to the presidency, he was the Governor of Arkansas from 1979 to 1981, and again from 1983 to 1992.</p>
                         <a href="resource.html">Show detailed</a>
                     </div>
-                </div>
+                </div-->
             </div>
             <br/>
             <div class="row text-center">
-                <a onclick=loadmore(); style="color:#777777;">Loading more...</a>
+                <a id="load" style="color:#777777;">Loading more...</a>
             </div>
         </div>
     </div>
@@ -195,7 +195,17 @@
 <script src={{ url_for('static', filename='js/asknow.js') }}></script>
 <script src={{ url_for('static', filename='js/imgSearch.js') }}></script>
 <script src={{ url_for('static', filename='js/videoSearch.js') }}></script>
+<script src={{ url_for('static', filename='js/list.js') }}></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
+<script>
+    $(function() {
+        $.ajax({
+            type:'POST',
+            url: '{{ url_for("getJSON") }}'
+            }).done(function (data){
+                loadListPage(data)
+            });
+        });
+</script>
 </body>
 </html>

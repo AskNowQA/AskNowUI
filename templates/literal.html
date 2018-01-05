@@ -57,11 +57,11 @@
     <div class="container">
         <div id="service" class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-12 col-sm-offset-1">
             <h2 class="showQuestion">
-                How high is Sagarmatha Mountain?
+                
             </h2>
             <br/>
-            <div class="boli_answer">
-                <h1 class="lit_answer" id="lit_answer">8888m</h1>
+            <div >
+                <h1 class="boli_answer" id="lit_answer"></h1>
             </div>
         </div>
     </div>
@@ -156,6 +156,18 @@
 <script src={{ url_for('static', filename='js/asknow.js') }}></script>
 <script src={{ url_for('static', filename='js/imgSearch.js') }}></script>
 <script src={{ url_for('static', filename='js/videoSearch.js') }}></script>
+<script src={{ url_for('static', filename='js/litbol.js') }}></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $(function() {
+        $.ajax({
+            type:'POST',
+            url: '{{ url_for("getJSON") }}'
+            }).done(function (data){
+                loadLitBolPage(data)
+            });
+        });
+</script>
+
 </body>
 </html>

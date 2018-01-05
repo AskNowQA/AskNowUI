@@ -70,29 +70,3 @@ ToC +=
 $(".all-resources").prepend(ToC);
 
 
-function loadmore() {
-    var listImg = []
-    $(".list img").each(function () {
-
-        el = $(this);
-        var link = el.attr("id");
-        listImg.push(link)
-
-    });
-
-    for (var i = 0; i < listImg.length; i++){
-
-        var image_x = document.getElementById(listImg[i]);
-        image_x.parentNode.removeChild(image_x);
-    }
-
-    var newitem = "<div class='list-item'>" +
-        "          <div class='list-content'>" +
-        "            <h2>Hamburg</h2>" +
-        "            <p>Bgsm.</p>" +
-        "            <a>Show detailed</a>" +
-        "          </div>" +
-        "        </div>"
-    $(".list").append(newitem);
-}
-

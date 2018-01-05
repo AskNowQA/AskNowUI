@@ -355,12 +355,9 @@ color: #FFF;
 #service .boli_answer {
     padding: 0.5em;
     border:1px solid rgb(227, 227, 227);
-}
-
-#service .boli_answer .bool_answer,
-#service .boli_answer .lit_answer{
     text-align: center;
 }
+
 
 #service .noanswer img{
     max-width: 700px;
