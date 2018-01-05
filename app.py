@@ -57,7 +57,7 @@ def getTypeofQuestion(question):
 def index():  
     if request.method == 'POST':
         question = request.form.get('question')
-        question_type = getTypeofQprint(question_type)
+        question_type = getTypeofQuestion(question)
         data = {"type": str(question_type)}
         return jsonify(data) 
     return render_template('index.html')
