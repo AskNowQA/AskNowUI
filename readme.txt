@@ -5,6 +5,15 @@ The AskNow UI uses the bootstrap, Jquery for rendering HTML template. For the ba
 To run it: 
 python3 app.py
 
+WorkFlow:
+1. In index page, get the question from user input.
+
+2. Backend gets the question, and returns the type of answer with the answer itself to the frontend.
+
+3. The front end received the json data of the input question from backend, then rendering it to the type-specific (resource, list, literal, boolean) page.
+
+
+
 ########################################
 static folder includes css, js and img files for the frondend.
 --css:
