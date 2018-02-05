@@ -58,6 +58,10 @@ qa.json: the example json file for autocomplete
 resource.json: the example json file containing differernt kinds of questions.
 There are four kinds of question in the json file. 
 ```
-
+* app.py:
+```
+using /_getJSON point to get question type and question content
+using /_autocomplete to autocomplete the input field
+``` 
 
 
