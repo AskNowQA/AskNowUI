@@ -28,7 +28,7 @@ python3 app.py
 * [Jquery](https://jquery.com) - JavaScript library designed to simplify the client-side scripting of HTML
 
 
-### File content
+### File structure
 
 * static folder: including css, js and img files for the frond end.
 ```
