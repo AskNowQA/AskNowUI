@@ -30,8 +30,8 @@ python3 app.py
 
 ### File content
 
-*static folder: including css, js and img files for the frond end.
-'''
+* static folder: including css, js and img files for the frond end.
+```
 --css:
 -----themes: folder containing the css files for different color styles
 -----stleSwitcher.css: for switch color styles in themes folder
@@ -48,16 +48,16 @@ python3 app.py
 
 --fonts: folder containing fonts style
 --img: logos, example images
-'''
+```
 
-*template folder: including resource, boolean, literal, list and 404 page templates
+* template folder: including resource, boolean, literal, list and 404 page templates
 
-*data folder: including example json files for this front end.
-'''
+* data folder: including example json files for this front end.
+```
 qa.json: the example json file for autocomplete
 resource.json: the example json file containing differernt kinds of questions.
 There are four kinds of question in the json file. 
-'''
+```
 
 
 
