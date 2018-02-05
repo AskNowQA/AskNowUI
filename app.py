@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 from flask import Flask, request, render_template, url_for, jsonify, Response, redirect, session
-from flask_bootstrap import Bootstrap
 import json, sys
 import requests
 import os
-import wikipedia
 
 app = Flask(__name__, static_url_path='/static')
 #bootstrap = Bootstrap(app)
@@ -21,8 +19,6 @@ def autocomplete():
         results.append(item["question"])
     return Response(json.dumps(results), mimetype='application/json')
 
-
-global QUESTION
 
 #get resource json
 @app.route('/_getJSON', methods=['POST', 'GET'])
