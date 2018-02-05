@@ -22,50 +22,46 @@ def autocomplete():
     return Response(json.dumps(results), mimetype='application/json')
 
 
+global QUESTION
 
 #get resource json
-@app.route('/_getJSON', methods=['POST'])
+@app.route('/_getJSON', methods=['POST', 'GET'])
 def getJSON():  
-    #load local resource json
+    if request.method == 'POST':
+        question = request.form.get('question')
+        print('get input')
+        global QUESTION
+        QUESTION = question
+
     SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
     json_url = os.path.join(SITE_ROOT, "data", "resource.json")
     resourceJSON = json.load(open(json_url))   
-    #get the question
+    #get the question  
     #print("#"*20)
     #print(QUESTION)
     for item in resourceJSON:
         if item["question"]==QUESTION:
             returnedJSON=item
+  
     return Response(json.dumps(returnedJSON), mimetype='application/json')   
 
-def getTypeofQuestion(question):
-    #load local resource json
-    SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
-    json_url = os.path.join(SITE_ROOT, "data", "qa.json")
-    qaJSON = json.load(open(json_url))   
-    #get the question
-    #print("#"*20)
-    for item in qaJSON:
-        if item["question"]==question:
-            print(item)
-            question_type=item['type']
-    return question_type 
 
 # index part
 # question name
 @app.route('/', methods=['GET', 'POST'])
 def index():  
-    if request.method == 'POST':
-        question = request.form.get('question')
-        question_type = getTypeofQuestion(question)
-        data = {"type": str(question_type)}
-        return jsonify(data) 
+    #if request.method == 'POST':
+     #   question = request.form.get('question')
+        #question_type = getTypeofQuestion(question)
+        #data = {"type": str(question_type)}
+        #return jsonify(data)
     return render_template('index.html')
 
 
 
 @app.route('/resource', methods=['GET', 'POST'])
 def showResource(): 
+    
     if request.method == 'GET':
         question=request.args.get('question')
         if question is None:

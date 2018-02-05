@@ -220,7 +220,7 @@
 <script>
     $(function() {
         $.ajax({
-            type:'POST',
+            type:'GET',
             url: '{{ url_for("getJSON") }}'
             }).done(function (data){
                 q=data.answer;

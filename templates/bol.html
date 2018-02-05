@@ -160,7 +160,7 @@ d<!DOCTYPE html>
 <script>
     $(function() {
         $.ajax({
-            type:'POST',
+            type:'GET',
             url: '{{ url_for("getJSON") }}'
             }).done(function (data){
                 loadLitBolPage(data)
