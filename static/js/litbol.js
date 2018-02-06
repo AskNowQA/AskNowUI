@@ -1,3 +1,14 @@
+
+$(function() {
+        $.ajax({
+            type:'GET',
+            url: '/_getJSON',
+            }).done(function (data){
+                loadLitBolPage(data)
+            });
+        });
+
+
 function loadLitBolPage(literaljson){
 	// Javascript function JSON.parse to parse JSON data
     question = literaljson.question;

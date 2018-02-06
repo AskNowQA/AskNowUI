@@ -217,19 +217,6 @@
 <script src={{ url_for('static', filename='js/videoSearch.js') }}></script>
 <script src={{ url_for('static', filename='js/resource.js') }}></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script>
-    $(function() {
-        $.ajax({
-            type:'GET',
-            url: '{{ url_for("getJSON") }}'
-            }).done(function (data){
-                q=data.answer;
-                newBingImageSearch(q, 'results', 'entity-img');
-                search(q);
-                loadResourcePage(data)
-            });
-        });
-</script>
 
 </body>
 </html>

@@ -1,4 +1,4 @@
-d<!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
@@ -157,15 +157,6 @@ d<!DOCTYPE html>
 <script src={{ url_for('static', filename='js/videoSearch.js') }}></script>
 <script src={{ url_for('static', filename='js/litbol.js') }}></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script>
-    $(function() {
-        $.ajax({
-            type:'GET',
-            url: '{{ url_for("getJSON") }}'
-            }).done(function (data){
-                loadLitBolPage(data)
-            });
-        });
-</script>
+
 </body>
 </html>

@@ -1,3 +1,20 @@
+
+
+ $(function() {
+        $.ajax({
+            type:'POST',
+            url: '/_autocomplete',
+            }).done(function (data){
+                $('#question').autocomplete({
+                    source: data,
+                    minLength: 1, 
+
+                });
+            });
+        });
+
+
+
 $(document).ready(function() {
   // on form submission ...
   $('#search').on('submit', function() {

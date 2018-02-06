@@ -1,4 +1,16 @@
 
+ $(function() {
+        $.ajax({
+            type:'GET',
+            url: '/_getJSON'
+            }).done(function (data){
+                q=data.answer;
+                newBingImageSearch(q, 'results', 'entity-img');
+                search(q);
+                loadResourcePage(data)
+            });
+        });
+
 function loadResourcePage(resourcejson){
 	// Javascript function JSON.parse to parse JSON data
     question = resourcejson.question;

@@ -1,6 +1,16 @@
 LIMIT = 3
 COUNT = 1
 
+$(function() {
+        $.ajax({
+            type:'GET',
+            url: '/_getJSON',
+            }).done(function (data){
+                loadListPage(data)
+            });
+        });
+
+
 function loadmore(resourcejson) {
     var listImg = []
     $(".list img").each(function () {
@@ -58,3 +68,5 @@ function loadListPage(resourcejson){
         COUNT = COUNT +1
     });
 }
+
+
