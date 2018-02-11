@@ -20,44 +20,93 @@ def autocomplete():
     return Response(json.dumps(results), mimetype='application/json')
 
 
+def processEarlResult(earlResult, question):
+    resultResourceDict = {
+      "question": question,
+      "answer": "No result found",
+      "entity": "No result found",
+      "type": "No result found",
+      "abstract": "No result found",
+      "summary":"No result found",
+      "recommendations":"No result found",
+      "related_entities":"No result found",
+      "similar_entities":"No result found",
+      "question_type":"resource"
+    }
+    resultListDict =  {
+      "question": question,
+      "answer": { "0": "No result found"
+      },
+      "abstract":{ "0": "No result found"
+      },
+      "question_type":"list"
+    }
+    resultBolDict = {
+      "question": question,
+      "answer": "No result found",
+      "question_type":"bol"
+    }
+    resultLiteralDict = {
+      "question": question,
+      "answer": "No result found",
+      "question_type":"literal"
+    }
+    count = 0
+    for item in earlResult:
+        for k,v in item[0].iteritems():
+            uri = v['value']
+            q = """select ?label ?abstract where {
+                   <%s> rdfs:label ?label .
+                   <%s> dbo:abstract ?abstract .
+                   }"""%(uri,uri)
+            url = "http://dbpedia.org/sparql"
+            p = {'query': q}
+            h = {'Accept': 'application/json'}
+            try:
+                r = requests.get(url, params=p, headers=h)
+                d =json.loads(r.text)
+            except Exception,e:
+                print e
+            try:
+                for row in d['results']['bindings']:
+                    if 'abstract' in row and 'label' in row:
+                        if row['abstract']['xml:lang'] == 'en' and row['label']['xml:lang'] == 'en':
+                            #print row,count
+                            resultListDict['answer'][str(count)] = row['label']['value']
+                            resultListDict['abstract'][str(count)] = row['abstract']['value']
+                            count += 1
+            except Exception,e:
+                print e 
+
+    #print resultListDict 
+    return resultListDict
+    
+
 #get resource json
 @app.route('/_getJSON', methods=['POST', 'GET'])
-def getJSON():  
+def getJSON():
     if request.method == 'POST':
         question = request.form.get('question')
-        print('get input')
         global QUESTION
         QUESTION = question
-
-    SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
-    json_url = os.path.join(SITE_ROOT, "data", "resource.json")
-    resourceJSON = json.load(open(json_url))   
-    #get the question  
-    #print("#"*20)
-    #print(QUESTION)
-    for item in resourceJSON:
-        if item["question"]==QUESTION:
-            returnedJSON=item
-  
-    return Response(json.dumps(returnedJSON), mimetype='application/json')   
+    print(QUESTION)
+    inputDict = {'nlquery':QUESTION}
+    r = requests.post("http://localhost:5001/processQuery", data=json.dumps(inputDict), headers={"content-type": "application/json"})
+    earlResult = json.loads(r.text)
+    resourceDict = processEarlResult(earlResult, QUESTION)
+    return Response(json.dumps(resourceDict), mimetype='application/json')   
 
 
 # index part
 # question name
 @app.route('/', methods=['GET', 'POST'])
 def index():  
-    #if request.method == 'POST':
-     #   question = request.form.get('question')
-        #question_type = getTypeofQuestion(question)
-        #data = {"type": str(question_type)}
-        #return jsonify(data)
     return render_template('index.html')
 
 
 
 @app.route('/resource', methods=['GET', 'POST'])
 def showResource(): 
-    
     if request.method == 'GET':
         question=request.args.get('question')
         if question is None:
