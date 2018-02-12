@@ -11,12 +11,12 @@ app = Flask(__name__, static_url_path='/static')
 #Autocomplete part...... 
 @app.route('/_autocomplete', methods=['POST'])
 def autocomplete():  
-    SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
-    json_url = os.path.join(SITE_ROOT, "data", "qa.json")
-    data = json.load(open(json_url))
+    #SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
+    #json_url = os.path.join(SITE_ROOT, "data", "qa.json")
+    #data = json.load(open(json_url))
     results=[]
-    for item in data:
-        results.append(item["question"])
+    #for item in data:
+    #    results.append(item["question"])
     return Response(json.dumps(results), mimetype='application/json')
 
 
@@ -91,7 +91,7 @@ def getJSON():
         QUESTION = question
     print(QUESTION)
     inputDict = {'nlquery':QUESTION}
-    r = requests.post("http://localhost:5001/processQuery", data=json.dumps(inputDict), headers={"content-type": "application/json"})
+    r = requests.post("http://localhost:4999/processQuery", data=json.dumps(inputDict), headers={"content-type": "application/json"})
     earlResult = json.loads(r.text)
     resourceDict = processEarlResult(earlResult, QUESTION)
     return Response(json.dumps(resourceDict), mimetype='application/json')   
@@ -109,8 +109,6 @@ def index():
 def showResource(): 
     if request.method == 'GET':
         question=request.args.get('question')
-        if question is None:
-            question='Who is the president of USA?'
         global QUESTION
         QUESTION=question
         return render_template('resource.html') 
@@ -121,8 +119,6 @@ def showResource():
 def showList():
     if request.method == 'GET':
         question=request.args.get('question')
-        if question is None:
-            question='List the people who were president of USA.'
         global QUESTION
         QUESTION=question
         return render_template('list.html') 
@@ -132,8 +128,6 @@ def showList():
 def showLiteral():
     if request.method == 'GET':
         question=request.args.get('question')
-        if question is None:
-            question='How high is Sagarmatha Mountain?'
         global QUESTION
         QUESTION=question
         return render_template('literal.html') 
@@ -143,8 +137,6 @@ def showLiteral():
 def showBoolean():
     if request.method == 'GET':
         question=request.args.get('question')
-        if question is None:
-            question='Is the Sagarmatha Mountain the highest mountain?'
         global QUESTION
         QUESTION=question
         return render_template('bol.html') 
@@ -161,5 +153,5 @@ def not_found(error):
 
 
 if __name__ == '__main__':
-    app.run(debug = True)
+    app.run(debug = True, port=5001)
 
