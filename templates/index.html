@@ -14,7 +14,7 @@
     <link rel="stylesheet" type="text/css"  href="{{ url_for('static', filename='css/font-awesome.min.css') }}">
     <link rel="stylesheet" type="text/css"  href="{{ url_for('static', filename='css/styleSwitcher.css') }}">
     <link rel="stylesheet" type="text/css"  href="{{ url_for('static', filename='css/asknow.css') }}">
-    <link rel="stylesheet" type="text/css"  id='mainCSS'href="{{ url_for('static', filename='css/green.css') }}">
+    <link rel="stylesheet" type="text/css"  id='mainCSS' href="{{ url_for('static', filename='css/green.css') }}">
     <!-- Google Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css' />
 
@@ -35,7 +35,6 @@
     </ul>
 </div>
 <!--END STYLE SWITCHER-->
-
 
 
 <div class="navbar navbar-inverse navbar-fixed-top move-me" id="menu">
@@ -64,21 +63,28 @@
     <div class="overlay">
         <div class="container">
             <div class="row text-center" >
-                <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
+                <div id='asknow' class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
                     <h1 data-scroll-reveal="enter from the bottom after 0.1s">
-                        <img src="static/img/logo.svg" alt=""  />
+                        <img class='logo-asknow' src="static/img/logo.svg" alt=""  />
                     </h1>
                     <form id="search" role="form" method="post" onsubmit="return false;">
                         <input id="question" name="question" type="text"  placeholder="Search the knowledge base......" />
-                        <input type="submit" value='Search'/>
+                        <button  type=button id='start' class ='start' disabled></button>
+                        <input type="submit" id='submit' value='Search'/>
                     </form>
-                    <br/>
+                    <h2 hidden id='listen' >Listening...&nbsp;&nbsp;&nbsp;&nbsp;</h2>
+                    <button id='stop' hidden class='stop' >Stop</button>
+                    <ul id="recordingslist"></ul>                  
+                    <span id='loader'></span>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
+
+<span id="serverStatusBar" title="Number of available workers" hidden></span>
+<pre id="log" hidden ></pre>
 
 <!--HEADER SECTION END-->
 <section class="samples" id="samples">
@@ -141,27 +147,27 @@
 
                 </div>
 
-                <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-6" data-scroll-reveal="enter from the right after 0.2s">
+                <div id='container' class="row">
+                    <div id='left' class="col-lg-6  col-md-6 col-sm-6 " data-scroll-reveal="enter from the right after 0.2s">
                         <h4>Developed by</h4>
                         <hr>
                         <div class="row" >
-                            <div class="col-lg-4 col-md-4 col-sm-4" data-scroll-reveal="enter from the left after 0.2s" >
+                            <div class="col-lg-4 col-md-4 col-sm-4" style='padding-bottom: 30px' data-scroll-reveal="enter from the left after 0.2s" >
                                 <img src="static/img/uni_Logo.png" class="img-responsive" alt=""  />
                             </div>
 
-                            <div class="col-lg-4 col-md-4 col-sm-4" data-scroll-reveal="enter from the bottom after 0.2s" >
+                            <div class="col-lg-4 col-md-4 col-sm-4" style='padding-bottom: 30px' data-scroll-reveal="enter from the bottom after 0.2s" >
                                 <img src="static/img/sda.png" class="img-responsive" alt=""  />
                             </div>
 
-                            <div class="col-lg-4 col-md-4 col-sm-4" data-scroll-reveal="enter from the right after 0.2s" >
+                            <div class="col-lg-4 col-md-4 col-sm-4" style='padding-bottom: 30px' data-scroll-reveal="enter from the right after 0.2s" >
                                 <img src="static/img/fraunhofer.png" class="img-responsive" alt=""  />
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-lg-6 col-md-6 col-sm-6" data-scroll-reveal="enter from the left after 0.4s">
-                        <div class="row text-right">
+                    <div id='right' class="col-lg-6  col-md-6 col-sm-6 text-right " data-scroll-reveal="enter from the left after 0.4s">
+
                             <ul class="list-inline ">
                                 <li class="list-inline-item">
                                     <a href="#">
@@ -195,7 +201,7 @@
                                 <a href="mailto:info@domain.com?Subject=Here%20is%20the%20subject" class="home-mail" target="_top">e-mail: info@domain.com</a>
                             </h5>
                         </div>
-                    </div>
+                    
                 </div>
             <br/>
                 <p class="copyright">Copyright &copy; AskNow 2017</p>
@@ -212,8 +218,12 @@
 <script src={{ url_for('static', filename='js/styleSwitcher.js') }}></script>
 <script src={{ url_for('static', filename='js/scrollReveal.js') }}></script>
 <script src={{ url_for('static', filename='js/asknow.js') }}></script>
-<script src={{ url_for('static', filename='js/imgSearch.js') }}></script>
-<script src={{ url_for('static', filename='js/videoSearch.js') }}></script>
+<script src={{ url_for('static', filename='js/dictate.js') }}></script>
+<script src={{ url_for('static', filename='js/recorder.js') }}></script>
+<script src={{ url_for('static', filename='js/recorderWorker.js') }}></script>
+<script src={{ url_for('static', filename='js/mob.js') }}></script>
+<!--script src={{ url_for('static', filename='js/recorder.js') }}></script-->
+<!--script src={{ url_for('static', filename='js/record.js') }}></script-->
 <script src={{ url_for('static', filename='js/index.js') }}></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
