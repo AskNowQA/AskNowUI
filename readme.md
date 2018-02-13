@@ -45,6 +45,7 @@ python3 app.py
 -----imgSearch.js: js for searching image and rendering in HTML template by using bing image search api
 -----videoSearch.js: js for searching video on youtubr and rendering in HTML template
 -----resource.js, list.js, litbol.js are for rendering json data in resource, list, literal, and boolean page respectively
+-----recorder.js, recorderWorker.js, dictate.js, mob.js are for recording audio function. See [Dictate.js](https://kaljurand.github.io/dictate.js/)
 
 --fonts: folder containing fonts style
 --img: logos, example images
