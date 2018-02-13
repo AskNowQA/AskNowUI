@@ -411,6 +411,7 @@ color: #FFF;
     max-height: 300px;
     max-width:240px;
 }
+
 @media all and (min-width: 40em) {
     .list-item {
         width: 50%;
@@ -440,6 +441,8 @@ color: #FFF;
    
     
 }
+
+/*the list content*/
 #service .list-content {
     background-color: #fff;
     padding: 1em;
@@ -448,13 +451,6 @@ color: #FFF;
     max-height: 300px;
     overflow:hidden;
 
-}
-
-#service .list-content-expanded {
-    background-color: #fff;
-    padding: 1em;
-    width: 100%;
-    padding-top: 10px;    
 }
 
 #service .list-content p {
@@ -473,6 +469,26 @@ color: #FFF;
     padding: 0.5em;
     border:1px solid rgb(227, 227, 227);
     text-align: center;
+}
+
+/*expand the list content*/
+#service .list-content-expanded {
+    background-color: #fff;
+    padding: 1em;
+    width: 100%;
+    padding-top: 10px;    
+}
+
+#service .list-content-expanded p {
+    flex: 1 0 auto;
+    font-size:16px;
+
+}
+
+#service .list-content-expanded a{
+    color:#777777;
+    text-align: left;
+    font-size:20px;
 }
 
 

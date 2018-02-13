@@ -27,6 +27,16 @@ function loadmore(resourcejson) {
 }
 
 
+$(document).on("click",".list-content", function () {
+   $(this).removeClass("list-content");
+   $(this).addClass('list-content-expanded') 
+});
+
+$(document).on("click",".list-content-expanded", function () {
+   $(this).removeClass("list-content-expanded");
+   $(this).addClass('list-content') 
+});
+
 
 function loadListPage(resourcejson){
     // Javascript function JSON.parse to parse JSON data
@@ -40,10 +50,10 @@ function loadListPage(resourcejson){
     }
     for (var i=0; i<LIMIT; i++){
         var newitem = "<div class='list-item'>" +
-        "          <div class='list-content'>" +
+        "          <div class='list-content' >" +
         "            <h2>"+answer[i]+"</h2>" +
         "            <p>"+abstract[i]+"</p>" +
-        "            <a>Show detailed</a>" +
+        "            <a href=''>Show detailed</a>" +
         "          </div>" +
         "        </div>"
     $(".list").append(newitem);
