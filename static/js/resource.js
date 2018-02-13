@@ -1,9 +1,12 @@
-
- $(function() {
+$("#loader").addClass('loader');
+$(".all-resources").hide()
+$(function() {   
         $.ajax({
             type:'GET',
             url: '/_getJSON'
-            }).done(function (data){
+            }).success(function (data){
+                $("#loader").removeClass('loader');
+                $(".all-resources").show()
                 q=data.answer;
                 newBingImageSearch(q, 'results', 'entity-img');
                 search(q);

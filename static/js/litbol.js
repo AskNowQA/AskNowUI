@@ -1,9 +1,10 @@
-
+$("#loader").addClass('loader');
 $(function() {
         $.ajax({
             type:'GET',
             url: '/_getJSON',
-            }).done(function (data){
+            }).success(function (data){
+                $("#loader").removeClass('loader');
                 loadLitBolPage(data)
             });
         });

@@ -1,11 +1,14 @@
 LIMIT = 3
 COUNT = 1
-
+$("#loader").addClass('loader');
 $(function() {
+        
+        $("#load").hide()
         $.ajax({
             type:'GET',
             url: '/_getJSON',
-            }).done(function (data){
+            }).success(function (data){
+                $("#loader").removeClass('loader');
                 loadListPage(data)
             });
         });
@@ -48,6 +51,7 @@ function loadListPage(resourcejson){
     if (length<LIMIT){
         LIMIT = length
     }
+    $("#load").show()
     for (var i=0; i<LIMIT; i++){
         var newitem = "<div class='list-item'>" +
         "          <div class='list-content' >" +
