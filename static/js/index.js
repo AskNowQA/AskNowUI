@@ -1,13 +1,10 @@
 
  $(function() {
         $.ajax({
-            type:'POST',
-            url: '/_autocomplete',
             }).done(function (data){
                 $('#question').autocomplete({
-                    source: data,
-                    minLength: 1, 
-
+                    source: '/_autocomplete',
+                    minLength: 3 
                 });
             });
         });
@@ -46,6 +43,8 @@ $(document).ready(function() {
         console.log(error)
       }
     });
-  });  
-});     
+  });
 
+
+});     
+ 

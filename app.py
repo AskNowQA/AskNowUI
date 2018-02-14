@@ -4,20 +4,22 @@ import json, sys
 import requests
 import os
 from sets import Set
+from elasticsearch import Elasticsearch
+
 
 app = Flask(__name__, static_url_path='/static')
 #bootstrap = Bootstrap(app)
-
+es = Elasticsearch()
 
 #Autocomplete part...... 
-@app.route('/_autocomplete', methods=['POST'])
-def autocomplete():  
-    #SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
-    #json_url = os.path.join(SITE_ROOT, "data", "qa.json")
-    #data = json.load(open(json_url))
-    results=[]
-    #for item in data:
-    #    results.append(item["question"])
+@app.route('/_autocomplete', methods=['GET'])
+def autocomplete():
+    search = request.args.get('term')
+    res = es.search(index='autocompleteindex1', doc_type='questions', body={"suggest": {"question-suggest": {"prefix": search,"completion": {"field": "question"}}}})
+    results = []
+    for entry in res['suggest']['question-suggest']:
+        for q in entry['options']:
+            results.append(q['text'])
     return Response(json.dumps(results), mimetype='application/json')
 
 
@@ -136,6 +138,7 @@ def getJSON():
         global QUESTION
         QUESTION = question
     print(QUESTION)
+    res = es.index(index="autocompleteindex1", doc_type='questions',  body={"question":{"input":[question]}}) #Store input questions for autocomplete
     inputDict = {'nlquery':QUESTION}
     r = requests.post("http://localhost:4999/processQuery", data=json.dumps(inputDict), headers={"content-type": "application/json"})
     earlResult = json.loads(r.text)
