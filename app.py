@@ -3,6 +3,7 @@ from flask import Flask, request, render_template, url_for, jsonify, Response, r
 import json, sys
 import requests
 import os
+from sets import Set
 
 app = Flask(__name__, static_url_path='/static')
 #bootstrap = Bootstrap(app)
@@ -51,34 +52,79 @@ def processEarlResult(earlResult, question):
       "answer": "No result found",
       "question_type":"literal"
     }
-    count = 0
+    
+    returnType = 'list'#default
+    s = Set()
     for item in earlResult:
         for k,v in item[0].iteritems():
-            uri = v['value']
-            q = """select ?label ?abstract where {
-                   <%s> rdfs:label ?label .
-                   <%s> dbo:abstract ?abstract .
-                   }"""%(uri,uri)
-            url = "http://dbpedia.org/sparql"
-            p = {'query': q}
-            h = {'Accept': 'application/json'}
-            try:
-                r = requests.get(url, params=p, headers=h)
-                d =json.loads(r.text)
-            except Exception,e:
-                print e
-            try:
-                for row in d['results']['bindings']:
-                    if 'abstract' in row and 'label' in row:
-                        if row['abstract']['xml:lang'] == 'en' and row['label']['xml:lang'] == 'en':
-                            #print row,count
-                            resultListDict['answer'][str(count)] = row['label']['value']
-                            resultListDict['abstract'][str(count)] = row['abstract']['value']
-                            count += 1
-            except Exception,e:
-                print e 
-
-    #print resultListDict 
+            if v['type'] != 'uri':
+                continue
+            s.add(v['value'])
+    print s
+    if len(s) == 0:
+        return resultListDict
+    elif len(s) == 1:
+        returnType = 'resource'
+        for item in earlResult:
+            for k,v in item[0].iteritems():
+                if v['type'] != 'uri':
+                    continue
+                uri = v['value']
+                q = """select ?label ?abstract where {
+                       <%s> rdfs:label ?label .
+                       <%s> dbo:abstract ?abstract .
+                       }"""%(uri,uri)
+                url = "http://dbpedia.org/sparql"
+                p = {'query': q}
+                h = {'Accept': 'application/json'}
+                try:
+                    r = requests.get(url, params=p, headers=h)
+                    d =json.loads(r.text)
+                except Exception,e:
+                    print e
+                try:
+                    for row in d['results']['bindings']:
+                        if 'abstract' in row and 'label' in row:
+                            if row['abstract']['xml:lang'] == 'en' and row['label']['xml:lang'] == 'en':
+                                #print row,count
+                                resultResourceDict['answer'] = row['label']['value']
+                                resultResourceDict['abstract'] = row['abstract']['value']
+                except Exception,e:
+                    print e
+        return resultResourceDict
+    elif len(s) > 1:
+        returnType = 'list'
+        count = 0
+        for item in earlResult:
+            for k,v in item[0].iteritems():
+                if v['type'] != 'uri':
+                    continue
+                uri = v['value']
+                q = """select ?label ?abstract where {
+                       <%s> rdfs:label ?label .
+                       <%s> dbo:abstract ?abstract .
+                       }"""%(uri,uri)
+                url = "http://dbpedia.org/sparql"
+                p = {'query': q}
+                h = {'Accept': 'application/json'}
+                try:
+                    r = requests.get(url, params=p, headers=h)
+                    d =json.loads(r.text)
+                except Exception,e:
+                    print e
+                try:
+                    for row in d['results']['bindings']:
+                        if 'abstract' in row and 'label' in row:
+                            if row['abstract']['xml:lang'] == 'en' and row['label']['xml:lang'] == 'en':
+                                #print row,count
+                                resultListDict['answer'][str(count)] = row['label']['value']
+                                resultListDict['abstract'][str(count)] = row['abstract']['value']
+                                count += 1
+                except Exception,e:
+                    print e 
+    
+        #print resultListDict 
+        return resultListDict
     return resultListDict
     
 
