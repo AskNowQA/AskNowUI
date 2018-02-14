@@ -139,7 +139,7 @@ def getJSON():
         global QUESTION
         QUESTION = question
     print(QUESTION)
-    res = es.index(index="autocompleteindex1", doc_type='questions',  body={"question":{"input":[question]}}) #Store input questions for autocomplete
+    res = es.index(index="autocompleteindex1", doc_type='questions',  body={"question":{"input":[QUESTION]}}) #Store input questions for autocomplete
     inputDict = {'nlquery':QUESTION}
     r = requests.post("http://localhost:4999/processQuery", data=json.dumps(inputDict), headers={"content-type": "application/json"})
     earlResult = json.loads(r.text)
