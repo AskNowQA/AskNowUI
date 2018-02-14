@@ -17,9 +17,10 @@ def autocomplete():
     search = request.args.get('term')
     res = es.search(index='autocompleteindex1', doc_type='questions', body={"suggest": {"question-suggest": {"prefix": search,"completion": {"field": "question"}}}})
     results = []
+    #print json.dumps(res)
     for entry in res['suggest']['question-suggest']:
         for q in entry['options']:
-            results.append(q['text'])
+            results.append(q['_source']['question']['input'][0])
     return Response(json.dumps(results), mimetype='application/json')
 
 
