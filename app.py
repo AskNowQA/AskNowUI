@@ -139,7 +139,7 @@ def getJSON():
         global QUESTION
         QUESTION = question
     print(QUESTION)
-    res = es.index(index="autocompleteindex1", doc_type='questions',  body={"question":{"input":[QUESTION]}}) #Store input questions for autocomplete
+    res = es.index(index="autocompleteindex1", doc_type='questions', id=QUESTION,  body={"question":{"input":[QUESTION]}}) #Store input questions for autocomplete
     inputDict = {'nlquery':QUESTION}
     r = requests.post("http://localhost:4999/processQuery", data=json.dumps(inputDict), headers={"content-type": "application/json"})
     earlResult = json.loads(r.text)
@@ -203,5 +203,5 @@ def not_found(error):
 
 
 if __name__ == '__main__':
-    app.run(debug = True, port=5001)
+    app.run(debug = True, threaded=True, port=5001)
 
