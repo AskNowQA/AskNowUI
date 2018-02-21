@@ -58,18 +58,23 @@ def processEarlResult(earlResult, question):
     
     returnType = 'list'#default
     s = Set()
-    for item in earlResult:
-        for k,v in item[0].iteritems():
+    for item in earlResult['answers']:
+        if not item:
+            continue
+        d = item[0]
+        for k,v in d.iteritems():
             if v['type'] != 'uri':
                 continue
             s.add(v['value'])
-    print s
     if len(s) == 0:
         return resultListDict
     elif len(s) == 1:
         returnType = 'resource'
-        for item in earlResult:
-            for k,v in item[0].iteritems():
+        for item in earlResult['answers']:
+            if not item:
+                continue
+            d1 = item[0]
+            for k,v in d1.iteritems():
                 if v['type'] != 'uri':
                     continue
                 uri = v['value']
@@ -98,8 +103,11 @@ def processEarlResult(earlResult, question):
     elif len(s) > 1:
         returnType = 'list'
         count = 0
-        for item in earlResult:
-            for k,v in item[0].iteritems():
+        print earlResult
+        for item in earlResult['answers']:
+            print item
+            d1 = item[0]
+            for k,v in d1.iteritems():
                 if v['type'] != 'uri':
                     continue
                 uri = v['value']
