@@ -30,12 +30,12 @@ function loadmore(resourcejson) {
 }
 
 
-$(document).on("click",".list-content", function () {
+$(document).on("click touchstart",".list-content", function () {
    $(this).removeClass("list-content");
    $(this).addClass('list-content-expanded') 
 });
 
-$(document).on("click",".list-content-expanded", function () {
+$(document).on("click touchstart",".list-content-expanded", function () {
    $(this).removeClass("list-content-expanded");
    $(this).addClass('list-content') 
 });
