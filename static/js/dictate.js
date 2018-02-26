@@ -10,7 +10,7 @@
 	// Send blocks 4 x per second as recommended in the server doc.
 	var INTERVAL = 250;
 	var TAG_END_OF_SENTENCE = "EOS";
-	var RECORDER_WORKER_PATH = "/static/js/recorderWorker.js";
+	var RECORDER_WORKER_PATH = "static/js/recorderWorker.js";
 	//var RECORDER_WORKER_PATH = "{{ url_for('static', filename='js/recorderWorker.js') }}"
 
 
