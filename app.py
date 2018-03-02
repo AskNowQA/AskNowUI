@@ -211,5 +211,5 @@ def not_found(error):
 
 
 if __name__ == '__main__':
-    app.run(debug = True, threaded=True, port=5001)
+    app.run(debug = True, threaded=True, port=int(sys.argv[1]))
 
