@@ -33,7 +33,6 @@ $(document).ready(function() {
       dataType: "json",
       success: function(results) {
     	document.getElementById("results").textContent = JSON.stringify(results);
-    	alert(JSON.stringify(results));
       },
       error: function(error) {
         console.log(error)
