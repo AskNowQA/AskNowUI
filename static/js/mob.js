@@ -19,9 +19,10 @@ var endPosition = 0;
 var doUpper = false;
 var doPrependSpace = true;
 
-var englishServer = "wss://bark.phon.ioc.ee:8443/english/duplex-speech-api/ws/speech|wss://bark.phon.ioc.ee:8443/english/duplex-speech-api/ws/status"
-
-
+var appConfig = AppConfig
+var speechSrv = appConfig.speechRecogSrv
+var qaSrv = appConfig.questionAnsSrv
+alert(qaSrv.api)
 
 function capitaliseFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -60,8 +61,8 @@ function prettyfyHyp(text, doCapFirst, doPrependSpace) {
 
 
 var dictate = new Dictate({
-		server : englishServer.split('|')[0],
-		serverStatus : englishServer.split('|')[1],
+		server : speechSrv.speech,
+		serverStatus : speechSrv.status,
 		recorderWorkerPath : "static/js/recorderWorker.js",
 		//recorderWorkerPath: {{ url_for('static', filename='js/recoderWorker.js') }}
 		onReadyForSpeech : function() {
@@ -142,6 +143,7 @@ var dictate = new Dictate({
 		onResults : function(hypos) {
 			hypText = prettyfyHyp(hypos[0].transcript, doUpper, doPrependSpace);
 			val = $("#question").val();
+			__sendQuestion(val)
 			$("#question").val(val.slice(0, startPosition) + hypText + val.slice(endPosition));        
 			startPosition = startPosition + hypText.length;			
 			endPosition = startPosition;
@@ -180,9 +182,31 @@ function __updatetranscript(text) {
 	$("#question").val(text);
 }
 
+function __sendQuestion(question){
+	var xhr = new XMLHttpRequest();
+	var url = qaSrv.api;
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json");
+	xhr.onreadystatechange = function () {
+		if(xhr.readyState === 4){
+			document.getElementById("results").textContent = 'Searching...';
+			if(xhr.status === 200){
+				var json = JSON.parse(xhr.responseText);
+		        document.getElementById("results").textContent = json.answer;
+			}else{
+				document.getElementById("results").textContent = "Sorry, could't find answer";
+			}
+		}
+	};
+	var arg = qaSrv.arg
+	var data = JSON.stringify({arg: question});
+	xhr.send(data);
+}
+
 // Public methods (called from the GUI)
 function toggleListening() {
 	$("#question").val("");
+	document.getElementById("results").textContent = "";
 	// needed, otherwise selectionStart will retain its old value
 	$("#question").prop("selectionStart", 0);	
 	$("#question").prop("selectionEnd", 0);	
@@ -214,9 +238,8 @@ $(document).ready(function() {
 
 	dictate.init();
 	dictate.cancel();
-	var servers = englishServer.split('|');
-	dictate.setServer(servers[0]);
-	dictate.setServerStatus(servers[1]);
+	dictate.setServer(speechSrv.speech);
+	dictate.setServerStatus(speechSrv.status);
 	$("#start").on( 'click', toggleListening );
 	//$("#stop").on( 'click', cancel );
 
