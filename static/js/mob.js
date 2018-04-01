@@ -22,7 +22,6 @@ var doPrependSpace = true;
 var appConfig = AppConfig
 var speechSrv = appConfig.speechRecogSrv
 var qaSrv = appConfig.questionAnsSrv
-alert(qaSrv.api)
 
 function capitaliseFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
