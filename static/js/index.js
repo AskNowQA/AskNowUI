@@ -27,20 +27,13 @@ $(document).ready(function() {
     
     $.ajax({
       type: "POST",
-      //url: "/",
-      url: '/_getJSON',
-      data : { 'question': question},
+      url: AppConfig.questionAnsSrv.api,
+      data : JSON.stringify({ 'nlquery': question}),
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
       success: function(results) {
-        $("#loader").removeClass('loader');
-        
-
-        var  entry = { "'": "&apos;", '"': '&quot;', '<': '&lt;', '>': '&gt;' };
-        question = question.replace(/(['")-><&\\\/\.])/g, function ($0) { return entry[$0] || $0; });     
-        var type = results.question_type;    
-        var string = '/'+type+'?question=' + question;
-        //redirect to the corresponding page
-        window.location.href = string;
-     
+    	document.getElementById("results").textContent = JSON.stringify(results);
+    	alert(JSON.stringify(results));
       },
       error: function(error) {
         console.log(error)
