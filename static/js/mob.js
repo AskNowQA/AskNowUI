@@ -75,7 +75,8 @@ var dictate = new Dictate({
 			$("#start").removeClass('start');
 			$("#start").addClass('end');
 			$("#submit").prop("disabled", true);
-            //$("#stop").show(); 
+            //$("#stop").show();
+			$("#listen").html('Starting...');  //TODO have to change content
             $("#listen").show(); 
             //$("#stop").prop("disabled", false);
 			//$("#buttonCancel").prop("disabled", false);
@@ -114,7 +115,7 @@ var dictate = new Dictate({
 			$("#start").removeClass('end');
 			$("#start").addClass('start');
 			$("#stop").hide();
-			$("#listen").html('Listening...');
+			//$("#listen").html('Listening...');
 			$("#listen").hide(); 
 			$("#stop").prop("disabled", true);
 
@@ -141,8 +142,9 @@ var dictate = new Dictate({
 		},
 		onResults : function(hypos) {
 			hypText = prettyfyHyp(hypos[0].transcript, doUpper, doPrependSpace);
+			dictate.stopListening();
+			isConnected = false;
 			val = $("#question").val();
-			__sendQuestion(val)
 			$("#question").val(val.slice(0, startPosition) + hypText + val.slice(endPosition));        
 			startPosition = startPosition + hypText.length;			
 			endPosition = startPosition;
@@ -181,30 +183,8 @@ function __updatetranscript(text) {
 	$("#question").val(text);
 }
 
-function __sendQuestion(question){
-	var xhr = new XMLHttpRequest();
-	var url = qaSrv.api;
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json");
-	xhr.onreadystatechange = function () {
-		if(xhr.readyState === 4){
-			document.getElementById("results").textContent = 'Searching...';
-			if(xhr.status === 200){
-				var json = JSON.parse(xhr.responseText);
-		        document.getElementById("results").textContent = json.answer;
-			}else{
-				document.getElementById("results").textContent = "Sorry, could't find answer";
-			}
-		}
-	};
-	var arg = qaSrv.arg
-	var data = JSON.stringify({arg: question});
-	xhr.send(data);
-}
-
 // Public methods (called from the GUI)
 function toggleListening() {
-	$("#question").val("");
 	document.getElementById("results").textContent = "";
 	// needed, otherwise selectionStart will retain its old value
 	$("#question").prop("selectionStart", 0);	
@@ -213,6 +193,7 @@ function toggleListening() {
 	if (isConnected) {
 		dictate.stopListening();
 	} else {
+		$("#question").val("");
 		dictate.startListening();
 	}
 	
