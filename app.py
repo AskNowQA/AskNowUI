@@ -58,7 +58,9 @@ def processEarlResult(earlResult, question):
     
     returnType = 'list'#default
     s = Set()
-    for item in earlResult['answers']:
+    if not earlResult:
+        return resultResourceDict
+    for item in earlResult:
         if not item:
             continue
         d = item[0]
@@ -70,7 +72,7 @@ def processEarlResult(earlResult, question):
         return resultListDict
     elif len(s) == 1:
         returnType = 'resource'
-        for item in earlResult['answers']:
+        for item in earlResult:
             if not item:
                 continue
             d1 = item[0]
@@ -78,11 +80,8 @@ def processEarlResult(earlResult, question):
                 if v['type'] != 'uri':
                     continue
                 uri = v['value']
-                q = """select ?label ?abstract where {
-                       <%s> rdfs:label ?label .
-                       <%s> dbo:abstract ?abstract .
-                       }"""%(uri,uri)
-                url = "http://dbpedia.org/sparql"
+                q = """select ?label ?abstract where { <%s> rdfs:label ?label . <%s> <http://dbpedia.org/ontology/abstract> ?abstract . }"""%(uri,uri)
+                url = "http://131.220.9.219/sparql"
                 p = {'query': q}
                 h = {'Accept': 'application/json'}
                 try:
@@ -104,18 +103,15 @@ def processEarlResult(earlResult, question):
         returnType = 'list'
         count = 0
         print earlResult
-        for item in earlResult['answers']:
+        for item in earlResult:
             print item
             d1 = item[0]
             for k,v in d1.iteritems():
                 if v['type'] != 'uri':
                     continue
                 uri = v['value']
-                q = """select ?label ?abstract where {
-                       <%s> rdfs:label ?label .
-                       <%s> dbo:abstract ?abstract .
-                       }"""%(uri,uri)
-                url = "http://dbpedia.org/sparql"
+                q = """select ?label ?abstract where { <%s> rdfs:label ?label . <%s> <http://dbpedia.org/ontology/abstract> ?abstract . }"""%(uri,uri)
+                url = "http://131.220.9.219/sparql"
                 p = {'query': q}
                 h = {'Accept': 'application/json'}
                 try:
@@ -149,7 +145,7 @@ def getJSON():
     print(QUESTION)
     res = es.index(index="autocompleteindex1", doc_type='questions', id=QUESTION,  body={"question":{"input":[QUESTION]}}) #Store input questions for autocomplete
     inputDict = {'nlquery':QUESTION}
-    r = requests.post("http://localhost:4999/processQuery", data=json.dumps(inputDict), headers={"content-type": "application/json"})
+    r = requests.post("http://localhost:4999/answer", data=json.dumps(inputDict), headers={"content-type": "application/json"})
     earlResult = json.loads(r.text)
     resourceDict = processEarlResult(earlResult, QUESTION)
     return Response(json.dumps(resourceDict), mimetype='application/json')   
