@@ -7,18 +7,12 @@
 //  - tt: simple structure for managing the list of hypotheses
 //  - dictate: dictate object with control methods 'init', 'startListening', ...
 //       and event callbacks onResults, onError, ...
-
-
-
 var isConnected = false;
-
 var tt = new Transcription();
-
 var startPosition = 0;
 var endPosition = 0;
 var doUpper = false;
 var doPrependSpace = true;
-
 var appConfig = AppConfig
 var speechSrv = appConfig.speechRecogSrv
 var qaSrv = appConfig.questionAnsSrv
@@ -46,18 +40,17 @@ function prettyfyHyp(text, doCapFirst, doPrependSpace) {
 		} else {
 			text = text + token;
 		}
-		if (token == "." ||  /\n$/.test(token)) {							
+		if (token == "." ||  /\n$/.test(token)) {
 			doCapitalizeNext = true;
 		} else {
 			doCapitalizeNext = false;
-		}						
+		}
 	});
-	
+
 	text = text.replace(/ ([,.!?:;])/g,  "\$1");
 	text = text.replace(/ ?\n ?/g,  "\n");
 	return text;
-}	
-
+}
 
 var dictate = new Dictate({
 		server : speechSrv.speech,
@@ -77,7 +70,7 @@ var dictate = new Dictate({
 			$("#submit").prop("disabled", true);
             //$("#stop").show();
 			$("#listen").html('Starting...');  //TODO have to change content
-            $("#listen").show(); 
+            $("#listen").show();
             //$("#stop").prop("disabled", false);
 			//$("#buttonCancel").prop("disabled", false);
 			startPosition = $("#question").prop("selectionStart");
@@ -97,8 +90,8 @@ var dictate = new Dictate({
 			//$("#buttonToggleListening").prop("disabled", true);
 			$("#stop").hide();
 			$("#listen").html('Stopping...');
-            $("#start").prop("disabled", true);
-            $("#submit").prop("disabled", true);
+      //$("#start").prop("disabled", true);
+      $("#submit").prop("disabled", true);
 		},
 		onEndOfSession : function() {
 			//alert(isConnected)
@@ -116,7 +109,7 @@ var dictate = new Dictate({
 			$("#start").addClass('start');
 			$("#stop").hide();
 			//$("#listen").html('Listening...');
-			$("#listen").hide(); 
+			$("#listen").hide();
 			$("#stop").prop("disabled", true);
 
 		},
@@ -127,16 +120,16 @@ var dictate = new Dictate({
 			// then disable the Start/Stop button.
 			if (json.num_workers_available == 0 && ! isConnected) {
 				//$("#buttonToggleListening").prop("disabled", true);
-				$("#start").prop("disabled", true);				
+				$("#start").prop("disabled", true);
 			} else {
 				//$("#buttonToggleListening").prop("disabled", false);
-				$("#start").prop("disabled", false);				
+				$("#start").prop("disabled", false);
 			}
 		},
 		onPartialResults : function(hypos) {
 			hypText = prettyfyHyp(hypos[0].transcript, doUpper, doPrependSpace);
 			val = $("#question").val();
-			$("#question").val(val.slice(0, startPosition) + hypText + val.slice(endPosition));        
+			$("#question").val(val.slice(0, startPosition) + hypText + val.slice(endPosition));
 			endPosition = startPosition + hypText.length;
 			$("#question").prop("selectionStart", endPosition);
 		},
@@ -145,8 +138,8 @@ var dictate = new Dictate({
 			dictate.stopListening();
 			isConnected = false;
 			val = $("#question").val();
-			$("#question").val(val.slice(0, startPosition) + hypText + val.slice(endPosition));        
-			startPosition = startPosition + hypText.length;			
+			$("#question").val(val.slice(0, startPosition) + hypText + val.slice(endPosition));
+			startPosition = startPosition + hypText.length;
 			endPosition = startPosition;
 			$("#question").prop("selectionStart", endPosition);
 			if (/\. *$/.test(hypText) ||  /\n *$/.test(hypText)) {
@@ -156,6 +149,10 @@ var dictate = new Dictate({
 			}
 			doPrependSpace = (hypText.length > 0) && !(/\n *$/.test(hypText));
 		},
+    onDialogueResults : function(reply) {
+      console.log(reply);
+  		document.getElementById("results").innerHTML = reply;
+    },
 		onError : function(code, data) {
 			dictate.cancel();
 			__error(code, data);
@@ -164,7 +161,7 @@ var dictate = new Dictate({
 		onEvent : function(code, data) {
 			__message(code, data);
 		}
-	});
+});
 
 // Private methods (called from the callbacks)
 function __message(code, data) {
@@ -187,41 +184,38 @@ function __updatetranscript(text) {
 function toggleListening() {
 	document.getElementById("results").textContent = "";
 	// needed, otherwise selectionStart will retain its old value
-	$("#question").prop("selectionStart", 0);	
-	$("#question").prop("selectionEnd", 0);	
-	
+	$("#question").prop("selectionStart", 0);
+	$("#question").prop("selectionEnd", 0);
+  console.log(isConnected)
 	if (isConnected) {
-		dictate.stopListening();
+		dictate.stopListeningAndCloseConnection();
+    dictate.cancel();
 	} else {
 		$("#question").val("");
 		dictate.startListening();
 	}
-	
 	//dictate.startListening();
 }
 
 function cancel() {
-	
+
 	//dictate.stopListening();
-	
+
 	//dictate.cancel();
 }
 
-function clearTranscription() {	
+function clearTranscription() {
 	$("#question").val("");
 	// needed, otherwise selectionStart will retain its old value
-	$("#question").prop("selectionStart", 0);	
-	$("#question").prop("selectionEnd", 0);	
+	$("#question").prop("selectionStart", 0);
+	$("#question").prop("selectionEnd", 0);
 }
 
 $(document).ready(function() {
-
 	dictate.init();
 	dictate.cancel();
 	dictate.setServer(speechSrv.speech);
 	dictate.setServerStatus(speechSrv.status);
 	$("#start").on( 'click', toggleListening );
 	//$("#stop").on( 'click', cancel );
-
-
 });

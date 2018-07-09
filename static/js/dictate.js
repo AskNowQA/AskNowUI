@@ -1,6 +1,5 @@
 
 (function(window){
-	 
 
 	// Defaults
 	var SERVER = "ws://bark.phon.ioc.ee:82/dev/duplex-speech-api/ws/speech";
@@ -141,7 +140,27 @@
 				// Push the remaining audio to the server
 				recorder.export16kMono(function(blob) {
 					socketSend(blob);
+					//socketSend(TAG_END_OF_SENTENCE);
+					recorder.clear();
+				}, 'audio/x-raw');
+				config.onEndOfSpeech();
+			} else {
+				config.onError(ERR_AUDIO, "Recorder undefined");
+			}
+		}
+
+		this.stopListeningAndCloseConnection = function(){
+			// Stop the regular sending of audio
+			clearInterval(intervalKey);
+			// Stop recording
+			if (recorder) {
+				recorder.stop();
+				config.onEvent(MSG_STOP, 'Stopped recording');
+				// Push the remaining audio to the server
+				recorder.export16kMono(function(blob) {
+					socketSend(blob);
 					socketSend(TAG_END_OF_SENTENCE);
+					console.log("End of Sentence Singal Sent!")
 					recorder.clear();
 				}, 'audio/x-raw');
 				config.onEndOfSpeech();
@@ -209,7 +228,7 @@
                         //Firefox loses the audio input stream every five seconds
                         // To fix added the input to window.source
                         window.source = input;
-                        
+
 			// make the analyser available in window context
 			window.userSpeechAnalyser = audioContext.createAnalyser();
 			input.connect(window.userSpeechAnalyser);
@@ -245,7 +264,6 @@
 			}
 		}
 
-
 		function createWebSocket() {
 			// TODO: do we need to use a protocol?
 			//var ws = new WebSocket("ws://127.0.0.1:8081", "echo-protocol");
@@ -259,6 +277,7 @@
 			var ws = new WebSocket(url);
 
 			ws.onmessage = function(e) {
+				console.log(e);
 				var data = e.data;
 				config.onEvent(MSG_WEB_SOCKET, data);
 				if (data instanceof Object && ! (data instanceof Blob)) {
@@ -275,7 +294,11 @@
 								config.onPartialResults(res.result.hypotheses);
 							}
 						}
-					} else {
+					}
+					else if(res.answers){
+						config.onDialogueResults(res.answers)
+					}
+					else {
 						config.onError(ERR_SERVER, 'Server error: ' + res.status + ': ' + getDescription(res.status));
 					}
 				}
@@ -293,6 +316,7 @@
 				recorder.record();
 				config.onReadyForSpeech();
 				config.onEvent(MSG_WEB_SOCKET_OPEN, e);
+				console.log("server connencted!");
 			};
 
 			// This can happen if the blob was too big
@@ -309,16 +333,18 @@
 				// when its endpointer triggers.
 				config.onEndOfSession();
 				config.onEvent(MSG_WEB_SOCKET_CLOSE, e.code + "/" + e.reason + "/" + e.wasClean);
+				console.log("connection closed");
 			};
 
 			ws.onerror = function(e) {
 				var data = e.data;
+				console.log("error");
+				console.log(e);
 				config.onError(ERR_NETWORK, data);
 			}
 
 			return ws;
 		}
-
 
 		function monitorServerStatus() {
 			if (wsServerStatus) {
@@ -330,14 +356,12 @@
 			};
 		}
 
-
 		function getDescription(code) {
 			if (code in SERVER_STATUS_CODE) {
 				return SERVER_STATUS_CODE[code];
 			}
 			return "Unknown error";
 		}
-
 	};
 
 	// Simple class for persisting the transcription.
