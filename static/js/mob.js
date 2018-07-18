@@ -150,7 +150,6 @@ var dictate = new Dictate({
 			doPrependSpace = (hypText.length > 0) && !(/\n *$/.test(hypText));
 		},
     onDialogueResults : function(reply) {
-      console.log(reply);
   		document.getElementById("results").innerHTML = reply;
     },
 		onError : function(code, data) {
@@ -186,11 +185,12 @@ function toggleListening() {
 	// needed, otherwise selectionStart will retain its old value
 	$("#question").prop("selectionStart", 0);
 	$("#question").prop("selectionEnd", 0);
-  console.log(isConnected)
+  console.log(isConnected);
 	if (isConnected) {
 		dictate.stopListeningAndCloseConnection();
     dictate.cancel();
 	} else {
+    $("#loader").removeClass('loader');
 		$("#question").val("");
 		dictate.startListening();
 	}
