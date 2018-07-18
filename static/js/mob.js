@@ -186,7 +186,7 @@ function toggleListening() {
 	// needed, otherwise selectionStart will retain its old value
 	$("#question").prop("selectionStart", 0);
 	$("#question").prop("selectionEnd", 0);
-  console.log(isConnected)
+  console.log(isConnected);
 	if (isConnected) {
 		dictate.stopListeningAndCloseConnection();
     dictate.cancel();

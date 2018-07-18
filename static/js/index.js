@@ -1,4 +1,4 @@
-
+/*
  $(function() {
         $.ajax({
             type:'POST',
@@ -6,13 +6,13 @@
             }).done(function (data){
                 $('#question').autocomplete({
                     source: data,
-                    minLength: 1, 
+                    minLength: 1,
 
                 });
             });
         });
 
-
+*/
 
 $(document).ready(function() {
 
@@ -25,7 +25,7 @@ $(document).ready(function() {
     question = $('input[name="question"]').val();
     $("#loader").addClass('loader');
     document.getElementById("results").innerHTML = "";
-    
+
     $.ajax({
       type: "POST",
       url: AppConfig.questionAnsSrv.api,
@@ -41,10 +41,9 @@ $(document).ready(function() {
     	document.getElementById("results").innerHTML = formatted;
       },
       error: function(error) {
-    	
+
         console.log(error)
       }
     });
-  });  
-});     
-
+  });
+});
