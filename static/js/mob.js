@@ -150,7 +150,6 @@ var dictate = new Dictate({
 			doPrependSpace = (hypText.length > 0) && !(/\n *$/.test(hypText));
 		},
     onDialogueResults : function(reply) {
-      console.log(reply);
   		document.getElementById("results").innerHTML = reply;
     },
 		onError : function(code, data) {
