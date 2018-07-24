@@ -150,7 +150,7 @@ var dictate = new Dictate({
 			doPrependSpace = (hypText.length > 0) && !(/\n *$/.test(hypText));
 		},
     onDialogueResults : function(reply) {
-  		document.getElementById("results").innerHTML = reply;
+  		document.getElementById("results").innerHTML = reply[0];
     },
 		onError : function(code, data) {
 			dictate.cancel();
@@ -179,8 +179,19 @@ function __updatetranscript(text) {
 	$("#question").val(text);
 }
 
+function updateDialogues(text){
+  var node = document.createElement("li");  // Create a <li> node
+  var textnode = document.createTextNode(text);  // Create a text node
+  node.appendChild(textnode);
+  document.getElementById("dialogue").appendChild(node);
+}
+
 // Public methods (called from the GUI)
 function toggleListening() {
+  if($("#question").val()!=""){
+    updateDialogues($("#question").val());
+    updateDialogues(document.getElementById("results").textContent);
+  }
 	document.getElementById("results").textContent = "";
 	// needed, otherwise selectionStart will retain its old value
 	$("#question").prop("selectionStart", 0);

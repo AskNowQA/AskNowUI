@@ -117,15 +117,19 @@
 				config.onError(ERR_AUDIO, "Recorder undefined");
 				return;
 			}
-
 			if (ws) {
 				cancel();
 			}
-
 			try {
 				ws = createWebSocket();
 			} catch (e) {
 				config.onError(ERR_CLIENT, "No web socket support in this browser!");
+			}
+		}
+
+		this.sendExistingDialogue = function(){
+			if (ws){
+				socketSend(document.getElementById("dialogue").textContent);
 			}
 		}
 
@@ -267,7 +271,7 @@
 		function createWebSocket() {
 			// TODO: do we need to use a protocol?
 			//var ws = new WebSocket("ws://127.0.0.1:8081", "echo-protocol");
-			var url = config.server + '?' + config.contentType;
+			var url = config.server //+ '?' + config.contentType;
 			if (config["user_id"]) {
 				url += '&user-id=' + config["user_id"]
 			}
@@ -285,6 +289,7 @@
 				} else if (data instanceof Blob) {
 					config.onError(ERR_SERVER, 'WebSocket: got Blob');
 				} else {
+					console.log(data);
 					var res = JSON.parse(data);
 					if (res.status == 0) {
 						if (res.result) {
@@ -306,6 +311,10 @@
 
 			// Start recording only if the socket becomes open
 			ws.onopen = function(e) {
+				var dialog = "";
+				$("#dialogue li").each(function() { dialog = dialog + "|" + $(this).text(); });
+				console.log(dialog);
+				ws.send(dialog);
 				intervalKey = setInterval(function() {
 					recorder.export16kMono(function(blob) {
 						socketSend(blob);
