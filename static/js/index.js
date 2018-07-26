@@ -29,19 +29,20 @@ $(document).ready(function() {
     $.ajax({
       type: "POST",
       url: AppConfig.questionAnsSrv.api,
-      data : JSON.stringify({ 'nlquery': question}),
-      contentType: "application/json; charset=utf-8",
-      dataType: "json",
+      data : JSON.stringify(question),
+      contentType: "text/plain; charset=utf-8",
+      //dataType: "JSON",
       success: function(results) {
-    	$("#loader").removeClass('loader');
-    	var formatted = "";
-		for(var i=0; i<results["answers"].length; ++i){
-			formatted = formatted + results["answers"][i] + '<br>';
-		}
-    	document.getElementById("results").innerHTML = formatted;
+      	$("#loader").removeClass('loader');
+      	var formatted = "";
+        var ans = results["answers"][0];
+    		for(var i=0; i<results["answers"].length; ++i){
+    			formatted = formatted + results["answers"][i] + '<br>';
+    		}
+      	document.getElementById("results").innerHTML = ans.replace(new RegExp('<pad>', 'g'), "");
+        updateDialogues(ans.replace(new RegExp('<pad>', 'g'), ""));
       },
       error: function(error) {
-
         console.log(error)
       }
     });

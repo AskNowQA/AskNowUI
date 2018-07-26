@@ -69,11 +69,11 @@
                     </h1>
                     <form id="search" role="form" method="post" onsubmit="return false;">
                         <input id="question" name="question" type="text"  placeholder="Search the knowledge base......" />
-                        <button  type=button id='start' class ='start' disabled></button>
+                        <button type=button id='start' class ='start' value="true"></button>
                         <input type="submit" id='submit' value='Search'/>
                     </form>
                     <h2 hidden id='listen' >Listening...&nbsp;&nbsp;&nbsp;&nbsp;</h2>
-                    <button id='stop' hidden class='stop' >Stop</button>
+                    <!--<button id='stop' hidden class='stop' >Stop</button>-->
                     <ul id="recordingslist"></ul>
                     <span id='loader'></span>
                     <div id="results"></div>
@@ -109,7 +109,6 @@
         </div>
     </div>
 </section>
-
 
 <section class="contact" id="contact" >
     <div class="'overlay">
@@ -196,11 +195,13 @@
 <script src={{ url_for('static', filename='js/styleSwitcher.js') }}></script>
 <script src={{ url_for('static', filename='js/scrollReveal.js') }}></script>
 <script src={{ url_for('static', filename='js/asknow.js') }}></script>
-<script src={{ url_for('static', filename='js/dictate.js') }}></script>
+<!--<script src={{ url_for('static', filename='js/dictate.js') }}></script>-->
 <script src={{ url_for('static', filename='js/config.js') }}></script>
-<script src={{ url_for('static', filename='js/recorder.js') }}></script>
-<script src={{ url_for('static', filename='js/recorderWorker.js') }}></script>
-<script src={{ url_for('static', filename='js/mob.js') }}></script>
+<script src={{ url_for('static', filename='js/controller.js') }}></script>
+<script src={{ url_for('static', filename='js/speechRecognition.js') }}></script>
+<!--<script src={{ url_for('static', filename='js/recorder.js') }}></script>-->
+<!--<script src={{ url_for('static', filename='js/recorderWorker.js') }}></script>-->
+<!--<script src={{ url_for('static', filename='js/mob.js') }}></script>-->
 <!--script src={{ url_for('static', filename='js/recorder.js') }}></script-->
 <!--script src={{ url_for('static', filename='js/record.js') }}></script-->
 <script src={{ url_for('static', filename='js/index.js') }}></script>
