@@ -3,11 +3,7 @@ from flask import Flask, request, render_template, url_for, jsonify, Response, r
 import json, sys
 import requests
 import os
-from OpenSSL import SSL
 
-context = SSL.Context(SSL.SSLv23_METHOD)
-context.use_privatekey_file('/app/.key')
-context.use_certificate_file('/app/.crt')
 app = Flask(__name__, static_url_path='/static')
 #bootstrap = Bootstrap(app)
 
@@ -110,4 +106,4 @@ def not_found(error):
 
 
 if __name__ == '__main__':
-    app.run(debug = True, host='0.0.0.0', port=8301, ssl_context=context)
+    app.run(debug = True, host='0.0.0.0', port=8302)
