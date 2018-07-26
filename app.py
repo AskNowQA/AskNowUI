@@ -4,7 +4,7 @@ import json, sys
 import requests
 import os
 
-app = Flask(__name__, static_url_path='/static')
+app = Flask(__name__, static_url_path='/kdds/static')
 #bootstrap = Bootstrap(app)
 
 #Autocomplete part......
