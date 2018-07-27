@@ -5,6 +5,7 @@ import requests
 import os
 
 app = Flask(__name__, static_url_path='/kdds/static')
+app.url_map.strict_slashes = False
 #bootstrap = Bootstrap(app)
 
 #Autocomplete part......
@@ -41,7 +42,7 @@ def getJSON():
 
 # index part
 # question name
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/kdds', methods=['GET', 'POST'])
 def index():
     #if request.method == 'POST':
      #   question = request.form.get('question')
