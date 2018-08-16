@@ -12,16 +12,16 @@ app = Flask(__name__, static_url_path='/static')
 es = Elasticsearch()
 
 #Autocomplete part...... 
-@app.route('/_autocomplete', methods=['GET'])
-def autocomplete():
-    search = request.args.get('term')
-    res = es.search(index='autocompleteindex1', doc_type='questions', body={"suggest": {"question-suggest": {"prefix": search,"completion": {"field": "question"}}}})
-    results = []
-    #print json.dumps(res)
-    for entry in res['suggest']['question-suggest']:
-        for q in entry['options']:
-            results.append(q['_source']['question']['input'][0])
-    return Response(json.dumps(results), mimetype='application/json')
+#@app.route('/_autocomplete', methods=['GET'])
+#def autocomplete():
+#    search = request.args.get('term')
+#    res = es.search(index='autocompleteindex1', doc_type='questions', body={"suggest": {"question-suggest": {"prefix": search,"completion": {"field": "question"}}}})
+#    results = []
+#    #print json.dumps(res)
+#    for entry in res['suggest']['question-suggest']:
+#        for q in entry['options']:
+#            results.append(q['_source']['question']['input'][0])
+#    return Response(json.dumps(results), mimetype='application/json')
 
 
 def processEarlResult(earlResult, question):
@@ -29,6 +29,8 @@ def processEarlResult(earlResult, question):
       "question": question,
       "answer": "No result found",
       "entity": "No result found",
+      "earltop": "",
+      "sqg": "",
       "type": "No result found",
       "abstract": "No result found",
       "summary":"No result found",
@@ -43,17 +45,24 @@ def processEarlResult(earlResult, question):
       },
       "abstract":{ "0": "No result found"
       },
-      "question_type":"list"
+      "question_type":"list",
+      "earltop":"",
+      "sqg":""
+       
     }
     resultBolDict = {
       "question": question,
       "answer": "No result found",
-      "question_type":"bol"
+      "question_type":"bol",
+      "earltop": "",
+      "sqg": ""
     }
     resultLiteralDict = {
       "question": question,
       "answer": "No result found",
-      "question_type":"literal"
+      "question_type":"literal",
+      "earltop": "",
+      "sqg":""
     }
     
     returnType = 'list'#default
@@ -143,8 +152,8 @@ def getJSON():
         global QUESTION
         QUESTION = question
     print(QUESTION)
-    res = es.index(index="autocompleteindex1", doc_type='questions', id=QUESTION,  body={"question":{"input":[QUESTION]}}) #Store input questions for autocomplete
-    inputDict = {'nlquery':QUESTION}
+    #res = es.index(index="autocompleteindex1", doc_type='questions', id=QUESTION,  body={"question":{"input":[QUESTION]}}) #Store input questions for autocomplete
+    inputDict = {'nlquery':QUESTION, 'pagerankflag': True}
     r = requests.post("http://localhost:4999/answer", data=json.dumps(inputDict), headers={"content-type": "application/json"})
     earlResult = json.loads(r.text)
     resourceDict = processEarlResult(earlResult, QUESTION)
