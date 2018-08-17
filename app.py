@@ -69,26 +69,22 @@ def processEarlResult(earlResult, question):
     s = Set()
     if not earlResult:
         return resultResourceDict
-    for item in earlResult:
+    for item in earlResult[0]:
         if not item:
             continue
-        d = item[0]
-        for k,v in d.iteritems():
-            if v['type'] != 'uri':
-                continue
-            s.add(v['value'])
+        d = item['u_0']
+        if d['type'] == 'uri':
+            s.add(d['value'])
     if len(s) == 0:
         return resultListDict
     elif len(s) == 1:
         returnType = 'resource'
-        for item in earlResult:
+        for item in earlResult[0]:
             if not item:
                 continue
-            d1 = item[0]
-            for k,v in d1.iteritems():
-                if v['type'] != 'uri':
-                    continue
-                uri = v['value']
+            d1 = item['u_0']
+            if d1['type'] == 'uri':
+                uri = d1['value']
                 q = """select ?label ?abstract where { <%s> rdfs:label ?label . <%s> <http://dbpedia.org/ontology/abstract> ?abstract . }"""%(uri,uri)
                 url = "http://131.220.9.219/sparql"
                 p = {'query': q}
@@ -111,14 +107,10 @@ def processEarlResult(earlResult, question):
     elif len(s) > 1:
         returnType = 'list'
         count = 0
-        print earlResult
-        for item in earlResult:
-            print item
-            d1 = item[0]
-            for k,v in d1.iteritems():
-                if v['type'] != 'uri':
-                    continue
-                uri = v['value']
+        for item in earlResult[0]:
+            d1 = item['u_0']
+            if d1['type'] == 'uri':
+                uri = d1['value']
                 q = """select ?label ?abstract where { <%s> rdfs:label ?label . <%s> <http://dbpedia.org/ontology/abstract> ?abstract . }"""%(uri,uri)
                 url = "http://131.220.9.219/sparql"
                 p = {'query': q}
@@ -138,8 +130,6 @@ def processEarlResult(earlResult, question):
                                 count += 1
                 except Exception,e:
                     print e 
-    
-        #print resultListDict 
         return resultListDict
     return resultListDict
     
