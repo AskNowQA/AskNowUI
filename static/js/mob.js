@@ -62,7 +62,7 @@ function prettyfyHyp(text, doCapFirst, doPrependSpace) {
 var dictate = new Dictate({
 		server : englishServer.split('|')[0],
 		serverStatus : englishServer.split('|')[1],
-		recorderWorkerPath : "/static/js/recorderWorker.js",
+		recorderWorkerPath : "static/js/recorderWorker.js",
 		//recorderWorkerPath: {{ url_for('static', filename='js/recoderWorker.js') }}
 		onReadyForSpeech : function() {
 			isConnected = true;
