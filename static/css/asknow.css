@@ -124,7 +124,7 @@ ul.ui-autocomplete {
 }
 #menu {
     padding:10px;
-    background-color:#4bb777;
+    background-color:#FFF;
     color:#fff;
     font-size:12px;
     font-weight:900;
@@ -138,7 +138,7 @@ border-color:transparent;
 }
 
 .navbar-inverse .navbar-nav > li > a,.navbar-inverse .navbar-nav > li > a:hover {
-color: #FFF;
+color: #2683BE;
 }
 
 .home-mail {
