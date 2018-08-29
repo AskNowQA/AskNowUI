@@ -624,13 +624,24 @@ img.hover-shadow {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
 }
 
+#left{
+    margin-top: 60px;
+    width: 80%;
+    float: left;
+}
 
+#right{
+    width:20%;
+    float: right;
+    margin-top: 40px;
+}
 
 
  @media only screen and (max-width: 769px) {
     #left{
         width: 100%;
         text-align:center;
+        margin-top: 30px;
     }
 
     .contact img{
