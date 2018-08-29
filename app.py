@@ -3,7 +3,7 @@ from flask import Flask, request, render_template, url_for, jsonify, Response, r
 import json, sys
 import requests
 import os
-# from sets import Set
+from sets import Set
 from elasticsearch import Elasticsearch
 
 
@@ -92,8 +92,8 @@ def processEarlResult(earlResult, question):
                 try:
                     r = requests.get(url, params=p, headers=h)
                     d =json.loads(r.text)
-                except Exception as e:
-                    print (e)
+                except Exception,e:
+                    print e
                 try:
                     for row in d['results']['bindings']:
                         if 'abstract' in row and 'label' in row:
@@ -101,8 +101,8 @@ def processEarlResult(earlResult, question):
                                 #print row,count
                                 resultResourceDict['answer'] = row['label']['value']
                                 resultResourceDict['abstract'] = row['abstract']['value']
-                except Exception as e:
-                    print (e)
+                except Exception,e:
+                    print e
         return resultResourceDict
     elif len(s) > 1:
         returnType = 'list'
@@ -118,8 +118,8 @@ def processEarlResult(earlResult, question):
                 try:
                     r = requests.get(url, params=p, headers=h)
                     d =json.loads(r.text)
-                except Exception as e:
-                    print (e)
+                except Exception,e:
+                    print e
                 try:
                     for row in d['results']['bindings']:
                         if 'abstract' in row and 'label' in row:
@@ -128,8 +128,8 @@ def processEarlResult(earlResult, question):
                                 resultListDict['answer'][str(count)] = row['label']['value']
                                 resultListDict['abstract'][str(count)] = row['abstract']['value']
                                 count += 1
-                except Exception as e:
-                    print (e)
+                except Exception,e:
+                    print e 
         return resultListDict
     return resultListDict
     
@@ -206,8 +206,5 @@ def not_found(error):
 
 
 if __name__ == '__main__':
-    try:
-        port = int(sys.argv[1])
-    except:
-        app.run(debug = True, threaded=True, port=5000)
+    app.run(debug = True, threaded=True, port=int(sys.argv[1]))
 
