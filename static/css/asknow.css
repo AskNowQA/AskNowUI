@@ -122,14 +122,21 @@ ul.ui-autocomplete {
     margin-bottom: 10px;
 
 }
+
+@font-face {
+   font-family: "FGH";
+   src: url(../fonts/Frutiger LT Std 55 Roman Regular.otf);
+}
+
 #menu {
     padding:10px;
     background-color:#FFF;
     color:#fff;
     font-size:12px;
-    font-weight:900;
-    letter-spacing:1px;
+    font-weight:400;
+    letter-spacing:0.9px;
     min-height: 50px;
+    font-family: "FGH","Helvetica Neue",Helvetica,Arial,sans-serif;
    
 }
 
