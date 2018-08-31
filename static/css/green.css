@@ -5,7 +5,8 @@
 
 
 #menu {
-    background-color:rgba(130, 186, 130, 0.90);
+    /*background-color:rgba(130, 186, 130, 0.90);*/
+    background-color: #009474;
    
 }
 
@@ -15,7 +16,8 @@
 
 
 .header-sec .overlay{
-    background:rgba(85, 155, 107, 0.90);
+    /*background:rgba(85, 155, 107, 0.90);*/
+    background: #FFF;
 }
 
   /*=====================================
