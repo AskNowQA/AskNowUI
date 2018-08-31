@@ -177,7 +177,7 @@ color: #FFF;
 
 .header-sec .overlay{
     /*background:rgba(8, 134, 74, 0.90);*/
-    background: #FFF;
+    background-color: #FFF;
     min-height: 580px;
 }
 
