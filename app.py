@@ -144,9 +144,10 @@ def getJSON():
     print(QUESTION)
     #res = es.index(index="autocompleteindex1", doc_type='questions', id=QUESTION,  body={"question":{"input":[QUESTION]}}) #Store input questions for autocomplete
     inputDict = {'nlquery':QUESTION, 'pagerankflag': True}
-    r = requests.post("http://localhost:4999/answer", data=json.dumps(inputDict), headers={"content-type": "application/json"})
+    #r = requests.post("http://sda.tech/earl/api/answer", data=json.dumps(inputDict), headers={"content-type": "application/json"})
+    r = requests.post("https://asknowdemo.sda.tech/earl/api/answerdetail", data=json.dumps(inputDict), headers={"content-type": "application/json"})
     earlResult = json.loads(r.text)
-    resourceDict = processEarlResult(earlResult, QUESTION)
+    resourceDict = processEarlResult(earlResult['answers'], QUESTION)
     return Response(json.dumps(resourceDict), mimetype='application/json')   
 
 
