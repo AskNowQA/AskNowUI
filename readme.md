@@ -1,6 +1,6 @@
 # AskNow UI
 
-front end of question-answer system AskNow
+Front end for question-answer system "AskNow"
 
 ## Getting Started
 
