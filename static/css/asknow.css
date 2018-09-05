@@ -186,7 +186,7 @@ color: #FFF;
     padding-top:180px;
 }
 
-
+ 
 @-moz-document url-prefix(){
     
     #search input[type="text"] {
@@ -297,6 +297,39 @@ color: #FFF;
     width: auto;
     height: 48px;
 }
+
+
+#search input[type="submit"]:hover {
+    background: #016ABC;
+    color: #fff;
+    border: 1px solid rgb(121, 173, 222);
+    border-radius: 20px;
+    box-shadow: 2px 2px 2px rgb(121, 173, 222);
+    text-shadow:none;
+    font:  17px Roboto, Helvetica, Arial, sans-serif;
+}
+    .start{
+    background:url(../img/microphone.png) no-repeat 5px rgba(58, 116, 190, 0.8) ;   
+    background-size: 22px 22px;
+    border: 1px solid rgb(121, 173, 222);
+    border-radius: 13px;
+    box-shadow: 2px 2px 2px rgb(121, 173, 222);
+    width: 35px;
+    height: 48px;  
+    padding-bottom: 18px;
+        }
+    .start:hover  /* use Dot here */
+    {   
+        background:url(../img/microphone.png) no-repeat 5px #016ABC;
+        background-size: 22px 22px;
+        border: 1px solid rgb(121, 173, 222);
+        border-radius: 13px;
+        box-shadow: 2px 2px 2px rgb(121, 173, 222);
+        width: 35px;
+        padding-bottom: 18px;
+    }
+}
+
 
 .end{
     background:url(../img/end.png) no-repeat 5px rgba(58, 116, 190, 0.8) ;   
