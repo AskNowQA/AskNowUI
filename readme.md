@@ -4,9 +4,9 @@ front end of question-answer system AskNow
 
 ## Getting Started
 
-To run it:
+To run it (python 2.7 is required):
 ```
-python3 app.py
+python app.py
 ```
 
 
