@@ -148,6 +148,7 @@ def getJSON():
     r = requests.post("https://asknowdemo.sda.tech/earl/api/answerdetail", data=json.dumps(inputDict), headers={"content-type": "application/json"})
     earlResult = json.loads(r.text)
     resourceDict = processEarlResult(earlResult['answers'], QUESTION)
+    resourceDict['fullDetail'] = earlResult
     return Response(json.dumps(resourceDict), mimetype='application/json')   
 
 
