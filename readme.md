@@ -28,6 +28,8 @@ python app.py
 * [Jquery](https://jquery.com) - JavaScript library designed to simplify the client-side scripting of HTML
 
 
+See requirements.txt file for python dependencies.
+
 ### File structure
 
 * static folder: including css, js and img files for the frond end.
