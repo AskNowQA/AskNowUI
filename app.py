@@ -103,6 +103,28 @@ def processEarlResult(earlResult, question):
                                 resultResourceDict['abstract'] = row['abstract']['value']
                 except Exception,e:
                     print e
+                uri = d1['value']
+                print uri
+                q = """select distinct ?entityType ?label where {
+                        <%s> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?entityType . 
+                        ?entityType rdfs:label ?label  
+                        FILTER regex(?entityType, "http://dbpedia.org/ontology/") 
+                        FILTER langMatches( lang(?label), "EN") }"""%(uri)
+                url = "http://dbpedia.org/sparql"
+                p = {'query': q}
+                h = {'Accept': 'application/json'}
+                try:
+                    r = requests.get(url, params=p, headers=h)
+                    d =json.loads(r.text)
+                except Exception,e:
+                    print e
+                try:
+                    typeString = []
+                    for row in d['results']['bindings']:
+                        typeString.append(row['label']['value'])
+                    resultResourceDict['type'] = '/'.join(typeString)
+                except Exception,e:
+                    print e
         return resultResourceDict
     elif len(s) > 1:
         returnType = 'list'
