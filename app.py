@@ -86,11 +86,12 @@ def processEarlResult(earlResult, question):
             if d1['type'] == 'uri':
                 uri = d1['value']
                 q = """select ?label ?abstract where { <%s> rdfs:label ?label . <%s> <http://dbpedia.org/ontology/abstract> ?abstract . }"""%(uri,uri)
-                url = "http://131.220.9.219/sparql"
+                url = "http://dbpedia.org/sparql"
                 p = {'query': q}
                 h = {'Accept': 'application/json'}
+                proxydict = {"http":"http://webproxy.iai.uni-bonn.de:3128"}
                 try:
-                    r = requests.get(url, params=p, headers=h)
+                    r = requests.get(url, params=p, headers=h, proxies=proxydict)
                     d =json.loads(r.text)
                 except Exception,e:
                     print e
@@ -113,8 +114,9 @@ def processEarlResult(earlResult, question):
                 url = "http://dbpedia.org/sparql"
                 p = {'query': q}
                 h = {'Accept': 'application/json'}
+                proxydict = {"http":"http://webproxy.iai.uni-bonn.de:3128"}
                 try:
-                    r = requests.get(url, params=p, headers=h)
+                    r = requests.get(url, params=p, headers=h, proxies=proxydict)
                     d =json.loads(r.text)
                 except Exception,e:
                     print e
@@ -134,11 +136,12 @@ def processEarlResult(earlResult, question):
             if d1['type'] == 'uri':
                 uri = d1['value']
                 q = """select ?label ?abstract where { <%s> rdfs:label ?label . <%s> <http://dbpedia.org/ontology/abstract> ?abstract . }"""%(uri,uri)
-                url = "http://131.220.9.219/sparql"
+                url = "http://dbpedia.org/sparql"
                 p = {'query': q}
                 h = {'Accept': 'application/json'}
+                proxydict = {"http":"http://webproxy.iai.uni-bonn.de:3128"}
                 try:
-                    r = requests.get(url, params=p, headers=h)
+                    r = requests.get(url, params=p, headers=h, proxies=proxydict)
                     d =json.loads(r.text)
                 except Exception,e:
                     print e
