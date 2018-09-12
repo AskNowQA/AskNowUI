@@ -12,10 +12,11 @@
 
 
 
+
           //$("#loader").hide();
 
   // on form submission ...
-  function commence_search() {
+  $('#submit').on('click', function() {
 
     // grab values
     question = $('input[name="question"]').val();
@@ -42,7 +43,6 @@
         console.log(error)
       }
     });
+  });
 
-    return false;
-  }     
  

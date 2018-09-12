@@ -67,11 +67,11 @@
                     <h1 data-scroll-reveal="enter from the bottom after 0.1s">
                         <a href="http://asknow.sda.tech/"><img class='logo-asknow' src="static/img/AskNow_logo.png" alt=""  /></a>
                     </h1>
-                    <form id="search" role="form" method="post" onsubmit="commence_search()">
+                    <div id="search">
                         <input id="question" name="question" type="text" placeholder="Search the knowledge base......" />
                         <button  type=button id='start' class ='start' disabled></button>
                         <input type="submit" id='submit' value='Search'/>
-                    </form>
+                    </div>
                     <h2 hidden id='listen' >Listening...&nbsp;&nbsp;&nbsp;&nbsp;</h2>
                     <button id='stop' hidden class='stop' >Stop</button>
                     <ul id="recordingslist"></ul>                  
