@@ -16,7 +16,7 @@ $(document).ready(function() {
           //$("#loader").hide();
 
   // on form submission ...
-  $('#search').on('submit', function() {
+  function commence_search() {
 
     // grab values
     question = $('input[name="question"]').val();
@@ -43,7 +43,7 @@ $(document).ready(function() {
         console.log(error)
       }
     });
-  });
+  }
 
 
 });     
