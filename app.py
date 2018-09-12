@@ -2,6 +2,7 @@
 from flask import Flask, request, render_template, url_for, jsonify, Response, redirect, session
 import json, sys
 import requests
+from gevent.pywsgi import WSGIServer
 import os
 from sets import Set
 from elasticsearch import Elasticsearch
@@ -105,7 +106,6 @@ def processEarlResult(earlResult, question):
                 except Exception,e:
                     print e
                 uri = d1['value']
-                print uri
                 q = """select distinct ?entityType ?label where {
                         <%s> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?entityType . 
                         ?entityType rdfs:label ?label  
@@ -233,5 +233,6 @@ def not_found(error):
 
 
 if __name__ == '__main__':
-    app.run(debug = True, threaded=True, port=int(sys.argv[1]))
+    http_server = WSGIServer(('', int(sys.argv[1])), app)
+    http_server.serve_forever()
 
