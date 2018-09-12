@@ -11,7 +11,6 @@
 
 
 
-$(document).ready(function() {
 
           //$("#loader").hide();
 
@@ -43,8 +42,7 @@ $(document).ready(function() {
         console.log(error)
       }
     });
-  }
 
-
-});     
+    return false;
+  }     
  
