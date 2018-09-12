@@ -6,7 +6,7 @@ Front end for question-answer system "AskNow"
 
 To run it (python 2.7 is required):
 ```
-python app.py
+python app.py 5001
 ```
 
 
