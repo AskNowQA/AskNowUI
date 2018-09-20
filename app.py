@@ -65,11 +65,9 @@ def processEarlResult(earlResult, question):
       "earltop": "",
       "sqg":""
     }
-    
-    returnType = 'list'#default
     s = Set()
     if not earlResult:
-        return resultResourceDict
+        return {'question': question, 'question_type': "none"}
     for item in earlResult[0]:
         if not item:
             continue
@@ -228,6 +226,15 @@ def showBoolean():
         QUESTION=question
         return render_template('bol.html') 
     return render_template('bol.html')
+
+app.route('/none', methods=['GET', 'POST'])
+def showResource():
+    if request.method == 'GET':
+        question=request.args.get('question')
+        global QUESTION
+        QUESTION=question
+        return render_template('none.html')
+    return render_template('none.html')
 
 @app.route('/404')
 def showNothing():
