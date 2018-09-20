@@ -76,58 +76,66 @@ def processEarlResult(earlResult, question):
         d = item['u_0']
         if d['type'] == 'uri':
             s.add(d['value'])
+        if d['type'] == 'typed-literal':
+            s.add(d['value'])
     if len(s) == 0:
         return resultListDict
     elif len(s) == 1:
-        returnType = 'resource'
-        for item in earlResult[0]:
-            if not item:
-                continue
-            d1 = item['u_0']
-            if d1['type'] == 'uri':
-                uri = d1['value']
-                q = """select ?label ?abstract where { <%s> rdfs:label ?label . <%s> <http://dbpedia.org/ontology/abstract> ?abstract . }"""%(uri,uri)
-                url = "http://dbpedia.org/sparql"
-                p = {'query': q}
-                h = {'Accept': 'application/json'}
-                proxydict = {"http":"http://webproxy.iai.uni-bonn.de:3128"}
-                try:
-                    r = requests.get(url, params=p, headers=h, proxies=proxydict)
-                    d =json.loads(r.text)
-                except Exception,e:
-                    print e
-                try:
-                    for row in d['results']['bindings']:
-                        if 'abstract' in row and 'label' in row:
-                            if row['abstract']['xml:lang'] == 'en' and row['label']['xml:lang'] == 'en':
-                                #print row,count
-                                resultResourceDict['answer'] = row['label']['value']
-                                resultResourceDict['abstract'] = row['abstract']['value']
-                except Exception,e:
-                    print e
-                uri = d1['value']
-                q = """select distinct ?entityType ?label where {
-                        <%s> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?entityType . 
-                        ?entityType rdfs:label ?label  
-                        FILTER regex(?entityType, "http://dbpedia.org/ontology/") 
-                        FILTER langMatches( lang(?label), "EN") }"""%(uri)
-                url = "http://dbpedia.org/sparql"
-                p = {'query': q}
-                h = {'Accept': 'application/json'}
-                proxydict = {"http":"http://webproxy.iai.uni-bonn.de:3128"}
-                try:
-                    r = requests.get(url, params=p, headers=h, proxies=proxydict)
-                    d =json.loads(r.text)
-                except Exception,e:
-                    print e
-                try:
-                    typeString = []
-                    for row in d['results']['bindings']:
-                        typeString.append(row['label']['value'])
-                    resultResourceDict['type'] = '/'.join(typeString)
-                except Exception,e:
-                    print e
-        return resultResourceDict
+        print earlResult
+        if  earlResult[0][0]['u_0']['type'] == 'typed-literal':
+            returnType = 'literal'
+            resultLiteralDict["answer"] = earlResult[0][0]['u_0']['value']
+            return resultLiteralDict
+        else:
+            returnType = 'resource'
+            for item in earlResult[0]:
+                if not item:
+                    continue
+                d1 = item['u_0']
+                if d1['type'] == 'uri':
+                    uri = d1['value']
+                    q = """select ?label ?abstract where { <%s> rdfs:label ?label . <%s> <http://dbpedia.org/ontology/abstract> ?abstract . }"""%(uri,uri)
+                    url = "http://dbpedia.org/sparql"
+                    p = {'query': q}
+                    h = {'Accept': 'application/json'}
+                    proxydict = {"http":"http://webproxy.iai.uni-bonn.de:3128"}
+                    try:
+                        r = requests.get(url, params=p, headers=h, proxies=proxydict)
+                        d =json.loads(r.text)
+                    except Exception,e:
+                        print e
+                    try:
+                        for row in d['results']['bindings']:
+                            if 'abstract' in row and 'label' in row:
+                                if row['abstract']['xml:lang'] == 'en' and row['label']['xml:lang'] == 'en':
+                                    #print row,count
+                                    resultResourceDict['answer'] = row['label']['value']
+                                    resultResourceDict['abstract'] = row['abstract']['value']
+                    except Exception,e:
+                        print e
+                    uri = d1['value']
+                    q = """select distinct ?entityType ?label where {
+                            <%s> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?entityType . 
+                            ?entityType rdfs:label ?label  
+                            FILTER regex(?entityType, "http://dbpedia.org/ontology/") 
+                            FILTER langMatches( lang(?label), "EN") }"""%(uri)
+                    url = "http://dbpedia.org/sparql"
+                    p = {'query': q}
+                    h = {'Accept': 'application/json'}
+                    proxydict = {"http":"http://webproxy.iai.uni-bonn.de:3128"}
+                    try:
+                        r = requests.get(url, params=p, headers=h, proxies=proxydict)
+                        d =json.loads(r.text)
+                    except Exception,e:
+                        print e
+                    try:
+                        typeString = []
+                        for row in d['results']['bindings']:
+                            typeString.append(row['label']['value'])
+                        resultResourceDict['type'] = '/'.join(typeString)
+                    except Exception,e:
+                        print e
+            return resultResourceDict
     elif len(s) > 1:
         returnType = 'list'
         count = 0
@@ -169,7 +177,6 @@ def getJSON():
     print(QUESTION)
     #res = es.index(index="autocompleteindex1", doc_type='questions', id=QUESTION,  body={"question":{"input":[QUESTION]}}) #Store input questions for autocomplete
     inputDict = {'remote_addr': request.environ['HTTP_X_REAL_IP'],'nlquery':QUESTION, 'pagerankflag': True}
-    #r = requests.post("http://sda.tech/earl/api/answer", data=json.dumps(inputDict), headers={"content-type": "application/json"})
     r = requests.post("https://asknowdemo.sda.tech/earl/api/answerdetail", data=json.dumps(inputDict), headers={"content-type": "application/json"})
     earlResult = json.loads(r.text)
     resourceDict = processEarlResult(earlResult['answers'], QUESTION)
