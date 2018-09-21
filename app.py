@@ -175,11 +175,15 @@ def getJSON():
     print(QUESTION)
     #res = es.index(index="autocompleteindex1", doc_type='questions', id=QUESTION,  body={"question":{"input":[QUESTION]}}) #Store input questions for autocomplete
     inputDict = {'remote_addr': request.environ['HTTP_X_REAL_IP'],'nlquery':QUESTION, 'pagerankflag': True}
-    r = requests.post("https://asknowdemo.sda.tech/earl/api/answerdetail", data=json.dumps(inputDict), headers={"content-type": "application/json"})
-    earlResult = json.loads(r.text)
-    resourceDict = processEarlResult(earlResult['answers'], QUESTION)
-    resourceDict['fullDetail'] = earlResult
-    return Response(json.dumps(resourceDict), mimetype='application/json')   
+    try:
+        r = requests.post("https://asknowdemo.sda.tech/earl/api/answerdetail", data=json.dumps(inputDict), headers={"content-type": "application/json"})
+        earlResult = json.loads(r.text)
+        resourceDict = processEarlResult(earlResult['answers'], QUESTION)
+        resourceDict['fullDetail'] = earlResult
+        return Response(json.dumps(resourceDict), mimetype='application/json')   
+    except Exception,e:
+        print e
+        return Response(json.dumps({'question': QUESTION, 'question_type': "none"}), mimetype='application/json')
 
 
 # index part
