@@ -71,7 +71,7 @@ def processEarlResult(earlResult, question):
     for item in earlResult[0]:
         if not item:
             continue
-        d = item['u_0']
+        d = item.values()[0]
         if d['type'] == 'uri':
             s.add(d['value'])
         if d['type'] == 'typed-literal':
@@ -80,16 +80,16 @@ def processEarlResult(earlResult, question):
         return resultListDict
     elif len(s) == 1:
         print earlResult
-        if  earlResult[0][0]['u_0']['type'] == 'typed-literal':
+        if  earlResult[0][0].values()[0]['type'] == 'typed-literal':
             returnType = 'literal'
-            resultLiteralDict["answer"] = earlResult[0][0]['u_0']['value']
+            resultLiteralDict["answer"] = earlResult[0][0].values()[0]['value']
             return resultLiteralDict
         else:
             returnType = 'resource'
             for item in earlResult[0]:
                 if not item:
                     continue
-                d1 = item['u_0']
+                d1 = item.values()[0]
                 if d1['type'] == 'uri':
                     uri = d1['value']
                     q = """select ?label ?abstract where { <%s> rdfs:label ?label . <%s> <http://dbpedia.org/ontology/abstract> ?abstract . }"""%(uri,uri)
@@ -138,7 +138,7 @@ def processEarlResult(earlResult, question):
         returnType = 'list'
         count = 0
         for item in earlResult[0]:
-            d1 = item['u_0']
+            d1 = item.values()[0]
             if d1['type'] == 'uri':
                 uri = d1['value']
                 q = """select ?label ?abstract where { <%s> rdfs:label ?label . <%s> <http://dbpedia.org/ontology/abstract> ?abstract . }"""%(uri,uri)
