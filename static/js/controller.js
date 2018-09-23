@@ -9,13 +9,13 @@ $( document ).ready(function() {
 
 	speech.recognition.onend = function() {
 		$('#start').val("true");
-		updateDialogues($("#question").val());
+		//updateDialogues($("#question").val());
 		document.getElementById('listen').style.visibility = "hidden";
     }
 
 	$('#start').click(function(){
 		if ($('#start').val() == "true") {
-			document.getElementById("results").innerHTML = "";
+			//document.getElementById("results").innerHTML = "";
 			speech.startCapture();
 		}
 		else {

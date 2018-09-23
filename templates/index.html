@@ -69,12 +69,12 @@
                     </h1>
                     <div id="search">
                         <input id="question" name="question" type="text" placeholder="Search the knowledge base......" />
-                        <button  type=button id='start' class ='start' disabled></button>
+                        <button type=button id='start' class ='start' value="true"></button>
                         <input type="submit" id='submit' value='Search'/>
                     </div>
                     <h2 hidden id='listen' >Listening...&nbsp;&nbsp;&nbsp;&nbsp;</h2>
                     <button id='stop' hidden class='stop' >Stop</button>
-                    <ul id="recordingslist"></ul>                  
+                    <ul id="recordingslist"></ul>
                     <span id='loader'></span>
                 </div>
             </div>
@@ -162,7 +162,7 @@
                     </div>
 
                     <div id='right' class="col-lg-6  col-md-6 col-sm-6 text-right " data-scroll-reveal="enter from the left after 0.4s"
-                    >   
+                    >
                     <!-- style="float: right; width: 20%;" -->
 
                             <ul class="list-inline ">
@@ -198,7 +198,7 @@
                                 <a href="mailto:asknow@googlegroups.com?Subject=Here%20is%20the%20subject" class="home-mail" target="_top">e-mail: asknow[[at]]googlegroups.com</a>
                             </h5>
                         </div>
-                    
+
                 </div>
             <br/>
                 <p class="copyright">Copyright &copy; AskNow 2018</p>
@@ -215,10 +215,10 @@
 <script src={{ url_for('static', filename='js/styleSwitcher.js') }}></script>
 <script src={{ url_for('static', filename='js/scrollReveal.js') }}></script>
 <script src={{ url_for('static', filename='js/asknow.js') }}></script>
-<script src={{ url_for('static', filename='js/dictate.js') }}></script>
+<!--<script src={{ url_for('static', filename='js/dictate.js') }}></script>
 <script src={{ url_for('static', filename='js/recorder.js') }}></script>
 <script src={{ url_for('static', filename='js/recorderWorker.js') }}></script>
-<script src={{ url_for('static', filename='js/mob.js') }}></script>
+<script src={{ url_for('static', filename='js/mob.js') }}></script>-->
 <script src={{ url_for('static', filename='js/controller.js') }}></script>
 <script src={{ url_for('static', filename='js/speechRecognition.js') }}></script>
 <!--script src={{ url_for('static', filename='js/recorder.js') }}></script-->
