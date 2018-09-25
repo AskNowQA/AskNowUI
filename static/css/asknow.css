@@ -41,7 +41,8 @@ a:focus, a:hover {
     color: #777777; }
 
 a img:focus, a img:hover {
-    cursor: zoom-in; }
+    cursor: pointer;
+}
 
 blockquote {
     font-style: italic;
@@ -107,7 +108,7 @@ ul.ui-autocomplete {
 
 
 /*=====================================
-  NAVBAR STYLES 
+  NAVBAR STYLES
    ===================================*/
 .logo-custom {
     max-height:40px;
@@ -137,7 +138,7 @@ ul.ui-autocomplete {
     letter-spacing:0.9px;
     min-height: 50px;
     font-family: "FGH","Helvetica Neue",Helvetica,Arial,sans-serif;
-   
+
 }
 
 .navbar-inverse {
@@ -149,7 +150,7 @@ color: #FFF;
 }
 
 .home-mail {
-    font-size:12px; 
+    font-size:12px;
     font-weight:normal;
     padding-left:5px;
 }
@@ -162,7 +163,7 @@ color: #FFF;
     margin:5px;
 }
 /*=====================================
-  HEADERS STYLES 
+  HEADERS STYLES
     ===================================*/
 
 .header-sec {
@@ -186,9 +187,9 @@ color: #FFF;
     padding-top:180px;
 }
 
- 
+
 @-moz-document url-prefix(){
-    
+
     #search input[type="text"] {
     margin-top: 20px;
     background: url('../img/search.png') no-repeat 9px 11px  #fcfcfc;
@@ -237,19 +238,19 @@ color: #FFF;
     font:  17px Roboto, Helvetica, Arial, sans-serif;
 }
     .start{
-        background:url(../img/microphone.png) no-repeat 5px rgba(58, 116, 190, 0.8) ;   
+        background:url(../img/microphone.png) no-repeat 5px rgba(58, 116, 190, 0.8) ;
         background-size: 22px 22px;
         border: 1px solid rgb(121, 173, 222);
         border-radius: 13px;
         box-shadow: 2px 2px 2px rgb(121, 173, 222);
         width: 35px;
-        height: 50px; 
+        height: 50px;
         position: absolute;
         margin-top: 20px;
         margin-right: 30px;
     }
     .start:hover  /* use Dot here */
-{   
+{
     background:url(../img/microphone.png) no-repeat 5px #016ABC;
     background-size: 22px 22px;
     border: 1px solid rgb(121, 173, 222);
@@ -257,12 +258,35 @@ color: #FFF;
     box-shadow: 2px 2px 2px rgb(121, 173, 222);
     width: 35px;
 }
-    
-    
+
+.end{
+    background:url(../img/end.png) no-repeat 5px rgba(58, 116, 190, 0.8) ;
+    background-size: 22px 22px;
+    border: 1px solid rgb(121, 173, 222);
+    border-radius: 13px;
+    box-shadow: 2px 2px 2px rgb(121, 173, 222);
+    width: 35px;
+    height: 50px;
+    position: absolute;
+    margin-top: 20px;
+    margin-right: 30px;
+}
+
+.end:hover  /* use Dot here */
+{
+    background:url(../img/end.png) no-repeat 5px #016ABC;
+    background-size: 22px 22px;
+    border: 1px solid rgb(121, 173, 222);
+    border-radius: 13px;
+    box-shadow: 2px 2px 2px rgb(121, 173, 222);
+    width: 35px;
+}
+
+
 }
 
 @media screen and (-webkit-min-device-pixel-ratio:0){
-    
+
 #search input[type="text"] {
     margin-top: 20px;
     background: url('../img/search.png') no-repeat 9px 11px  #fcfcfc;
@@ -309,17 +333,17 @@ color: #FFF;
     font:  17px Roboto, Helvetica, Arial, sans-serif;
 }
     .start{
-    background:url(../img/microphone.png) no-repeat 5px rgba(58, 116, 190, 0.8) ;   
+    background:url(../img/microphone.png) no-repeat 5px rgba(58, 116, 190, 0.8) ;
     background-size: 22px 22px;
     border: 1px solid rgb(121, 173, 222);
     border-radius: 13px;
     box-shadow: 2px 2px 2px rgb(121, 173, 222);
     width: 35px;
-    height: 48px;  
+    height: 48px;
     padding-bottom: 18px;
         }
     .start:hover  /* use Dot here */
-    {   
+    {
         background:url(../img/microphone.png) no-repeat 5px #016ABC;
         background-size: 22px 22px;
         border: 1px solid rgb(121, 173, 222);
@@ -332,18 +356,18 @@ color: #FFF;
 
 
 .end{
-    background:url(../img/end.png) no-repeat 5px rgba(58, 116, 190, 0.8) ;   
+    background:url(../img/end.png) no-repeat 5px rgba(58, 116, 190, 0.8) ;
     background-size: 22px 22px;
     border: 1px solid rgb(121, 173, 222);
     border-radius: 13px;
     box-shadow: 2px 2px 2px rgb(121, 173, 222);
     width: 35px;
     height: 48px;
-    padding-bottom: 18px;  
+    padding-bottom: 18px;
 }
 
 .end:hover  /* use Dot here */
-{   
+{
     background:url(../img/end.png) no-repeat 5px #016ABC;
     background-size: 22px 22px;
     border: 1px solid rgb(121, 173, 222);
@@ -420,7 +444,7 @@ color: #FFF;
 
 
 /*=====================================
-  CONTACT STYLES 
+  CONTACT STYLES
    ===================================*/
 .contact {
     padding-top: 15px;
@@ -511,8 +535,8 @@ color: #FFF;
         display:none;
         text-align:left;
     }
-   
-   
+
+
 }
 @media all and (min-width: 60em) {
     .list-item {
@@ -525,8 +549,8 @@ color: #FFF;
         width: 50%;
         text-align:left;
     }
-   
-    
+
+
 }
 
 /*the list content*/
@@ -563,7 +587,7 @@ color: #FFF;
     background-color: #fff;
     padding: 1em;
     width: 100%;
-    padding-top: 10px;    
+    padding-top: 10px;
 }
 
 #service .list-content-expanded p {
@@ -726,7 +750,7 @@ img.hover-shadow {
         display:block;
         margin-left:auto;
         margin-right: auto;
-        
+
     }
 
     div.col-lg-4 .col-md-4 .col-sm-4{
