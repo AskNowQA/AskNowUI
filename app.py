@@ -135,34 +135,38 @@ def processEarlResult(earlResult, question):
                         print e
             return resultResourceDict
     elif len(s) > 1:
-        returnType = 'list'
-        count = 0
-        for item in earlResult[0]:
-            d1 = item.values()[0]
-            if d1['type'] == 'uri':
-                uri = d1['value']
-                q = """select ?label ?abstract where { <%s> rdfs:label ?label . <%s> <http://dbpedia.org/ontology/abstract> ?abstract . }"""%(uri,uri)
-                url = "http://dbpedia.org/sparql"
-                p = {'query': q}
-                h = {'Accept': 'application/json'}
-                proxydict = {"http":"http://webproxy.iai.uni-bonn.de:3128"}
-                try:
-                    r = requests.get(url, params=p, headers=h, proxies=proxydict)
-                    d =json.loads(r.text)
-                except Exception,e:
-                    print e
-                try:
-                    for row in d['results']['bindings']:
-                        if 'abstract' in row and 'label' in row:
-                            if row['abstract']['xml:lang'] == 'en' and row['label']['xml:lang'] == 'en':
-                                #print row,count
-                                resultListDict['answer'][str(count)] = row['label']['value']
-                                resultListDict['abstract'][str(count)] = row['abstract']['value']
-                                count += 1
-                except Exception,e:
-                    print e 
-        return resultListDict
-    return resultListDict
+        if  earlResult[0][0].values()[0]['type'] == 'typed-literal':
+            returnType = 'literal'
+            resultLiteralDict["answer"] = earlResult[0][0].values()[0]['value']
+            return resultLiteralDict
+        else:
+            returnType = 'list'
+            count = 0
+            for item in earlResult[0]:
+                d1 = item.values()[0]
+                if d1['type'] == 'uri':
+                    uri = d1['value']
+                    q = """select ?label ?abstract where { <%s> rdfs:label ?label . <%s> <http://dbpedia.org/ontology/abstract> ?abstract . }"""%(uri,uri)
+                    url = "http://dbpedia.org/sparql"
+                    p = {'query': q}
+                    h = {'Accept': 'application/json'}
+                    proxydict = {"http":"http://webproxy.iai.uni-bonn.de:3128"}
+                    try:
+                        r = requests.get(url, params=p, headers=h, proxies=proxydict)
+                        d =json.loads(r.text)
+                    except Exception,e:
+                        print e
+                    try:
+                        for row in d['results']['bindings']:
+                            if 'abstract' in row and 'label' in row:
+                                if row['abstract']['xml:lang'] == 'en' and row['label']['xml:lang'] == 'en':
+                                    #print row,count
+                                    resultListDict['answer'][str(count)] = row['label']['value']
+                                    resultListDict['abstract'][str(count)] = row['abstract']['value']
+                                    count += 1
+                    except Exception,e:
+                        print e 
+            return resultListDict
     
 
 #get resource json
