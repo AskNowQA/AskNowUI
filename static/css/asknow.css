@@ -171,7 +171,7 @@ color: #FFF;
     background-size: cover;
     background-attachment:fixed;
 	/*height: calc(100vh - 172px);*/
-	height: calc(100vh - 60px)
+	min-height: calc(100vh - 77px)
 }
 
 .header-sec .overlay{
@@ -388,7 +388,7 @@ color: #FFF;
 .contact {
     padding-top: 15px;
     padding-bottom: 15px;
-    font-size:20px;
+    /*font-size:20px;*/
     line-height:35px;
     /*background-color:rgb(246, 246, 246);
     border-top:1px solid #2683BE;*/
@@ -400,9 +400,9 @@ color: #FFF;
 }
 
 .contact img{
-    height:40px;
+    /*height:40px;
     width:auto;
-	cursor: pointer !important;
+	cursor: pointer !important;*/
 }
 /* start service */
 #service
@@ -728,7 +728,7 @@ img.hover-shadow {
 	top: 60px;
 }
 .collaborator-logo {
-	width: 40px;
+	width: 30px;
 	cursor: pointer !important;
 }
 .collaborators{
@@ -738,8 +738,9 @@ img.hover-shadow {
 .social-media{
 	display: inline-block;
 	float: right;
-	position: relative;
-    top: 10px;
+}
+.footer-content{
+	margin: auto;
 }
 
 @media screen and (max-width:665px){
