@@ -83,6 +83,7 @@ def processKariResult(kariResult, question):
             for item in kariResult['answers']:
                 if not item:
                     continue
+                else:
                     uri = item
                     q = """select ?label ?abstract where { <%s> rdfs:label ?label . <%s> <http://dbpedia.org/ontology/abstract> ?abstract . }"""%(uri,uri)
                     url = "http://dbpedia.org/sparql"
@@ -100,10 +101,9 @@ def processKariResult(kariResult, question):
                                 if row['abstract']['xml:lang'] == 'en' and row['label']['xml:lang'] == 'en':
                                     #print row,count
                                     resultResourceDict['answer'] = row['label']['value']
-                                    resultResourceDict['abstract'] = row['abstract']['value']
+                                    resultResourceDict['abstract'] = row['abstract']['value' ]
                     except Exception,e:
                         print e
-                    uri = d1['value']
                     q = """select distinct ?entityType ?label where {
                             <%s> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?entityType . 
                             ?entityType rdfs:label ?label  
@@ -173,7 +173,7 @@ def getJSON():
         karianswer = requests.get('http://localhost:1999/graph',data={'question':QUESTION},headers=headers)
         kariresultdict = json.loads(karianswer.content)
         resourceDict = processKariResult(kariresultdict, QUESTION)
-        resourceDict['fullDetail'] = karianswer.content
+        resourceDict['fullDetail'] = kariresultdict
         return Response(json.dumps(resourceDict), mimetype='application/json')   
     except Exception,e:
         print e
