@@ -68,15 +68,34 @@
                         <a href="http://asknow.sda.tech/"><img class='logo-asknow' src="static/img/AskNow_logo.png" alt=""  /></a>
                     </h1>
                     <div id="search">
-                        <input id="question" name="question" type="text" placeholder="Search the knowledge base......" />
-                        <button type=button id='start' class ='start' value="true"></button>
+                        <input id="question" name="question" type="text" placeholder="Search the knowledge graph......" />
+                        <button id='start' class ='start' value="true"></button>
                         <input type="submit" id='submit' value='Search'/>
                     </div>
                     <h2 hidden id='listen' >Listening...&nbsp;&nbsp;&nbsp;&nbsp;</h2>
                     <button id='stop' hidden class='stop' >Stop</button>
                     <ul id="recordingslist"></ul>
                     <span id='loader'></span>
+					
+					<div class="row sample-questions" >
+						<a href="/list?question=Where%20was%20Angela%20Merkel%20born?">Where was Angela Merkel born?</a>
+						<a href="/list?question=Which%20company%20was%20founded%20by%20Elon%20Musk?">What is the company that Elon Musk found?</a>
+						<a href="/resource?question=What%20is%20the%20capital%20of%20Germany?">What is the capital of nation of Germany?</a>
+						<a href="/list?question=Where%20was%20Angela%20Merkel%20born?">In which place was Angela Merkel born?</a>
+						<a href="/list?question=Which%20company%20was%20founded%20by%20Elon%20Musk?">Name the company that was founded by Elon Musk?</a>
+						<a href="/resource?question=What%20is%20the%20capital%20of%20Germany?">What is the capital of Germany?</a>
+						<a href="/list?question=Where%20was%20Angela%20Merkel%20born?">What is the birthplace of Angela Merkel?</a>
+						<a href="/list?question=Which%20company%20was%20founded%20by%20Elon%20Musk?">Which company did Elon Musk find?</a>
+						<a href="/resource?question=What%20is%20the%20capital%20of%20Germany?">What is the capital of Germany?</a>
+						<a href="/resource?question=What%20is%20the%20capital%20of%20Germany?">What is Germany's capital?</a>
+					</div>
+					
                 </div>
+				<div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
+					<div class="contact-info">
+						
+					</div>
+				</div>
             </div>
         </div>
     </div>
@@ -89,120 +108,71 @@
 <!--HEADER SECTION END-->
 <section class="samples" id="samples">
     <div class="container">
-        <div class="row text-center" >
-            <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-12 col-sm-offset-">
-                <h3 data-scroll-reveal="enter from the bottom after 0.1s">
-                    <strong>
-                        Sample Questions
-                    </strong>
-                </h3>
-            </div>
-
-        </div>
-
-        <div class="row" >
-            <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
-                <br/>
-            <div  data-scroll-reveal="enter from the bottom after 0.2s" >
-                <h4 ><strong><a href="/list?question=Where%20was%20Angela%20Merkel%20born?">Where was Angela Merkel born ?</a> </strong></h4>
-            </div>
-            <br/>
-
-            <div  data-scroll-reveal="enter from the bottom after 0.3s" >
-                <h4 ><strong><a href="/list?question=Which%20company%20was%20founded%20by%20Elon%20Musk?">Which company was founded by Elon Musk?</a></strong></h4>
-            </div>
-            <br/>
-
-            <div data-scroll-reveal="enter from the bottom after 0.4s" >
-                <h4 ><strong><a href="/resource?question=What%20is%20the%20capital%20of%20Germany?">What is the capital of Germany?</a></strong></h4>
-            </div>
-            <br/>
-
-        </div>
+        
     </div>
 </section>
 
 
 <section class="contact" id="contact" >
     <div class="'overlay">
-        <div class="container">
-                <div class="row text-center " >
-                    <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-12 col-sm-offset-1">
-                        <h3 data-scroll-reveal="enter from the bottom after 0.1s">
-                            <strong>
-                                Stay Connected
-                            </strong>
-                        </h3>
-                    </div>
-
-                </div>
-
-                <div id='container' class="row">
-                    <div id='left' class="col-lg-6  col-md-6 col-sm-6 " data-scroll-reveal="enter from the right after 0.2s" >
-                        <!-- style="width: 80%; margin-top: 40px;" -->
-                        <!-- <h4>Developed by</h4> -->
-                        <!-- <hr> -->
-                        <div class="row" >
-                            <div class="col-lg-4 col-md-4 col-sm-4" style='padding-bottom: 30px' data-scroll-reveal="enter from the left after 0.2s" >
-                                <a href="https://www.uni-bonn.de/"><img src="static/img/uni_Logo.png" class="img-responsive" alt=""  /></a>
-                            </div>
-
-                            <div class="col-lg-4 col-md-4 col-sm-4" style='padding-bottom: 30px' data-scroll-reveal="enter from the bottom after 0.2s" >
-                                <a href="http://sda.cs.uni-bonn.de/"><img src="static/img/sda.png" class="img-responsive" alt=""  /></a>
-                            </div>
-
-                            <div class="col-lg-4 col-md-4 col-sm-4" style='padding-bottom: 30px' data-scroll-reveal="enter from the bottom after 0.2s" >
-                                <a href="https://www.iais.fraunhofer.de/"><img src="static/img/fraunhofer.png" class="img-responsive" alt=""  /></a>
-                            </div>
-
-                            <div class="col-lg-4 col-md-4 col-sm-4" style='padding-bottom: 30px' data-scroll-reveal="enter from the right after 0.2s" >
-                                <a href="https://wiki.dbpedia.org/"><img src="static/img/dbpedia.png" class="img-responsive" alt=""  /></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id='right' class="col-lg-6  col-md-6 col-sm-6 text-right " data-scroll-reveal="enter from the left after 0.4s"
-                    >
-                    <!-- style="float: right; width: 20%;" -->
-
-                            <ul class="list-inline ">
-                                <li class="list-inline-item">
-                                    <a href="https://twitter.com/AskNowQA">
-                                <span class="fa-stack fa-sm">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                                </span>
-                                    </a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="http://asknow.sda.tech/">
-                            <span class="fa-stack fa-sm">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-globe fa-stack-1x fa-inverse"></i>
-                            </span>
-                                    </a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="https://github.com/AskNowQA">
-                                <span class="fa-stack fa-sm">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                </span>
-                                    </a>
-                                </li>
-                            </ul>
-
-                            <strong>Contact us</strong>
-
-                            <h5>
-                                <a href="mailto:asknow@googlegroups.com?Subject=Here%20is%20the%20subject" class="home-mail" target="_top">e-mail: asknow[[at]]googlegroups.com</a>
-                            </h5>
-                        </div>
-
-                </div>
-            <br/>
-                <p class="copyright">Copyright &copy; AskNow 2018</p>
-            </div>
+        <div class="container row footer-content">
+			<div class="col-lg-4  col-md-4 col-sm-4 ">
+				<ul class="list-inline collaborators">
+					<li class="list-inline-item">
+						<a target="blank" title="Universität Bonn" href="https://www.uni-bonn.de/"><img src="static/img/unibonn.jfif" class="collaborator-logo" alt=""  /></a>
+					</li>
+					<li class="list-inline-item">
+						<a target="blank" title="Smart Data Analytics" href="http://sda.cs.uni-bonn.de/"><img src="static/img/sdasq.png.png" class="collaborator-logo" alt=""  /></a>
+					</li>
+					<li class="list-inline-item">
+						<a target="blank" title="Fraunhofer" href="https://www.iais.fraunhofer.de/"><img src="static/img/Fraunhofer-ITEM-Logo.jpg" class="collaborator-logo" alt=""  /></a>
+					</li>
+					<li class="list-inline-item">
+						<a target="blank" title="DBPedia" href="https://wiki.dbpedia.org/"><img src="static/img/dbpedialogo.png" class="collaborator-logo" alt=""  /></a>
+					</li>
+				</ul>
+			</div>
+			<div class="col-lg-4  col-md-4 col-sm-4 ">
+				<p class="copyright">Copyright &copy; AskNow 2018</p>
+			</div>
+			<div class="col-lg-4  col-md-4 col-sm-4 ">
+				<ul class="list-inline social-media">
+					<li class="list-inline-item">
+						<a target="blank" href="https://twitter.com/AskNowQA">
+							<span class="fa-stack fa-sm">
+								<i class="fa fa-circle fa-stack-2x"></i>
+								<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+							</span>
+						</a>
+					</li>
+					<li class="list-inline-item">
+						<a target="blank" href="http://asknow.sda.tech/">
+							<span class="fa-stack fa-sm">
+								<i class="fa fa-circle fa-stack-2x"></i>
+								<i class="fa fa-globe fa-stack-1x fa-inverse"></i>
+							</span>
+						</a>
+					</li>
+					<li class="list-inline-item">
+						<a target="blank" href="https://github.com/AskNowQA">
+							<span class="fa-stack fa-sm">
+								<i class="fa fa-circle fa-stack-2x"></i>
+								<i class="fa fa-github fa-stack-1x fa-inverse"></i>
+							</span>
+						</a>
+					</li>
+					<li class="list-inline-item">
+						<a target="blank" href="mailto:asknow@googlegroups.com?Subject=Here%20is%20the%20subject" >
+							<span class="fa-stack fa-sm">
+								<i class="fa fa-circle fa-stack-2x"></i>
+								<i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+							</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+			
     </div>
 </section>
 <!--CONTACT SECTION END-->
