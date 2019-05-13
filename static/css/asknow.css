@@ -773,3 +773,7 @@ img.hover-shadow {
 .navbar-inverse .navbar-collapse{
 	border-color: #009474;
 }
+
+.list-sec, .resource-sec{
+	min-height: calc(100vh - 75px);
+}
