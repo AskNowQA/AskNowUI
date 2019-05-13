@@ -33,9 +33,9 @@
 
 
 
-<div class="navbar navbar-inverse navbar-fixed-top move-me" id="menu">
+<div class="navbar navbar-fixed-top move-me" id="menu">
     <div class="container">
-        <div class="navbar-header">
+        <!--<div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -48,7 +48,17 @@
                 <li ><a href="/">BACK</a></li>
                 <li><a href="#contact">CONTACT</a></li>
             </ul>
-        </div>
+        </div>-->
+		<div class="">
+            <a class="navbar-brand" href="/">
+				<img class='logo-asknow-small' src="static/img/AskNow_logo.png" alt="" />
+			</a>
+			<div id="search">
+				<input id="question" name="question" type="text" placeholder="Search the knowledge graph......" />
+				<button id='start' class ='start' value="true"></button>
+				<input type="submit" id='submit' value='Search'/>
+			</div>
+		</div>
     </div>
 </div>
 
@@ -58,10 +68,10 @@
     <div class="container">
 
         <div id="service" class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-12 col-sm-offset-1">
-            <h2 class="showQuestion">          
+            <!--<h2 class="showQuestion">          
             </h2>
             <br/>
-            <hr>
+            <hr>-->
             <div class="list"> 
             <span id='loader'></span>
             </div>
@@ -77,9 +87,8 @@
 <section class="contact" id="contact" >
     <div class="'overlay">
         <div class="container">
-            <br/>
-                <p class="copyright">Copyright &copy; AskNow 2018</p>
-            </div>
+			<p class="copyright">Copyright &copy; AskNow 2018</p>
+		</div>
     </div>
 </section>
 <!--CONTACT SECTION END-->
@@ -94,6 +103,7 @@
 <script src={{ url_for('static', filename='js/imgSearch.js') }}></script>
 <script src={{ url_for('static', filename='js/videoSearch.js') }}></script>
 <script src={{ url_for('static', filename='js/list.js') }}></script>
+<script src={{ url_for('static', filename='js/index.js') }}></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 </body>

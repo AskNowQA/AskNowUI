@@ -28,7 +28,8 @@ function loadResourcePage(resourcejson){
     var similar_entities_list = similar_entities.split(',')
 
 
-    document.getElementById("showQuestion").innerHTML=question;
+    //document.getElementById("showQuestion").innerHTML=question;
+	document.getElementById("question").value=question;
     document.getElementById("entity-name").innerHTML=answer;
     document.getElementById("entity-type").innerHTML="An Entity of Type :  "+type;
     document.getElementById("abstract-content").innerHTML=abstract;

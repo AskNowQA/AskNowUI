@@ -19,7 +19,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-weight: 800;
+    /*font-weight: 800;*/
     font-family: Roboto, Helvetica, Arial, sans-serif; }
 
 h2.showQuestion{
@@ -118,9 +118,12 @@ ul.ui-autocomplete {
     width: 60%;
     margin-right: 30px;
     margin-bottom: 10px;
-
+	cursor: pointer !important;
 }
-
+.logo-asknow-small {
+	width:130px;
+	cursor: pointer !important;
+}
 @font-face {
    font-family: "FGH";
    src: url(../fonts/Frutiger LT Std 55 Roman Regular.otf);
@@ -128,14 +131,14 @@ ul.ui-autocomplete {
 
 #menu {
     padding:10px;
-    background-color:#009474;
     color:#fff;
     font-size:12px;
     font-weight:400;
     letter-spacing:0.9px;
     min-height: 50px;
     font-family: "FGH","Helvetica Neue",Helvetica,Arial,sans-serif;
-   
+	background-color: #fff;
+    box-shadow: 1px 2px 5px #ddd;
 }
 
 .navbar-inverse {
@@ -157,7 +160,7 @@ color: #FFF;
     font-weight:normal;
     padding-left:5px;
     text-align: center;
-    margin:5px;
+    margin: 11px 0px;
 }
 /*=====================================
   HEADERS STYLES 
@@ -182,14 +185,14 @@ color: #FFF;
 
 .header-sec h1 {
     color:#fff;
-    padding-top:180px;
+    padding-top:150px;
 }
 
  
 @-moz-document url-prefix(){
     
 	#search {
-		border: 1px solid rgba(58, 116, 190, 0.8);
+		border: 1px solid #009474;
 		background: url(../img/search.png) no-repeat 14px 14px #fcfcfc;
 		background-size: 20px;
 		overflow: auto;
@@ -212,9 +215,10 @@ color: #FFF;
 	}
 
 	#search input[type="submit"] {
-		background: rgba(58, 116, 190, 0.8);
+		background: #009474;
 		color: #fff;
-		border: 1px solid rgba(58, 116, 190, 0.8);
+		border: 1px solid #009474;
+		border-right: 1px solid #006b54;
 		text-shadow: none;
 		font: 17px Roboto, Helvetica, Arial, sans-serif;
 		width: auto;
@@ -225,12 +229,13 @@ color: #FFF;
 
 
 	#search input[type="submit"]:hover {
-		background: rgba(58, 116, 190);
+		background: #006b54;
+		border: 1px solid #006b54;
 	}
     .start{
-		background: url(../img/microphone.png) no-repeat 5px rgba(58, 116, 190, 0.8);
+		background: url(../img/microphone.png) no-repeat 5px #009474;
 		background-size: 22px 22px;
-		border: 1px solid rgba(58, 116, 190, 0.8);
+		border: 1px solid #009474;
 		width: 35px;
 		height: 51px;
 		padding-bottom: 18px;
@@ -238,7 +243,8 @@ color: #FFF;
     }
     .start:hover  /* use Dot here */
     {   
-		background-color: rgba(58, 116, 190);
+		background-color: #006b54;
+		border: 1px solid #006b54;
     }
     
     
@@ -246,13 +252,13 @@ color: #FFF;
 
 @media screen and (-webkit-min-device-pixel-ratio:0){
 	#search {
-		border: 1px solid rgba(58, 116, 190, 0.8);
+		border: 1px solid #009474;
 		background: url(../img/search.png) no-repeat 14px 14px #fcfcfc;
 		background-size: 20px;
 		overflow: auto;
 	}
 	#search:focus {
-		border: border: 1px solid rgba(58, 116, 190, 1);
+		border: 1px solid #006b54;
 	}
 	#search input[type="text"] {
 		background: transparent;
@@ -272,9 +278,10 @@ color: #FFF;
 	}
 
 	#search input[type="submit"] {
-		background: rgba(58, 116, 190, 0.8);
+		background: #009474;
 		color: #fff;
-		border: 1px solid rgba(58, 116, 190, 0.8);
+		border: 1px solid #009474;
+		border-right: 1px solid #006b54;
 		text-shadow: none;
 		font: 17px Roboto, Helvetica, Arial, sans-serif;
 		width: auto;
@@ -285,12 +292,13 @@ color: #FFF;
 
 
 	#search input[type="submit"]:hover {
-		background: rgba(58, 116, 190);
+		background: #006b54;
+		border: 1px solid #006b54;
 	}
     .start{
-		background: url(../img/microphone.png) no-repeat 5px rgba(58, 116, 190, 0.8);
+		background: url(../img/microphone.png) no-repeat 5px #009474;
 		background-size: 22px 22px;
-		border: 1px solid rgba(58, 116, 190, 0.8);
+		border: 1px solid #009474;
 		width: 35px;
 		height: 51px;
 		padding-bottom: 18px;
@@ -298,15 +306,16 @@ color: #FFF;
     }
     .start:hover  /* use Dot here */
     {   
-		background-color: rgba(58, 116, 190);
+		background-color: #006b54;
+		border: 1px solid #006b54;
     }
 }
 
 
 .end{
-    background:url(../img/end.png) no-repeat 5px rgba(58, 116, 190, 0.8) ;   
+    background:url(../img/end.png) no-repeat 5px #009474 ;   
     background-size: 22px 22px;
-    border: 1px solid rgba(58, 116, 190, 0.8);
+    border: 1px solid #009474;
     width: 35px;
     height: 51px;
     padding-bottom: 18px;  
@@ -315,14 +324,15 @@ color: #FFF;
 
 .end:hover  /* use Dot here */
 {   
-    background-color: rgba(58, 116, 190);
+    background-color: #006b54;
+	border: 1px solid #006b54;
 }
 
 .stop {
-    background-color: rgba(58, 116, 190, 0.8);
-    border: 1px solid rgb(121, 173, 222);
+    background-color: #009474;
+    border: 1px solid #009474;
     border-radius: 50%;
-    box-shadow: 2px 2px 2px rgb(121, 173, 222);
+    box-shadow: 2px 2px 2px #009474;
     width: 75px;
     height: 75px;
 
@@ -408,7 +418,7 @@ color: #FFF;
 #service
 {
     margin-top: 20px;
-    padding-top: 50px;
+    padding-top: 80px;
     font-family: Roboto, Helvetica, Arial, sans-serif;
     color: #343a40
 
@@ -712,15 +722,15 @@ img.hover-shadow {
 }
 .sample-questions a {
 	margin-right: 7px;
-	border: 1px solid #428bca;
+	border: 1px solid #009474;
     padding: 3px 10px;
     border-radius: 3px;
-	color: #428bca;
+	color: #009474;
 	display: inline-block;
 	margin-bottom: 3px;
 }
 .sample-questions a:hover {
-    background-color: #428bca;
+    background-color: #009474;
 	color: #fff;
 }
 .contact-info{
