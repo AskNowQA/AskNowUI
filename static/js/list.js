@@ -1,17 +1,16 @@
 LIMIT = 3
 COUNT = 1
 $("#loader").addClass('loader');
-$(function() {
-        
-        $("#load").hide()
-        $.ajax({
-            type:'GET',
-            url: '/_getJSON',
-            }).success(function (data){
-                $("#loader").removeClass('loader');
-                loadListPage(data)
-            });
-        });
+$(function() {  
+	$("#load").hide()
+	$.ajax({
+		type:'GET',
+		url: '/_getJSON',
+		}).success(function (data){
+			$("#loader").removeClass('loader');
+			loadListPage(data)
+		});
+	});
 
 
 function loadmore(resourcejson) {
@@ -44,7 +43,8 @@ $(document).on("click touchstart",".list-content-expanded", function () {
 function loadListPage(resourcejson){
     // Javascript function JSON.parse to parse JSON data
     question = resourcejson.question;
-    document.getElementsByClassName("showQuestion")[0].innerHTML=question;
+    //document.getElementsByClassName("showQuestion")[0].innerHTML=question;
+	document.getElementById("question").value=question;
     answer = resourcejson.answer;
     abstract = resourcejson.abstract;
     var length = Object.keys(answer).length;
