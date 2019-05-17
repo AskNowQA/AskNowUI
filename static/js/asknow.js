@@ -39,10 +39,10 @@
 
 
 //start resource
-var ToC =
-    "<nav role='navigation' class='table-of-contents'>" +
-    "<h2>Content:</h2>" +
-    "<ul>";
+var ToC = "";
+//    "<nav role='navigation' class='table-of-contents'>" +
+//    "<h2>Content:</h2>" +
+//    "<ul>";
 
 var newLine, el, title, link;
 
