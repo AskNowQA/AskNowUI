@@ -37,11 +37,6 @@
 <div class="navbar navbar-fixed-top move-me" id="menu">
     <div class="container">
         <div class="">
-            <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>-->
             <a class="navbar-brand" href="/">
 				<img class='logo-asknow-small' src="static/img/AskNow_logo.png" alt="" />
 			</a>
@@ -51,12 +46,6 @@
 				<input type="submit" id='submit' value='Search'/>
 			</div>
 		</div>
-        <!--<div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li ><a href="/">BACK</a></li>
-                <li><a href="#contact">CONTACT</a></li>
-            </ul>
-        </div>-->
     </div>
 </div>
 
@@ -66,10 +55,24 @@
     <div class="container">
 
         <div id="service" class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-12 col-sm-offset-1">
-            <!--<h2 id="showQuestion" class="showQuestion">
-            </h2>
-            <br/>
-            <hr>-->
+            <div>
+                <div id="entities_relations" class="fit width-75p"></div>
+                <div id="feedback" class="fit feedback">
+                    <span>Was this helpful?</span>
+                    <span>
+                        <a data-value="1">
+                            <span class="fa-stack">
+                                <i class="fa fa-thumbs-up fa-stack-1x"></i>
+                            </span>
+                        </a>
+                        <a data-value="0">
+                            <span class="fa-stack">
+                                <i class="fa fa-thumbs-down fa-stack-1x"></i>
+                            </span>
+                        </a>
+                    </span>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-lg-8 col-md-8 col-sm-8">
                     <h1 id="entity-name"></h1>
@@ -88,8 +91,6 @@
             <div class="all-resources">
                 <h4 id="abstract">Abstract</h4>
                 <p id="abstract-content"></p>
-                <hr>
-
                 <!-- <h4 id="summary">Summary (Generated automatically)</h4> -->
                 <!-- <p id="summary-content"></p> -->
                 <!-- <hr> -->

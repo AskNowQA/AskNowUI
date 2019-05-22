@@ -39,14 +39,23 @@ $(document).on("click touchstart",".list-content-expanded", function () {
    $(this).addClass('list-content') 
 });
 
+function isValidURL(str) {
+  var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+    '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+    '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+    '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+  return !!pattern.test(str);
+}
 
 function loadListPage(resourcejson){
     // Javascript function JSON.parse to parse JSON data
-    question = resourcejson.question;
+    var question = resourcejson.question;
     //document.getElementsByClassName("showQuestion")[0].innerHTML=question;
 	document.getElementById("question").value=question;
-    answer = resourcejson.answer;
-    abstract = resourcejson.abstract;
+    var answer = resourcejson.answer;
+    var abstract = resourcejson.abstract;
     var length = Object.keys(answer).length;
     if (length<LIMIT){
         LIMIT = length
@@ -59,9 +68,26 @@ function loadListPage(resourcejson){
         "            <p>"+abstract[i]+"</p>" +
         "            <a href=''>Show detailed</a>" +
         "          </div>" +
-        "        </div>"
-    $(".list").append(newitem);
+        "        </div>";
+		    $(".list").append(newitem);
     }
+	
+	var entities = resourcejson.fullDetail.entities,
+		relations = resourcejson.fullDetail.best_path,
+		entity,
+		relation;
+	for(var i = 0; i < entities.length; i++){
+		if(isValidURL(entities[i])){
+			entity = '<a class="blob orange" href="'+ entities[i] +'" target="blank"><i class="mark">Entity</i>'+entities[i]+'</a>';
+			$("#entities_relations").append(entity)
+		}
+	}
+	for(var i = 0; i < relations.length; i++){
+		if(isValidURL(relations[i])){
+			relation = '<a class="blob blue" href="'+ relations[i] +'" target="blank"><i class="mark">Relation</i>'+relations[i]+'</a>';
+			$("#entities_relations").append(relation)
+		}
+	}
 
    
     $( "#load" ).click(function() {

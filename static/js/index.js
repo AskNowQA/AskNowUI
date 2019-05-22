@@ -48,4 +48,18 @@
 		}
 	});
 
+
+	function submitFeedback(value, question){
+		// Api call to submit feedback
+		console.log(value);
+	}
+
+	$("#feedback a").click(function(){
+		if($(this).hasClass("active")){
+			return;
+		}
+		$("#feedback a").removeClass("active");
+		$(this).addClass("active");
+		submitFeedback($(this).data("value"));
+	});
  
