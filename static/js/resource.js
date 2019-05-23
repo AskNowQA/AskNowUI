@@ -14,6 +14,17 @@ $(function() {
             });
         });
 
+
+function isValidURL(str) {
+  var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+    '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+    '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+    '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+  return !!pattern.test(str);
+}
+
 function loadResourcePage(resourcejson){
 	// Javascript function JSON.parse to parse JSON data
     question = resourcejson.question;
@@ -33,14 +44,31 @@ function loadResourcePage(resourcejson){
     document.getElementById("entity-name").innerHTML=answer;
     document.getElementById("entity-type").innerHTML="An Entity of Type :  "+type;
     document.getElementById("abstract-content").innerHTML=abstract;
-    document.getElementById("summary-content").innerHTML=summary;
-    document.getElementById("recommendation-content").innerHTML=recommendations;
+    //document.getElementById("summary-content").innerHTML=summary;
+    //document.getElementById("recommendation-content").innerHTML=recommendations;
 
     var related_entities_content=generateHrefList(related_entities_list);
     var similar_entities_content=generateHrefList(similar_entities_list); 
     
-    document.getElementById("related-entities-content").innerHTML=related_entities_content;
-    document.getElementById("related-sim-content").innerHTML=similar_entities_content;
+    //document.getElementById("related-entities-content").innerHTML=related_entities_content;
+    //document.getElementById("related-sim-content").innerHTML=similar_entities_content;
+
+    var entities = resourcejson.fullDetail.entities,
+        relations = resourcejson.fullDetail.best_path,
+        entity,
+        relation;
+    for(var i = 0; i < entities.length; i++){
+        if(isValidURL(entities[i])){
+            entity = '<a class="blob orange" href="'+ entities[i] +'" target="blank"><i class="mark">Entity</i>'+entities[i]+'</a>';
+            $("#entities_relations").append(entity)
+        }
+    }
+    for(var i = 0; i < relations.length; i++){
+        if(isValidURL(relations[i])){
+            relation = '<a class="blob blue" href="'+ relations[i] +'" target="blank"><i class="mark">Relation</i>'+relations[i]+'</a>';
+            $("#entities_relations").append(relation)
+        }
+    }
 }
 
 function generateHrefList(list){
