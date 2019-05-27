@@ -1,11 +1,15 @@
 LIMIT = 3
 COUNT = 1
 $("#loader").addClass('loader');
-$(function() {  
+$(function() {
+        var url_string = window.location.href;
+	var url = new URL(url_string);
+	var question = url.searchParams.get("question");
 	$("#load").hide()
 	$.ajax({
-		type:'GET',
+		type:'POST',
 		url: '/_getJSON',
+		data: { 'question': question}
 		}).success(function (data){
 			$("#loader").removeClass('loader');
 			loadListPage(data)

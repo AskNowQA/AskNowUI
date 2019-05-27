@@ -18,9 +18,8 @@
 
 		$.ajax({
 			type: "POST",
-			//url: "/",
 			url: '/_getJSON',
-			data : { 'question': question},
+			data : {'question': question},
 			success: function(results) {
 				$("#loader").removeClass('loader');
 

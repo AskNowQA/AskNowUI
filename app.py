@@ -160,24 +160,22 @@ def processKariResult(kariResult, question):
     
 
 #get resource json
-@app.route('/_getJSON', methods=['POST', 'GET'])
+@app.route('/_getJSON', methods=['POST'])
 def getJSON():
+    question = None
     if request.method == 'POST':
         question = request.form.get('question')
-        global QUESTION
-        QUESTION = question
-    print(QUESTION)
     #res = es.index(index="autocompleteindex1", doc_type='questions', id=QUESTION,  body={"question":{"input":[QUESTION]}}) #Store input questions for autocomplete
-    try:
-        headers = {'Accept': 'text/plain', 'Content-type': 'application/json'}
-        karianswer = requests.get('http://localhost:1999/graph',data={'question':QUESTION},headers=headers)
-        kariresultdict = json.loads(karianswer.content)
-        resourceDict = processKariResult(kariresultdict, QUESTION)
-        resourceDict['fullDetail'] = kariresultdict
-        return Response(json.dumps(resourceDict), mimetype='application/json')   
-    except Exception,e:
-        print e
-        return Response(json.dumps({'question': QUESTION, 'question_type': "none"}), mimetype='application/json')
+        try:
+            headers = {'Accept': 'text/plain', 'Content-type': 'application/json'}
+            karianswer = requests.get('http://localhost:1999/graph',data={'question':question},headers=headers)
+            kariresultdict = json.loads(karianswer.content)
+            resourceDict = processKariResult(kariresultdict, question)
+            resourceDict['fullDetail'] = kariresultdict
+            return Response(json.dumps(resourceDict), mimetype='application/json')   
+        except Exception,e:
+            print e
+            return Response(json.dumps({'question': question, 'question_type': "none"}), mimetype='application/json')
 
 
 # index part
@@ -188,12 +186,10 @@ def index():
 
 
 
-@app.route('/resource', methods=['GET', 'POST'])
+@app.route('/resource')
 def showResource(): 
     if request.method == 'GET':
         question=request.args.get('question')
-        global QUESTION
-        QUESTION=question
         return render_template('resource.html') 
     return render_template('resource.html')
 
@@ -202,8 +198,6 @@ def showResource():
 def showList():
     if request.method == 'GET':
         question=request.args.get('question')
-        global QUESTION
-        QUESTION=question
         return render_template('list.html') 
     return render_template('list.html')
 
@@ -211,8 +205,6 @@ def showList():
 def showLiteral():
     if request.method == 'GET':
         question=request.args.get('question')
-        global QUESTION
-        QUESTION=question
         return render_template('literal.html') 
     return render_template('literal.html')
 
@@ -220,8 +212,6 @@ def showLiteral():
 def showBoolean():
     if request.method == 'GET':
         question=request.args.get('question')
-        global QUESTION
-        QUESTION=question
         return render_template('bol.html') 
     return render_template('bol.html')
 
@@ -229,8 +219,6 @@ app.route('/none', methods=['GET', 'POST'])
 def showResource():
     if request.method == 'GET':
         question=request.args.get('question')
-        global QUESTION
-        QUESTION=question
         return render_template('none.html')
     return render_template('none.html')
 

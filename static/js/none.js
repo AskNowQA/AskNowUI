@@ -1,9 +1,13 @@
 $("#loader").addClass('loader');
 $(".all-resources").hide()
-$(function() {   
+$(function() {
+	var url_string = window.location.href;
+	var url = new URL(url_string);
+	var question = url.searchParams.get("question");
         $.ajax({
-            type:'GET',
-            url: '/_getJSON'
+            type:'POST',
+            url: '/_getJSON',
+	    data: {'question':question}
             }).success(function (data){
                 $("#loader").removeClass('loader');
                 $(".all-resources").show()
