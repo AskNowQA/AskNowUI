@@ -29,14 +29,18 @@ function loadmore(resourcejson) {
 }
 
 
-$(document).on("click touchstart",".list-content", function () {
-   $(this).removeClass("list-content");
-   $(this).addClass('list-content-expanded') 
+$(document).on("click touchstart",".expand-list-content", function () {
+   //$(this).find().removeClass("list-content");
+   $(this).closest(".list-item").find(".list-content").addClass('expanded');
+   $(this).hide();
+   $(this).closest(".list-item").find(".collapse-list-content").show();
 });
 
-$(document).on("click touchstart",".list-content-expanded", function () {
-   $(this).removeClass("list-content-expanded");
-   $(this).addClass('list-content') 
+$(document).on("click touchstart",".collapse-list-content", function () {
+   $(this).closest(".list-item").find(".list-content").removeClass("expanded");
+   //$(this).addClass('list-content') 
+   $(this).hide();
+   $(this).closest(".list-item").find(".expand-list-content").show();
 });
 
 function isValidURL(str) {
@@ -60,22 +64,45 @@ function loadListPage(resourcejson){
     if (length<LIMIT){
         LIMIT = length
     }
+    var feedbackFragment = '<div class="feedback">'+
+                    '<span>Was this helpful?</span>'+
+                    '<span>'+
+                        '<a data-value="1">'+
+                            '<span class="fa-stack">'+
+                                '<i class="fa fa-thumbs-up fa-stack-1x"></i>'+
+                            '</span>'+
+                        '</a>'+
+                        '<a data-value="0">'+
+                            '<span class="fa-stack">'+
+                                '<i class="fa fa-thumbs-down fa-stack-1x"></i>'+
+                            '</span>'+
+                        '</a>'+
+                    '</span>'+
+                '</div>'
     $("#load").show()
     for (var i=0; i<LIMIT; i++){
         var newitem = "<div class='list-item'>" +
         "          <div class='list-content' >" +
+                     feedbackFragment +
         "            <h2>"+answer[i]+"</h2>" +
         "            <p>"+abstract[i]+"</p>" +
-        "            <a href=''>Show detailed</a>" +
         "          </div>" +
+        "          <a class='expand-list-content'>Show more...</a>" +
+        "          <a class='collapse-list-content'>Show less...</a>" +
         "        </div>";
 		    $(".list").append(newitem);
     }
 	
 	var entities = resourcejson.fullDetail.entities,
-		relations = resourcejson.fullDetail.best_path,
+		relations = resourcejson.fullDetail.best_path.concat(resourcejson.fullDetail.rdf_best_path),
 		entity,
 		relation;
+  for(var i = 0; i < relations.length; i++){
+    if(relations[i].split("/").indexOf("ontology") == -1 && 
+       relations[i].split("/").indexOf("property") == -1){
+      entities.push(relations.splice(i, 1)[0]);
+    }
+  }
 	for(var i = 0; i < entities.length; i++){
 		if(isValidURL(entities[i])){
 			entity = '<a class="blob orange" href="'+ entities[i] +'" target="blank"><i class="mark">Entity</i>'+entities[i]+'</a>';
@@ -96,12 +123,29 @@ function loadListPage(resourcejson){
                 document.getElementById('load').innerHTML= "Loading done"
             }
             else{
+                var feedbackFragment = '<div class="feedback">'+
+                    '<span>Was this helpful?</span>'+
+                    '<span>'+
+                        '<a data-value="1">'+
+                            '<span class="fa-stack">'+
+                                '<i class="fa fa-thumbs-up fa-stack-1x"></i>'+
+                            '</span>'+
+                        '</a>'+
+                        '<a data-value="0">'+
+                            '<span class="fa-stack">'+
+                                '<i class="fa fa-thumbs-down fa-stack-1x"></i>'+
+                            '</span>'+
+                        '</a>'+
+                    '</span>'+
+                '</div>'
                 var newitem = "<div class='list-item'>" +
                               "<div class='list-content'>" +
+                              feedbackFragment + 
                               "<h2>"+answer[i]+"</h2>" +
                               "<p>"+abstract[i]+"</p>" +
-                              "<a>Show detailed</a>" +
                               "</div>" +
+                              "<a class='expand-list-content'>Show more...</a>" +
+                              "<a class='collapse-list-content'>Show less...</a>" +
                               "</div>"
                $(".list").append(newitem);}             
         }

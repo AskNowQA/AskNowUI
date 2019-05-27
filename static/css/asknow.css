@@ -462,6 +462,8 @@ color: #FFF;
     width:auto;
     padding: 0.5em;
     border:1px solid rgb(227, 227, 227);
+    padding-bottom: 60px;
+    position: relative;
 }
 
 #service .list-item img{
@@ -520,12 +522,12 @@ color: #FFF;
     font-size:16px;
 
 }
-
+/*
 #service .list-content a{
     color:#777777;
     text-align: left;
     font-size:20px;
-}
+}*/
 
 #service .boli_answer {
     padding: 0.5em;
@@ -534,26 +536,32 @@ color: #FFF;
 }
 
 /*expand the list content*/
-#service .list-content-expanded {
+#service .list-content.expanded {
     background-color: #fff;
     padding: 1em;
     width: 100%;
-    padding-top: 10px;    
+    padding-top: 10px;
+    max-height: inherit;   
 }
 
-#service .list-content-expanded p {
+#service .list-content.expanded p {
     flex: 1 0 auto;
     font-size:16px;
 
 }
 
-#service .list-content-expanded a{
-    color:#777777;
-    text-align: left;
-    font-size:20px;
+#service .list-item a{
+    cursor: pointer;
 }
-
-
+#service .list-item a.expand-list-content,
+#service .list-item a.collapse-list-content{
+    position: absolute;
+    bottom: 25px;
+    right: 25px;
+} 
+#service .list-item a.collapse-list-content{
+    display: none;
+}
 #service .noanswer img{
     max-width: 700px;
     display: block;
@@ -814,6 +822,8 @@ a.blob:hover i.mark, a.blob i.mark:hover{
 }
 .feedback{
     float: right;
+    top: 10px;
+    position: relative;
 }
 .feedback a{
     cursor: pointer;
@@ -828,8 +838,8 @@ a.blob:hover i.mark, a.blob i.mark:hover{
     display: none;
 }
 
-.width-75p{
-    width: 75%;
+.top-20{
+    top: 20px;
 }
 .padding-top-100{
     padding-top: 100px;

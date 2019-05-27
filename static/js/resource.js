@@ -54,9 +54,15 @@ function loadResourcePage(resourcejson){
     //document.getElementById("related-sim-content").innerHTML=similar_entities_content;
 
     var entities = resourcejson.fullDetail.entities,
-        relations = resourcejson.fullDetail.best_path,
+        relations = resourcejson.fullDetail.best_path.concat(resourcejson.fullDetail.rdf_best_path),
         entity,
         relation;
+    for(var i = 0; i < relations.length; i++){
+        if(relations[i].split("/").indexOf("ontology") == -1 && 
+           relations[i].split("/").indexOf("property") == -1){
+          entities.push(relations.splice(i, 1)[0]);
+        }
+    }
     for(var i = 0; i < entities.length; i++){
         if(isValidURL(entities[i])){
             entity = '<a class="blob orange" href="'+ entities[i] +'" target="blank"><i class="mark">Entity</i>'+entities[i]+'</a>';
