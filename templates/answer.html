@@ -9,54 +9,24 @@
     <!-- BOOTSTRAP CORE STYLE CSS -->
     <link rel="stylesheet" type="text/css"  href="{{ url_for('static', filename='css/bootstrap.css') }}">
     <link rel="stylesheet" type="text/css"  href="{{ url_for('static', filename='css/font-awesome.min.css') }}">
-    <link rel="stylesheet" type="text/css"  href="{{ url_for('static', filename='css/styleSwitcher.css') }}">
     <link rel="stylesheet" type="text/css"  href="{{ url_for('static', filename='css/asknow.css') }}">
-    <link rel="stylesheet" type="text/css"  id='mainCSS'href="{{ url_for('static', filename='css/green.css') }}">
     <!-- Google Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css' />
+
 </head>
-</head>
-<body >
-
-
-<!-- <div class="switcher" style="left:-50px;"> -->
-    <!-- <a id="switch-panel" class="hide-panel"> -->
-        <!-- <i class="fa fa-recycle"></i> -->
-    <!-- </a> -->
-    <!-- <p style="font-size:10px">choose</p> -->
-    <!-- <ul class="colors-list"> -->
-        <!-- <li><a title="Green" id="green" class="green" ></a></li> -->
-        <!-- <li><a title="Blue" id="blue" class="blue" ></a></li> -->
-    <!-- </ul> -->
-<!-- </div> -->
-<!--END STYLE SWITCHER-->
-
-
-
+<!-- load the question -->
+<body>
 <div class="navbar navbar-fixed-top move-me" id="menu">
     <div class="container">
-        <!--<div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/"><img class='logo-asknow' src="static/img/AskNow_logo.png" alt="" style="width:130px; height:30px;" /></a>
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li ><a href="/">BACK</a></li>
-                <li><a href="#contact">CONTACT</a></li>
-            </ul>
-        </div>-->
-		<div class="">
+        <div class="">
             <a class="navbar-brand" href="/">
 				<img class='logo-asknow-small' src="static/img/AskNow_logo.png" alt="" />
 			</a>
 			<div id="search">
 				<input id="question" name="question" type="text" placeholder="Search the knowledge graph......" />
 				<button id='start' class ='start' value="true"></button>
-				<input type="submit" id='submit' value='Search'/>
+				<input type="submit" class="submit" id='submit' value='Search'/>
+                <button id='loading' class="loading"><span class='loader'></span></button>
 			</div>
 		</div>
     </div>
@@ -64,40 +34,17 @@
 
 
 <!--NAVBAR SECTION END-->
-<section class="list-sec" >
+<section class="resource-sec">
     <div class="container">
-
         <div id="service" class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-12 col-sm-offset-1">
-            <div>
-                <div id="entities_relations" class="fit width-75p"></div>
-                <div id="feedback" class="fit feedback">
-                    <span>Was this helpful?</span>
-                    <span>
-                        <a data-value="1">
-                            <span class="fa-stack">
-                                <i class="fa fa-thumbs-up fa-stack-1x"></i>
-                            </span>
-                        </a>
-                        <a data-value="0">
-                            <span class="fa-stack">
-                                <i class="fa fa-thumbs-down fa-stack-1x"></i>
-                            </span>
-                        </a>
-                    </span>
-                </div>
-            </div>
-            <div class="list"> 
-            <span id='loader'></span>
-            </div>
+            <div id="entities_relations"></div>
             <br/>
-            <div class="row text-center">
-                <a id="load" style="color:#777777;">Loading more...</a>
-            </div>
+            <div id="answer" class="answer"><!--Content from answer.js--></div>
         </div>
     </div>
+
 </section>
-
-
+    
 <section class="contact" id="contact" >
     <div class="'overlay">
         <div class="container row footer-content">
@@ -161,21 +108,81 @@
     </div>
 </section>
 <!--CONTACT SECTION END-->
-
+<!-- Essential Dynamic HTML Pieces -->
+<script type="text/html" id="entity-blob">
+    <a class="blob orange" href="${entity}" target="blank">
+        <i class="mark">Entity</i>${entity}
+    </a>
+</script>
+<script type="text/html" id="relation-blob">
+    <a class="blob blue" href="${relation}" target="blank">
+        <i class="mark">Relation</i>${relation}
+    </a>
+</script>
+<script type="text/html" id="feedback">
+    <div class="feedback">
+        <span>Was this helpful?</span>
+        <span>
+            <a data-value="1">
+                <span class="fa-stack">
+                    <i class="fa fa-thumbs-up fa-stack-1x"></i>
+                </span>
+            </a>
+            <a data-value="0">
+                <span class="fa-stack">
+                    <i class="fa fa-thumbs-down fa-stack-1x"></i>
+                </span>
+            </a>
+        </span>
+    </div>
+</script>
+<script type="text/html" id="resource">
+    <h1>${answer}</h1>
+    ${feedback}
+    <div>An Entity of Type: <b>${type}</b></div><br/>
+    <div>${abstract}</div>
+</script>
+<script type="text/html" id="list">
+    <div class="list">
+        ${list-items}
+    </div>
+</script>
+<script type="text/html" id="list-item">
+    <div class='list-item'>
+        <div class='list-content' >
+            ${feedback}
+            <h2>${answer}</h2>
+            <p>${abstract}</p>
+        </div>
+        <a class='expand-list-content'>Show more...</a>
+        <a class='collapse-list-content'>Show less...</a>
+    </div>
+</script>
+<script type="text/html" id="lit-boi">
+    <h3 class="list">${answer}</h3>
+</script>
+<script type="text/html" id="none">
+    <div style="margin-bottom: 50px;">Sorry! We could not find an answer for your question.</div>
+    <div class="row" >
+        <a class="blob" href="/answer?question=Which%20place%20was%20Angela%20Merkel%20born%20in?">Where was Angela Merkel born?</a>
+        <a class="blob" href="/answer?question=Which%20company%20was%20founded%20by%20Elon%20Musk?">What is the company that Elon Musk found?</a>
+        <a class="blob" href="/answer?question=What%20is%20the%20capital%20of%20Germany?">What is the capital of nation of Germany?</a>
+        <a class="blob" href="/answer?question=Which%20place%20was%20Angela%20Merkel%20born%20in?">In which place was Angela Merkel born?</a>
+        <a class="blob" href="/answer?question=Which%20company%20was%20founded%20by%20Elon%20Musk?">Name the company that was founded by Elon Musk?</a>
+        <a class="blob" href="/answer?question=What%20is%20the%20capital%20of%20Germany?">What is the capital of Germany?</a>
+        <a class="blob" href="/answer?question=Which%20place%20was%20Angela%20Merkel%20born%20in?">What is the birthplace of Angela Merkel?</a>
+        <a class="blob" href="/answer?question=Which%20company%20was%20founded%20by%20Elon%20Musk?">Which company did Elon Musk find?</a>
+        <a class="blob" href="/answer?question=What%20is%20the%20capital%20of%20Germany?">What is the capital of Germany?</a>
+        <a class="blob" href="/answer?question=What%20is%20the%20capital%20of%20Germany?">What is Germany's capital?</a>
+    </div>
+</script>
 <!--  Jquery Core Script -->
 <script src={{ url_for('static', filename='js/jquery-1.10.2.js') }}></script>
 <script src={{ url_for('static', filename='js/bootstrap.js') }}></script>
-<script src={{ url_for('static', filename='js/jquery.easing.min.js') }}></script>
-<script src={{ url_for('static', filename='js/styleSwitcher.js') }}></script>
-<script src={{ url_for('static', filename='js/scrollReveal.js') }}></script>
-<script src={{ url_for('static', filename='js/asknow.js') }}></script>
-<script src={{ url_for('static', filename='js/imgSearch.js') }}></script>
-<script src={{ url_for('static', filename='js/videoSearch.js') }}></script>
-<script src={{ url_for('static', filename='js/list.js') }}></script>
 <script src={{ url_for('static', filename='js/controller.js') }}></script>
 <script src={{ url_for('static', filename='js/speechRecognition.js') }}></script>
-<script src={{ url_for('static', filename='js/index.js') }}></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src={{ url_for('static', filename='js/answer.js') }}></script>
+<script src={{ url_for('static', filename='js/search.js') }}></script>
 
 </body>
 </html>

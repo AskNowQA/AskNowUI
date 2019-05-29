@@ -4,13 +4,13 @@ $( document ).ready(function() {
 
   speech.recognition.onstart = function() {
 		$('#start').val("false");
-		document.getElementById('listen').style.visibility = "visible";
+		//document.getElementById('listen').style.visibility = "visible";
   }
 
 	speech.recognition.onend = function() {
 		$('#start').val("true");
 		$('#start').addClass('start').removeClass('end');
-		document.getElementById('listen').style.visibility = "hidden";
+		//document.getElementById('listen').style.visibility = "hidden";
   }
 
 	$('#start').click(function(){
