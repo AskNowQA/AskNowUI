@@ -92,6 +92,7 @@ def processKariResult(kariResult, question):
                     proxydict = {"http":"http://webproxy.iai.uni-bonn.de:3128"}
                     try:
                         r = requests.get(url, params=p, headers=h, proxies=proxydict)
+                        # r = requests.get(url, params=p, headers=h)
                         d =json.loads(r.text)
                     except Exception,e:
                         print e
@@ -115,6 +116,7 @@ def processKariResult(kariResult, question):
                     proxydict = {"http":"http://webproxy.iai.uni-bonn.de:3128"}
                     try:
                         r = requests.get(url, params=p, headers=h, proxies=proxydict)
+                        # r = requests.get(url, params=p, headers=h)
                         d =json.loads(r.text)
                     except Exception,e:
                         print e
@@ -143,6 +145,7 @@ def processKariResult(kariResult, question):
                 proxydict = {"http":"http://webproxy.iai.uni-bonn.de:3128"}
                 try:
                     r = requests.get(url, params=p, headers=h, proxies=proxydict)
+                    # r = requests.get(url, params=p, headers=h)
                     d =json.loads(r.text)
                 except Exception,e:
                     print e
@@ -160,24 +163,36 @@ def processKariResult(kariResult, question):
     
 
 #get resource json
-@app.route('/_getJSON', methods=['POST', 'GET'])
+@app.route('/_getJSON', methods=['POST'])
 def getJSON():
+    question = None
     if request.method == 'POST':
         question = request.form.get('question')
-        global QUESTION
-        QUESTION = question
-    print(QUESTION)
     #res = es.index(index="autocompleteindex1", doc_type='questions', id=QUESTION,  body={"question":{"input":[QUESTION]}}) #Store input questions for autocomplete
-    try:
-        headers = {'Accept': 'text/plain', 'Content-type': 'application/json'}
-        karianswer = requests.get('http://asknow02.sda.tech/kari/api/graph',data={'question':QUESTION},headers=headers)
-        kariresultdict = json.loads(karianswer.content)
-        resourceDict = processKariResult(kariresultdict, QUESTION)
-        resourceDict['fullDetail'] = kariresultdict
-        return Response(json.dumps(resourceDict), mimetype='application/json')   
-    except Exception,e:
-        print e
-        return Response(json.dumps({'question': QUESTION, 'question_type': "none"}), mimetype='application/json')
+        try:
+            headers = {'Accept': 'text/plain', 'Content-type': 'application/json'}
+            earlanswer = requests.post('http://asknow02.sda.tech/earl/api/processQuery',data=json.dumps({'nlquery':question}),headers=headers)
+            earlresultdict = json.loads(earlanswer.content)
+            entities = []
+            relations =[]
+            if earlresultdict:
+                for k,v in earlresultdict['rerankedlists'].iteritems():
+                    if len(v)>0:
+                        if '/resource/' in v[0][1]:
+                            entities.append(v[0][1])
+                        if '/ontology/' in v[0][1] or '/property/' in v[0][1]:
+                            relations.append(v[0][1])
+            headers = {'Accept': 'text/plain', 'Content-type': 'application/json'}
+            karianswer = requests.get('http://asknow02.sda.tech/kari/api/graph',data={'question':question},headers=headers)
+            kariresultdict = json.loads(karianswer.content)
+            resourceDict = processKariResult(kariresultdict, question)
+            resourceDict['fullDetail'] = kariresultdict
+            resourceDict['entities'] = entities
+            resourceDict['relations'] = relations
+            return Response(json.dumps(resourceDict), mimetype='application/json')   
+        except Exception,e:
+            print e
+            return Response(json.dumps({'question': question, 'question_type': "none"}), mimetype='application/json')
 
 
 # index part
@@ -188,59 +203,50 @@ def index():
 
 
 
-@app.route('/resource', methods=['GET', 'POST'])
-def showResource(): 
-    if request.method == 'GET':
-        question=request.args.get('question')
-        global QUESTION
-        QUESTION=question
-        return render_template('resource.html') 
-    return render_template('resource.html')
+# @app.route('/resource')
+# def showResource(): 
+#     if request.method == 'GET':
+#         question=request.args.get('question')
+#         return render_template('resource.html') 
+#     return render_template('resource.html')
 
 
-@app.route('/list')
-def showList():
-    if request.method == 'GET':
-        question=request.args.get('question')
-        global QUESTION
-        QUESTION=question
-        return render_template('list.html') 
-    return render_template('list.html')
+# @app.route('/list')
+# def showList():
+#     if request.method == 'GET':
+#         question=request.args.get('question')
+#         return render_template('list.html') 
+#     return render_template('list.html')
 
-@app.route('/literal')
-def showLiteral():
-    if request.method == 'GET':
-        question=request.args.get('question')
-        global QUESTION
-        QUESTION=question
-        return render_template('literal.html') 
-    return render_template('literal.html')
+# @app.route('/literal')
+# def showLiteral():
+#     if request.method == 'GET':
+#         question=request.args.get('question')
+#         return render_template('literal.html') 
+#     return render_template('literal.html')
 
-@app.route('/bol')
-def showBoolean():
-    if request.method == 'GET':
-        question=request.args.get('question')
-        global QUESTION
-        QUESTION=question
-        return render_template('bol.html') 
-    return render_template('bol.html')
+# @app.route('/bol')
+# def showBoolean():
+#     if request.method == 'GET':
+#         question=request.args.get('question')
+#         return render_template('bol.html') 
+#     return render_template('bol.html')
 
-app.route('/none', methods=['GET', 'POST'])
-def showResource():
+
+@app.route('/answer')
+def showAnswer():
     if request.method == 'GET':
         question=request.args.get('question')
-        global QUESTION
-        QUESTION=question
-        return render_template('none.html')
-    return render_template('none.html')
+        return render_template('answer.html') 
+    return render_template('answer.html')
 
 @app.route('/404')
 def showNothing():
-    return render_template('none.html')
+    return render_template('answer.html')
 
 @app.errorhandler(404)
 def not_found(error):
-    return render_template('none.html')
+    return render_template('answer.html')
 
 
 
