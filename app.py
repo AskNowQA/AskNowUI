@@ -25,7 +25,7 @@ es = Elasticsearch()
 #    return Response(json.dumps(results), mimetype='application/json')
 
 
-def processKariResult(kariResult, question):
+def processEarlResult(earlResult, question):
     resultResourceDict = {
       "question": question,
       "answer": "No result found",
@@ -66,25 +66,32 @@ def processKariResult(kariResult, question):
       "sqg":""
     }
     s = Set()
-    print kariResult
-    if not kariResult:
+    if not earlResult:
         return {'question': question, 'question_type': "none"}
-    for item in kariResult['answers']:
-        s.add(item)
+    for item in earlResult[0]:
+        if not item:
+            continue
+        d = item.values()[0]
+        if d['type'] == 'uri':
+            s.add(d['value'])
+        if d['type'] == 'typed-literal':
+            s.add(d['value'])
     if len(s) == 0:
         return resultListDict
     elif len(s) == 1:
-        if  'http' not in kariResult['answers'][0]:
+        print earlResult
+        if  earlResult[0][0].values()[0]['type'] == 'typed-literal':
             returnType = 'literal'
-            resultLiteralDict["answer"] =  kariResult['answers'][0]
+            resultLiteralDict["answer"] = earlResult[0][0].values()[0]['value']
             return resultLiteralDict
         else:
             returnType = 'resource'
-            for item in kariResult['answers']:
+            for item in earlResult[0]:
                 if not item:
                     continue
-                else:
-                    uri = item
+                d1 = item.values()[0]
+                if d1['type'] == 'uri':
+                    uri = d1['value']
                     q = """select ?label ?abstract where { <%s> rdfs:label ?label . <%s> <http://dbpedia.org/ontology/abstract> ?abstract . }"""%(uri,uri)
                     url = "http://dbpedia.org/sparql"
                     p = {'query': q}
@@ -92,7 +99,6 @@ def processKariResult(kariResult, question):
                     proxydict = {"http":"http://webproxy.iai.uni-bonn.de:3128"}
                     try:
                         r = requests.get(url, params=p, headers=h, proxies=proxydict)
-                        # r = requests.get(url, params=p, headers=h)
                         d =json.loads(r.text)
                     except Exception,e:
                         print e
@@ -102,9 +108,10 @@ def processKariResult(kariResult, question):
                                 if row['abstract']['xml:lang'] == 'en' and row['label']['xml:lang'] == 'en':
                                     #print row,count
                                     resultResourceDict['answer'] = row['label']['value']
-                                    resultResourceDict['abstract'] = row['abstract']['value' ]
+                                    resultResourceDict['abstract'] = row['abstract']['value']
                     except Exception,e:
                         print e
+                    uri = d1['value']
                     q = """select distinct ?entityType ?label where {
                             <%s> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?entityType . 
                             ?entityType rdfs:label ?label  
@@ -116,7 +123,6 @@ def processKariResult(kariResult, question):
                     proxydict = {"http":"http://webproxy.iai.uni-bonn.de:3128"}
                     try:
                         r = requests.get(url, params=p, headers=h, proxies=proxydict)
-                        # r = requests.get(url, params=p, headers=h)
                         d =json.loads(r.text)
                     except Exception,e:
                         print e
@@ -129,70 +135,59 @@ def processKariResult(kariResult, question):
                         print e
             return resultResourceDict
     elif len(s) > 1:
-        if  'http' not in kariResult['answers'][0]:
+        if  earlResult[0][0].values()[0]['type'] == 'typed-literal':
             returnType = 'literal'
-            resultLiteralDict["answer"] =  kariResult['answers']
+            resultLiteralDict["answer"] = earlResult[0][0].values()[0]['value']
             return resultLiteralDict
         else:
             returnType = 'list'
             count = 0
-            for item in kariResult['answers']:
-                uri = item
-                q = """select ?label ?abstract where { <%s> rdfs:label ?label . <%s> <http://dbpedia.org/ontology/abstract> ?abstract . }"""%(uri,uri)
-                url = "http://dbpedia.org/sparql"
-                p = {'query': q}
-                h = {'Accept': 'application/json'}
-                proxydict = {"http":"http://webproxy.iai.uni-bonn.de:3128"}
-                try:
-                    r = requests.get(url, params=p, headers=h, proxies=proxydict)
-                    # r = requests.get(url, params=p, headers=h)
-                    d =json.loads(r.text)
-                except Exception,e:
-                    print e
-                try:
-                    for row in d['results']['bindings']:
-                        if 'abstract' in row and 'label' in row:
-                            if row['abstract']['xml:lang'] == 'en' and row['label']['xml:lang'] == 'en':
-                                #print row,count
-                                resultListDict['answer'][str(count)] = row['label']['value']
-                                resultListDict['abstract'][str(count)] = row['abstract']['value']
-                                count += 1
-                except Exception,e:
-                    print e 
-        return resultListDict
+            for item in earlResult[0]:
+                d1 = item.values()[0]
+                if d1['type'] == 'uri':
+                    uri = d1['value']
+                    q = """select ?label ?abstract where { <%s> rdfs:label ?label . <%s> <http://dbpedia.org/ontology/abstract> ?abstract . }"""%(uri,uri)
+                    url = "http://dbpedia.org/sparql"
+                    p = {'query': q}
+                    h = {'Accept': 'application/json'}
+                    proxydict = {"http":"http://webproxy.iai.uni-bonn.de:3128"}
+                    try:
+                        r = requests.get(url, params=p, headers=h, proxies=proxydict)
+                        d =json.loads(r.text)
+                    except Exception,e:
+                        print e
+                    try:
+                        for row in d['results']['bindings']:
+                            if 'abstract' in row and 'label' in row:
+                                if row['abstract']['xml:lang'] == 'en' and row['label']['xml:lang'] == 'en':
+                                    #print row,count
+                                    resultListDict['answer'][str(count)] = row['label']['value']
+                                    resultListDict['abstract'][str(count)] = row['abstract']['value']
+                                    count += 1
+                    except Exception,e:
+                        print e 
+            return resultListDict
     
 
 #get resource json
-@app.route('/_getJSON', methods=['POST'])
+@app.route('/_getJSON', methods=['POST', 'GET'])
 def getJSON():
-    question = None
     if request.method == 'POST':
         question = request.form.get('question')
+        global QUESTION
+        QUESTION = question
+    print(QUESTION)
     #res = es.index(index="autocompleteindex1", doc_type='questions', id=QUESTION,  body={"question":{"input":[QUESTION]}}) #Store input questions for autocomplete
-        try:
-            headers = {'Accept': 'text/plain', 'Content-type': 'application/json'}
-            earlanswer = requests.post('http://asknow02.sda.tech/earl/api/processQuery',data=json.dumps({'nlquery':question}),headers=headers)
-            earlresultdict = json.loads(earlanswer.content)
-            entities = []
-            relations =[]
-            if earlresultdict:
-                for k,v in earlresultdict['rerankedlists'].iteritems():
-                    if len(v)>0:
-                        if '/resource/' in v[0][1]:
-                            entities.append(v[0][1])
-                        if '/ontology/' in v[0][1] or '/property/' in v[0][1]:
-                            relations.append(v[0][1])
-            headers = {'Accept': 'text/plain', 'Content-type': 'application/json'}
-            karianswer = requests.get('http://asknow02.sda.tech/kari/api/graph',data={'question':question},headers=headers)
-            kariresultdict = json.loads(karianswer.content)
-            resourceDict = processKariResult(kariresultdict, question)
-            resourceDict['fullDetail'] = kariresultdict
-            resourceDict['entities'] = entities
-            resourceDict['relations'] = relations
-            return Response(json.dumps(resourceDict), mimetype='application/json')   
-        except Exception,e:
-            print e
-            return Response(json.dumps({'question': question, 'question_type': "none"}), mimetype='application/json')
+    inputDict = {'remote_addr': request.environ['HTTP_X_REAL_IP'],'nlquery':QUESTION, 'pagerankflag': True}
+    try:
+        r = requests.post("https://asknowdemo.sda.tech/earl/api/answerdetail", data=json.dumps(inputDict), headers={"content-type": "application/json"})
+        earlResult = json.loads(r.text)
+        resourceDict = processEarlResult(earlResult['answers'], QUESTION)
+        resourceDict['fullDetail'] = earlResult
+        return Response(json.dumps(resourceDict), mimetype='application/json')   
+    except Exception,e:
+        print e
+        return Response(json.dumps({'question': QUESTION, 'question_type': "none"}), mimetype='application/json')
 
 
 # index part
@@ -203,53 +198,63 @@ def index():
 
 
 
-# @app.route('/resource')
-# def showResource(): 
-#     if request.method == 'GET':
-#         question=request.args.get('question')
-#         return render_template('resource.html') 
-#     return render_template('resource.html')
-
-
-# @app.route('/list')
-# def showList():
-#     if request.method == 'GET':
-#         question=request.args.get('question')
-#         return render_template('list.html') 
-#     return render_template('list.html')
-
-# @app.route('/literal')
-# def showLiteral():
-#     if request.method == 'GET':
-#         question=request.args.get('question')
-#         return render_template('literal.html') 
-#     return render_template('literal.html')
-
-# @app.route('/bol')
-# def showBoolean():
-#     if request.method == 'GET':
-#         question=request.args.get('question')
-#         return render_template('bol.html') 
-#     return render_template('bol.html')
-
-
-@app.route('/answer')
-def showAnswer():
+@app.route('/resource', methods=['GET', 'POST'])
+def showResource(): 
     if request.method == 'GET':
         question=request.args.get('question')
-        return render_template('answer.html') 
-    return render_template('answer.html')
+        global QUESTION
+        QUESTION=question
+        return render_template('resource.html') 
+    return render_template('resource.html')
+
+
+@app.route('/list')
+def showList():
+    if request.method == 'GET':
+        question=request.args.get('question')
+        global QUESTION
+        QUESTION=question
+        return render_template('list.html') 
+    return render_template('list.html')
+
+@app.route('/literal')
+def showLiteral():
+    if request.method == 'GET':
+        question=request.args.get('question')
+        global QUESTION
+        QUESTION=question
+        return render_template('literal.html') 
+    return render_template('literal.html')
+
+@app.route('/bol')
+def showBoolean():
+    if request.method == 'GET':
+        question=request.args.get('question')
+        global QUESTION
+        QUESTION=question
+        return render_template('bol.html') 
+    return render_template('bol.html')
+
+app.route('/none', methods=['GET', 'POST'])
+def showResource():
+    if request.method == 'GET':
+        question=request.args.get('question')
+        global QUESTION
+        QUESTION=question
+        return render_template('none.html')
+    return render_template('none.html')
 
 @app.route('/404')
 def showNothing():
-    return render_template('answer.html')
+    return render_template('none.html')
 
 @app.errorhandler(404)
 def not_found(error):
-    return render_template('answer.html')
+    return render_template('none.html')
 
 
 
 if __name__ == '__main__':
     http_server = WSGIServer(('', int(sys.argv[1])), app)
     http_server.serve_forever()
+
