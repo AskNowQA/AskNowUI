@@ -166,19 +166,19 @@ def getJSON():
     if request.method == 'POST':
         question = request.form.get('question')
     #res = es.index(index="autocompleteindex1", doc_type='questions', id=QUESTION,  body={"question":{"input":[QUESTION]}}) #Store input questions for autocomplete
+        headers = {'Accept': 'text/plain', 'Content-type': 'application/json'}
+        earlanswer = requests.post('http://localhost:4444/processQuery',data=json.dumps({'nlquery':question}),headers=headers)
+        earlresultdict = json.loads(earlanswer.content)
+        entities = []
+        relations =[]
+        if earlresultdict:
+            for k,v in earlresultdict['rerankedlists'].iteritems():
+                if len(v)>0:
+                    if '/resource/' in v[0][1]:
+                        entities.append(v[0][1])
+                    if '/ontology/' in v[0][1] or '/property/' in v[0][1]:
+                        relations.append(v[0][1])
         try:
-            headers = {'Accept': 'text/plain', 'Content-type': 'application/json'}
-            earlanswer = requests.post('http://localhost:4444/processQuery',data=json.dumps({'nlquery':question}),headers=headers)
-            earlresultdict = json.loads(earlanswer.content)
-            entities = []
-            relations =[]
-            if earlresultdict:
-                for k,v in earlresultdict['rerankedlists'].iteritems():
-                    if len(v)>0:
-                        if '/resource/' in v[0][1]:
-                            entities.append(v[0][1])
-                        if '/ontology/' in v[0][1] or '/property/' in v[0][1]:
-                            relations.append(v[0][1])
             headers = {'Accept': 'text/plain', 'Content-type': 'application/json'}
             karianswer = requests.get('http://localhost:1999/graph',data={'question':question},headers=headers)
             kariresultdict = json.loads(karianswer.content)
@@ -189,7 +189,7 @@ def getJSON():
             return Response(json.dumps(resourceDict), mimetype='application/json')   
         except Exception,e:
             print e
-            return Response(json.dumps({'question': question, 'question_type': "none"}), mimetype='application/json')
+            return Response(json.dumps({'question': question, 'entities':entities, 'relations':relations, 'question_type': "none"}), mimetype='application/json')
 
 
 # index part
