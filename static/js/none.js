@@ -9,8 +9,6 @@ $(function() {
             url: '/_getJSON',
 	    data: {'question':question}
             }).success(function (data){
-                $("#loader").removeClass('loader');
-                $(".all-resources").show()
                 var entities = data.entities;
                 var relations = data.relations;
                 for(var i = 0; i < entities.length; i++){
@@ -25,6 +23,8 @@ $(function() {
                         $("#entities_relations").append(relation)
                     }
                 }
+                $("#loader").removeClass('loader');
+                $(".all-resources").show()
 
             });
         });
