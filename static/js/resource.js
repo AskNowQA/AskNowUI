@@ -57,10 +57,8 @@ function loadResourcePage(resourcejson){
     //document.getElementById("related-entities-content").innerHTML=related_entities_content;
     //document.getElementById("related-sim-content").innerHTML=similar_entities_content;
 
-    var entities = resourcejson.fullDetail.entities,
-        relations = resourcejson.fullDetail.best_path,
-        entity,
-        relation;
+    var entities = resourcejson.entities;
+    var relations = resourcejson.relations;
     for(var i = 0; i < entities.length; i++){
         if(isValidURL(entities[i])){
             entity = '<a class="blob orange" href="'+ entities[i] +'" target="blank"><i class="mark">Entity</i>'+entities[i]+'</a>';
