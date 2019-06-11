@@ -24,7 +24,7 @@
         	loadLitBol(data, "answer");
         }
         if(data.question_type == "none"){
-        	loadNone("answer");
+        	loadNone(data,"answer");
         }
         $("#loading").hide();
         $("#submit").show();
@@ -126,9 +126,12 @@
 	    $("#"+append_to_html).append(html);
 	}
 
-	function loadNone(append_to_html){
+	function loadNone(data,append_to_html){
 		// When no answer was found
 		var html = document.getElementById('none').innerHTML;
+        var entities = data.entities;
+        var relations = data.relations;
+        createEntitiesRelationsList(entities, relations);
 	    $("#"+append_to_html).append(html);
 	}
 
