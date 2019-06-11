@@ -66,8 +66,8 @@
 	    	answer = data.answer,
 	    	type = data.type,
 	    	abstract = data.abstract,
-	    	entities = data.entities,
-	        relations = data.relations,
+	    	entities = data.fullDetail.entities,
+	        relations = data.fullDetail.best_path,
 	        html = document.getElementById('resource').innerHTML
 	        				.replace("${answer}", answer)
 					    	.replace("${feedback}", document.getElementById('feedback').innerHTML)
@@ -85,8 +85,8 @@
 	    	answer = data.answer,
 	    	abstract = data.abstract,
 	    	length = Object.keys(answer).length,
-	    	entities = data.entities,
-			relations = data.relations,
+	    	entities = data.fullDetail.entities,
+			relations = data.fullDetail.best_path,
 			list_item,
 			list_items = "",
 			html = document.getElementById('list').innerHTML;
@@ -122,15 +122,18 @@
 
 	function loadLitBol(data, append_to_html){
 		// 'Literal' and 'boolean' type answer retrieved
-	    var html = document.getElementById('lit-boi').innerHTML.replace("${answer}", data.answer);
+	    var html = document.getElementById('lit-boi').innerHTML.replace("${answer}", data.answer),
+        	entities = data.fullDetail.entities,
+        	relations = data.fullDetail.best_path;
+        createEntitiesRelationsList(entities, relations);
 	    $("#"+append_to_html).append(html);
 	}
 
 	function loadNone(data,append_to_html){
 		// When no answer was found
-		var html = document.getElementById('none').innerHTML;
-        var entities = data.entities;
-        var relations = data.relations;
+		var html = document.getElementById('none').innerHTML,
+        	entities = data.entities,
+        	relations = data.relations;
         createEntitiesRelationsList(entities, relations);
 	    $("#"+append_to_html).append(html);
 	}
