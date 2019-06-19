@@ -170,7 +170,7 @@ def getJSON():
         question = request.form.get('question')
     #res = es.index(index="autocompleteindex1", doc_type='questions', id=QUESTION,  body={"question":{"input":[QUESTION]}}) #Store input questions for autocomplete
         headers = {'Accept': 'text/plain', 'Content-type': 'application/json'}
-        earlanswer = requests.post('http://localhost:4444/processQuery',data=json.dumps({'nlquery':question}),headers=headers)
+        earlanswer = requests.post('http://localhost:4998/processQuery',data=json.dumps({'nlquery':question}),headers=headers)
         earlresultdict = json.loads(earlanswer.content)
         entities = []
         relations =[]
@@ -182,8 +182,9 @@ def getJSON():
                     if '/ontology/' in v[0][1] or '/property/' in v[0][1]:
                         relations.append(v[0][1])
         try:
+            #proxydict = {"http":"http://webproxy.iai.uni-bonn.de:3128"}
             headers = {'Accept': 'text/plain', 'Content-type': 'application/json'}
-            karianswer = requests.get('http://localhost:1999/graph',data={'question':question},headers=headers)
+            karianswer = requests.get('http://kari.sda.tech/graph',data={'question':question},headers=headers)#, proxies=proxydict)
             kariresultdict = json.loads(karianswer.content)
             resourceDict = processKariResult(kariresultdict, question)
             resourceDict['fullDetail'] = kariresultdict
