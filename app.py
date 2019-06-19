@@ -1,12 +1,12 @@
 # -*- coding:utf-8 -*-
 from flask import Flask, request, render_template, url_for, jsonify, Response, redirect, session
-import json, sys
+import json, sys, logging
 import requests
 from gevent.pywsgi import WSGIServer
 import os
 from sets import Set
 from elasticsearch import Elasticsearch
-
+logging.basicConfig(filename='/var/log/asknowlog',level=logging.INFO)
 
 app = Flask(__name__, static_url_path='/static')
 #bootstrap = Bootstrap(app)
@@ -190,9 +190,11 @@ def getJSON():
             resourceDict['fullDetail'] = kariresultdict
             resourceDict['entities'] = entities
             resourceDict['relations'] = relations
+            logging.info(json.dumps({'remote_addr':request.environ['HTTP_X_REAL_IP'],'answers':resourceDict,'sparql':[],'preparedlist':[],'topkmatches':[],'erpredictions':[],'chunks':[],'question':question}))
             return Response(json.dumps(resourceDict), mimetype='application/json')   
         except Exception,e:
             print e
+            logging.info(json.dumps({'remote_addr':request.environ['HTTP_X_REAL_IP'],'answers':earlresultdict,'sparql':[],'preparedlist':[],'topkmatches':[],'erpredictions':[],'chunks':[],'question':question}))
             return Response(json.dumps({'question': question, 'entities':entities, 'relations':relations, 'question_type': "none"}), mimetype='application/json')
 
 
