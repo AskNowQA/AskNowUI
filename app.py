@@ -162,6 +162,67 @@ def processKariResult(kariResult, question):
         return resultListDict
     
 
+def getAbstract(question,entity):
+    resultResourceDict = {
+      "question": question,
+      "answer": "No result found",
+      "entity": "No result found",
+      "earltop": "",
+      "sqg": "",
+      "type": "No result found",
+      "abstract": "No result found",
+      "summary":"No result found",
+      "recommendations":"No result found",
+      "related_entities":"No result found",
+      "similar_entities":"No result found",
+      "question_type":"resource"
+    }
+    q = """select ?label ?abstract where { <%s> rdfs:label ?label . <%s> <http://dbpedia.org/ontology/abstract> ?abstract . }"""%(entity,entity)
+    url = "http://dbpedia.org/sparql"
+    p = {'query': q}
+    h = {'Accept': 'application/json'}
+    proxydict = {"http":"http://webproxy.iai.uni-bonn.de:3128"}
+    try:
+        r = requests.get(url, params=p, headers=h, proxies=proxydict)
+        # r = requests.get(url, params=p, headers=h)
+        d =json.loads(r.text)
+        print(d)
+    except Exception,e:
+        print e
+    try:
+        for row in d['results']['bindings']:
+            if 'abstract' in row and 'label' in row:
+                if row['abstract']['xml:lang'] == 'en' and row['label']['xml:lang'] == 'en':
+                    #print row,count
+                    resultResourceDict['answer'] = row['label']['value']
+                    resultResourceDict['abstract'] = row['abstract']['value' ]
+    except Exception,e:
+        print e
+    q = """select distinct ?entityType ?label where {
+            <%s> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?entityType . 
+            ?entityType rdfs:label ?label  
+            FILTER regex(?entityType, "http://dbpedia.org/ontology/") 
+            FILTER langMatches( lang(?label), "EN") }"""%(entity)
+    url = "http://dbpedia.org/sparql"
+    p = {'query': q}
+    h = {'Accept': 'application/json'}
+    proxydict = {"http":"http://webproxy.iai.uni-bonn.de:3128"}
+    try:
+        r = requests.get(url, params=p, headers=h, proxies=proxydict)
+        # r = requests.get(url, params=p, headers=h)
+        d =json.loads(r.text)
+    except Exception,e:
+        print e
+    try:
+        typeString = []
+        for row in d['results']['bindings']:
+            typeString.append(row['label']['value'])
+        resultResourceDict['type'] = '/'.join(typeString)
+    except Exception,e:
+        print e
+    return resultResourceDict
+
+
 #get resource json
 @app.route('/_getJSON', methods=['POST'])
 def getJSON():
@@ -181,21 +242,30 @@ def getJSON():
                         entities.append(v[0][1])
                     if '/ontology/' in v[0][1] or '/property/' in v[0][1]:
                         relations.append(v[0][1])
-        try:
-            #proxydict = {"http":"http://webproxy.iai.uni-bonn.de:3128"}
-            headers = {'Accept': 'text/plain', 'Content-type': 'application/json'}
-            karianswer = requests.get('http://kari.sda.tech/graph',data={'question':question},headers=headers)#, proxies=proxydict)
-            kariresultdict = json.loads(karianswer.content)
-            resourceDict = processKariResult(kariresultdict, question)
-            resourceDict['fullDetail'] = kariresultdict
-            resourceDict['entities'] = entities
-            resourceDict['relations'] = relations
-            logging.info(json.dumps({'remote_addr':request.environ['HTTP_X_REAL_IP'],'answers':resourceDict,'sparql':[],'preparedlist':[],'topkmatches':[],'erpredictions':[],'chunks':[],'question':question}))
-            return Response(json.dumps(resourceDict), mimetype='application/json')   
-        except Exception,e:
-            print e
-            logging.info(json.dumps({'remote_addr':request.environ['HTTP_X_REAL_IP'],'answers':earlresultdict,'sparql':[],'preparedlist':[],'topkmatches':[],'erpredictions':[],'chunks':[],'question':question}))
-            return Response(json.dumps({'question': question, 'entities':entities, 'relations':relations, 'question_type': "none"}), mimetype='application/json')
+        if len(entities) == 1 and len(relations) == 0:
+            #Let earl handle single entity task
+           resourceDict = getAbstract(question,entities[0])
+           resourceDict['fullDetail'] = []
+           resourceDict['entities'] = entities
+           resourceDict['relations'] = relations
+           logging.info(json.dumps({'remote_addr':request.environ['HTTP_X_REAL_IP'],'answers':resourceDict,'sparql':[],'preparedlist':[],'topkmatches':[],'erpredictions':[],'chunks':[],'question':question})) 
+           return Response(json.dumps(resourceDict), mimetype='application/json')
+        else:
+            try:
+                #proxydict = {"http":"http://webproxy.iai.uni-bonn.de:3128"}
+                headers = {'Accept': 'text/plain', 'Content-type': 'application/json'}
+                karianswer = requests.get('http://kari.sda.tech/graph',data={'question':question},headers=headers)#, proxies=proxydict)
+                kariresultdict = json.loads(karianswer.content)
+                resourceDict = processKariResult(kariresultdict, question)
+                resourceDict['fullDetail'] = kariresultdict
+                resourceDict['entities'] = entities
+                resourceDict['relations'] = relations
+                logging.info(json.dumps({'remote_addr':request.environ['HTTP_X_REAL_IP'],'answers':resourceDict,'sparql':[],'preparedlist':[],'topkmatches':[],'erpredictions':[],'chunks':[],'question':question}))
+                return Response(json.dumps(resourceDict), mimetype='application/json')   
+            except Exception,e:
+                print e
+                logging.info(json.dumps({'remote_addr':request.environ['HTTP_X_REAL_IP'],'answers':earlresultdict,'sparql':[],'preparedlist':[],'topkmatches':[],'erpredictions':[],'chunks':[],'question':question}))
+                return Response(json.dumps({'question': question, 'entities':entities, 'relations':relations, 'question_type': "none"}), mimetype='application/json')
 
 
 # index part
@@ -226,3 +296,4 @@ def not_found(error):
 if __name__ == '__main__':
     http_server = WSGIServer(('', int(sys.argv[1])), app)
     http_server.serve_forever()
+    #app.run(port=int(sys.argv[1]),debug=True)
