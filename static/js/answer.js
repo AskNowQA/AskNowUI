@@ -62,13 +62,20 @@
 	}
 	function loadResource(data, append_to_html){
 		// 'Resource' type answer retrieved
-	    var question = data.question,
-	    	answer = data.answer,
-	    	type = data.type,
-	    	abstract = data.abstract,
-	    	entities = data.fullDetail.entities,
-	        relations = data.fullDetail.best_path,
-	        html = document.getElementById('resource').innerHTML
+	    var question = data.question;
+	    var answer = data.answer;
+	    var	type = data.type;
+	    var	abstract = data.abstract;
+        var entities = [];
+        var relations = [];
+        if (data.fullDetail.length == 0) {
+         // array empty or does not exist
+            entities = data.entities;
+        } else { 
+	        entities = data.fullDetail.entities;
+            relations = data.fullDetail.best_path;
+        }
+	    var  html = document.getElementById('resource').innerHTML
 	        				.replace("${answer}", answer)
 					    	.replace("${feedback}", document.getElementById('feedback').innerHTML)
 					    	.replace("${type}", type)
