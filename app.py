@@ -222,6 +222,18 @@ def getAbstract(question,entity):
         print e
     return resultResourceDict
 
+@app.route('/_feedback', methods=['POST'])
+def feedback():
+    if request.method == 'POST':
+        data = request.get_json(force=True)
+        question = data['question']
+        answer = data['answer']
+        feedback = data['feedback']
+        logging.info(json.dumps({'remote_addr':request.environ['HTTP_X_REAL_IP'],'answer':answer,'sparql':[],'preparedlist':[],'topkmatches':[],'erpredictions':[],'chunks':[],'question':question, 'feedback': feedback}))
+        return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
+    else:
+        return json.dumps({'success':False}), 405, {'ContentType':'application/json'}
+
 
 #get resource json
 @app.route('/_getJSON', methods=['POST'])
@@ -255,6 +267,8 @@ def getJSON():
                 #proxydict = {"http":"http://webproxy.iai.uni-bonn.de:3128"}
                 headers = {'Accept': 'text/plain', 'Content-type': 'application/json'}
                 karianswer = requests.get('http://kari.sda.tech/graph',data={'question':question},headers=headers)#, proxies=proxydict)
+                #karianswer = requests.get('http://localhost:4000/graph',data={'question':question},headers=headers)
+                print(karianswer)
                 kariresultdict = json.loads(karianswer.content)
                 resourceDict = processKariResult(kariresultdict, question)
                 resourceDict['fullDetail'] = kariresultdict
