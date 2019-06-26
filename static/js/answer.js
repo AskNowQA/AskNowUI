@@ -163,7 +163,7 @@
 		};
 		$.ajax({
 			method: 'POST',
-			url: 'https://asknow02.sda.tech/_feedback', 
+			url: '/_feedback', 
 			headers: {
 		        'Accept': 'application/json',
 		        'Content-Type': 'text/plain'
