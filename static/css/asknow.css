@@ -554,7 +554,10 @@ a.blob:hover i.mark, a.blob i.mark:hover{
 .feedback a{
     cursor: pointer;
 }
-.feedback a:hover, 
+.feedback a:hover{
+    text-decoration: none;
+    color: #aaa;
+}
 .feedback a:active,
 .feedback a.active{
     text-decoration: none;

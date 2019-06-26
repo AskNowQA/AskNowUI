@@ -62,12 +62,13 @@
 	}
 	function loadResource(data, append_to_html){
 		// 'Resource' type answer retrieved
-	    var question = data.question;
-	    var answer = data.answer;
-	    var	type = data.type;
-	    var	abstract = data.abstract;
-        var entities = [];
-        var relations = [];
+	    var question = data.question,
+	    	answer = data.answer,
+	    	type = data.type,
+	    	abstract = data.abstract,
+        	entities = [],
+        	relations = [];
+
         if (data.fullDetail.length == 0) {
          // array empty or does not exist
             entities = data.entities;
@@ -78,6 +79,8 @@
 	    var  html = document.getElementById('resource').innerHTML
 	        				.replace("${answer}", answer)
 					    	.replace("${feedback}", document.getElementById('feedback').innerHTML)
+					    	.replace("${answerurl}", data.fullDetail.answers[0])
+					    	.replace("${answerurl}", data.fullDetail.answers[0])
 					    	.replace("${type}", type)
 					    	.replace("${abstract}", abstract);
 
@@ -103,6 +106,8 @@
 	    for (var i=0; i<LIMIT; i++){
 	    	list_items += document.getElementById('list-item').innerHTML
 	    					.replace("${feedback}", document.getElementById('feedback').innerHTML)
+	    					.replace("${answerurl}", data.fullDetail.answers[i])
+	    					.replace("${answerurl}", data.fullDetail.answers[i])
 	    					.replace("${answer}", answer[i])
 	    					.replace("${abstract}", abstract[i]);
 	    }
@@ -118,6 +123,8 @@
 		            if(i < length){
 		                list_item = document.getElementById('list-item').innerHTML
 	    					.replace("${feedback}", document.getElementById('feedback').innerHTML)
+	    					.replace("${answerurl}", data.fullDetail.answers[i])
+	    					.replace("${answerurl}", data.fullDetail.answers[i])
 	    					.replace("${answer}", answer[i])
 	    					.replace("${abstract}", abstract[i]);
 		               $(".list").append(list_item);}             
@@ -147,17 +154,34 @@
 
 	// JQuery Events for answer.html
 	// Feedback
-	function submitFeedback(value, question){
+	function submitFeedback(value, answer, callback){
 		// Api call to submit feedback
-		console.log(value);
+		var data = {
+			"question": question,
+			"answer": answer,
+			"feedback": value
+		};
+		$.ajax({
+			method: 'POST',
+			url: 'https://asknow02.sda.tech/_feedback', 
+			headers: {
+		        'Accept': 'application/json',
+		        'Content-Type': 'text/plain'
+		    },
+			data: JSON.stringify(data),
+			success: function(result){
+				callback();
+			}
+		});
 	}
 	$(document).on('click touchstart', '.feedback a', function() {
 		if($(this).hasClass("active")){
 			return;
 		}
 		$(this).parent().children("a").removeClass("active");
-		$(this).addClass("active");
-		submitFeedback($(this).data("value"));
+		submitFeedback($(this).data("value"), $(this).data("answer"), function(){
+			$(this).addClass("active");
+		});
 	});
 	// Expand and collapse list items
 	$(document).on("click touchstart",".expand-list-content", function () {
@@ -171,5 +195,4 @@
 	   $(this).hide();
 	   $(this).closest(".list-item").find(".expand-list-content").show();
 	});
-
 })();
