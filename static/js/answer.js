@@ -171,16 +171,23 @@
 			data: JSON.stringify(data),
 			success: function(result){
 				callback();
+			},
+			error: function(result){
+				alert("Error! Feedback could not be submitted.");
+			}, 
+			fail: function(result){
+				alert("Failure! Feedback could not be submitted.");
 			}
 		});
 	}
 	$(document).on('click touchstart', '.feedback a', function() {
+		var a = $(this);
 		if($(this).hasClass("active")){
 			return;
 		}
 		$(this).parent().children("a").removeClass("active");
 		submitFeedback($(this).data("value"), $(this).data("answer"), function(){
-			$(this).addClass("active");
+			a.addClass("active");
 		});
 	});
 	// Expand and collapse list items
